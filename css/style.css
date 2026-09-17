@@ -1,0 +1,271 @@
+/* 3D Studio Spotlight Environment */
+body {
+  background-color: #040407;
+  background-image: 
+    /* Central studio spotlight directly behind the 3D sculpture */
+    radial-gradient(ellipse 65% 55% at 53% 42%, rgba(59, 130, 246, 0.14) 0%, rgba(147, 51, 234, 0.08) 35%, transparent 70%),
+    /* Deep studio vignette */
+    radial-gradient(circle at 50% 100%, rgba(15, 23, 42, 0.4) 0%, transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: #f1f5f9;
+}
+
+/* Compact Floor Shadow Aligned with the 3D Sculpture */
+.hero-floor-shadow {
+  position: absolute;
+  bottom: 14%;
+  left: 56%; /* Aligned with the sculpture center */
+  transform: translateX(-50%);
+  width: 320px;
+  height: 38px;
+  background: radial-gradient(
+    ellipse at center, 
+    rgba(0, 0, 0, 0.95) 0%, 
+    rgba(217, 70, 239, 0.15) 30%, 
+    transparent 75%
+  );
+  filter: blur(14px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: shadowFloat 6s ease-in-out infinite;
+}
+
+@keyframes shadowFloat {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(-50%) scale(0.85);
+    opacity: 0.55;
+  }
+}
+
+/* Specific Card Grid Pattern (First card only) */
+.tech-grid-card {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Dark Frosted Glass Navigation Panel */
+.glass-panel {
+  background: rgba(7, 7, 13, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Dark Glassmorphism Cards */
+.glass-card {
+  background: rgba(14, 14, 22, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  background: rgba(20, 20, 32, 0.8);
+  border-color: rgba(168, 85, 247, 0.3);
+  box-shadow: 
+    0 20px 40px -12px rgba(0, 0, 0, 0.8),
+    0 0 20px 2px rgba(168, 85, 247, 0.1);
+}
+
+/* Glass Buttons */
+.glass-btn {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  transition: all 0.25s ease;
+}
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.02);
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth Floating / Drifting Animations for Capability Cards */
+@keyframes floatSmooth {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float-1 {
+  animation: floatSmooth 5s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: floatSmooth 6.5s ease-in-out 1.2s infinite;
+}
+
+.animate-float-3 {
+  animation: floatSmooth 5.8s ease-in-out 2.2s infinite;
+}
+
+/* Pause drift smoothly when mouse is hovering the card */
+.glass-card:hover {
+  animation-play-state: paused;
+}
+
+/* True 4-Sided Border Dissolve (Fades Top, Bottom, Left & Right into background) */
+.image-dissolve {
+  -webkit-mask-image: 
+    linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: 
+    linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* ================= OVERHEAD V-SHAPED STUDIO SPOTLIGHT ================= */
+.studio-spotlight-beam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 680px;
+  max-width: 95vw;
+  height: 820px;
+  
+  /* Luminous Volumetric Downward Gradient (Cyan -> Indigo -> Transparent) */
+  background: linear-gradient(
+    180deg,
+    rgba(56, 189, 248, 0.28) 0%,   /* Bright origin at nav */
+    rgba(129, 140, 248, 0.16) 35%,  /* Mid-cone illumination */
+    rgba(192, 132, 252, 0.05) 65%,  /* Soft violet fringe */
+    transparent 85%
+  );
+  
+  /* Conical V-Shape (Narrow at top, expands wide at bottom) */
+  clip-path: polygon(46% 0%, 54% 0%, 100% 100%, 0% 100%);
+  filter: blur(48px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Aligns spotlight directly above the 3D sculpture on large screens */
+@media (min-width: 1024px) {
+  .studio-spotlight-beam {
+    left: 54%;
+  }
+}
+
+/* ================= STUDIO LIGHT ENVIRONMENT ================= */
+/* 1. Deep Velvet Studio Cyclorama Wall */
+body {
+  background-color: #03050c;
+  background-image: 
+    /* Soft overhead studio softbox spilling down from the navbar */
+    radial-gradient(ellipse 75% 65% at 50% 0%, rgba(30, 64, 175, 0.32) 0%, rgba(15, 23, 42, 0.6) 45%, transparent 75%),
+    /* Ambient backlight blooming directly behind the 3D floating sculpture */
+    radial-gradient(circle at 54% 42%, rgba(56, 189, 248, 0.12) 0%, rgba(147, 51, 234, 0.06) 45%, transparent 70%),
+    /* Floor plane absorption / vignette */
+    linear-gradient(to top, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.3) 25%, transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: #f1f5f9;
+}
+
+/* 2. Downward Studio U-Glow Originating From the Nav Bar */
+.studio-nav-highlight {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 860px;
+  max-width: 100vw;
+  height: 520px;
+  
+  /* Soft U-Shaped Downward Studio Glow */
+  background: radial-gradient(
+    ellipse 65% 60% at 50% 0%,
+    rgba(56, 189, 248, 0.26) 0%,
+    rgba(99, 102, 241, 0.14) 35%,
+    rgba(147, 51, 234, 0.05) 60%,
+    transparent 80%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Radiant Light Source Slit (Light escaping from under the center of the Navbar) */
+.studio-nav-highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  max-width: 80vw;
+  height: 2px;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(56, 189, 248, 0.95) 50%, 
+    transparent 100%
+  );
+  box-shadow: 
+    0 0 20px 4px rgba(56, 189, 248, 0.6),
+    0 0 40px 10px rgba(99, 102, 241, 0.4);
+}
+
+
+/* ================= SMOOTH LENS DISSOLVE ================= */
+
+/* Initial state: Lightweight camera defocus */
+section {
+  opacity: 0.15;
+  filter: blur(5px);
+  transition: 
+    opacity 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+    filter 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, filter;
+}
+
+/* Focused state: Snaps into razor-sharp 100% clarity */
+section.page-active {
+  opacity: 1;
+  filter: blur(0px);
+}
+
+/* Clean up old reveal overrides */
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Remove scroll-snap so the mousewheel glides naturally */
+html {
+  scroll-snap-type: none !important;
+}

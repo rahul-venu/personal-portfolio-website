@@ -1,0 +1,56 @@
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+
+  /* 1. Solid Purple Center Dot */
+  .custom-cursor {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: #a855f7;
+    border-radius: 50%;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+
+  /* 2. Thin, Clean Concentric Ring */
+  .cursor-follower {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    
+    /* Crisp, thin 1.2px stroke */
+    border: 1.2px solid rgba(168, 85, 247, 0.65);
+    background: transparent;
+    
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    
+    transition: 
+      transform 0.12s ease-out, 
+      width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+      height 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+      border-color 0.2s ease;
+  }
+
+  /* Hover Expansion */
+  .cursor-hover .custom-cursor {
+    transform: translate(-50%, -50%) scale(1.25);
+    background-color: #c084fc;
+  }
+
+  .cursor-hover .cursor-follower {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(192, 132, 252, 0.85);
+  }
+}
