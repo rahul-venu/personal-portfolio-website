@@ -1,7 +1,7 @@
 import { initCursor } from './cursor.js';
 import { initScrollAnimations } from './animations.js';
 import { initChatbot } from './chatbot.js';
-import { initCloneRunner } from './bike-anim.js';
+import { initBikeRun } from './bike-anim.js';
 import { initNeuralCanvas } from './neural.js';
 import { initLossVerification } from './verification.js';
 
