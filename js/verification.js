@@ -134,20 +134,122 @@ export function initLossVerification() {
     }, 10000);
   }
 
-  // --- REAL EMAIL SUBMISSION VIA WEB3FORMS ---
+// SVG Warning Icon for clear visual feedback
+  const SVG_WARN = `<svg class="w-4 h-4 text-red-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+
+     // --- REAL EMAIL SUBMISSION WITH MULTI-TIER AUTHENTICATION ---
+     
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      function displayError(message) {
+        submitBtn.disabled = true;
+        submitBtn.className = 'w-full py-3.5 rounded-xl bg-red-950/90 border border-red-500/60 text-red-200 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-red-950/40';
+        submitBtn.innerHTML = `<span>${message}</span> ${SVG_WARN}`;
+
+        setTimeout(() => {
+          if (isVerified) {
+            submitBtn.disabled = false;
+            submitBtn.className = 'w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm shadow-lg shadow-purple-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer';
+            submitBtn.innerHTML = `<span id="btn-text">Send Message</span> ${SVG_SEND}`;
+          } else {
+            resetVerification();
+          }
+        }, 3500);
+      }
+
+      // 1. Loss Slider check
       if (!isVerified) {
-        alert('Please slide to minimize loss and verify before sending.');
+        displayError('Please slide to minimize loss first!');
         return;
       }
 
+      // 2. Required Fields check
+      const firstName = contactForm.querySelector('input[name="firstName"]')?.value.trim();
+      const email = contactForm.querySelector('input[name="email"]')?.value.trim().toLowerCase();
+      const message = contactForm.querySelector('textarea[name="message"]')?.value.trim();
+
+      if (!firstName || !email || !message) {
+        displayError('Please fill in all required fields (*)');
+        return;
+      }
+
+      // 3. Syntax Schema Regex
+      const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+      if (!emailRegex.test(email)) {
+        displayError('Enter a valid email (e.g. name@domain.com)');
+        contactForm.querySelector('input[name="email"]')?.focus();
+        return;
+      }
+
+      const domain = email.split('@')[1];
+
+      // ================= TIER 1: TRUSTED PROVIDERS & ACADEMIC =================
+      const trustedProviders = [
+        'gmail.com', 'googlemail.com', 'outlook.com', 'hotmail.com', 'live.com', 
+        'yahoo.com', 'yahoo.co.in', 'icloud.com', 'me.com', 'proton.me', 
+        'protonmail.com', 'zoho.com', 'aol.com', 'mail.com'
+      ];
+
+      const isTrusted = trustedProviders.includes(domain) || 
+                        domain.endsWith('.edu') || 
+                        domain.endsWith('.ac.in') || 
+                        domain.endsWith('.gov');
+
+      // ================= TIER 2: DISPOSABLE DOMAIN SIGNATURES =================
+      const knownBurnerPatterns = [
+        'tempmail', '10minutemail', 'guerrillamail', 'mailinator', 'throwaway',
+        'yopmail', 'burner', 'fakeinbox', 'trashmail', 'dispostable', 'mohmal',
+        'airychen.com', 'hideam.com', 'findize.com', 'blobapps.com' // Temp-mail.org pool
+      ];
+
+      const isKnownBurner = knownBurnerPatterns.some(pattern => domain.includes(pattern));
+
+      if (isKnownBurner) {
+        displayError('Disposable / temporary emails are not allowed');
+        return;
+      }
+
+      // ================= TIER 3: REAL-TIME DNS & MX VIA GOOGLE 8.8.8.8 =================
+      if (!isTrusted) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span>Verifying business domain...</span>`;
+
+        try {
+          // Query Google's official DNS-over-HTTPS API
+          const googleDnsRes = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=MX`);
+          const dnsData = await googleDnsRes.json();
+
+          // Status !== 0 means domain doesn't exist or has DNS errors
+          if (dnsData.Status !== 0 || !dnsData.Answer || dnsData.Answer.length === 0) {
+            displayError('Email domain does not exist or has no mail server');
+            return;
+          }
+
+          // Inspect the actual MX records (Detect self-hosted disposable mail servers)
+          const mxRecords = dnsData.Answer.map(ans => (ans.data || '').toLowerCase());
+          const isSuspiciousMx = mxRecords.some(mx => 
+            mx.includes('airychen') || 
+            mx.includes('temp-mail') || 
+            mx.includes('dnsowl') || 
+            mx.includes('mail.' + domain) // Self-referential disposable host
+          );
+
+          if (isSuspiciousMx) {
+            displayError('Temporary email network detected. Use a real ID');
+            return;
+          }
+
+        } catch (err) {
+          console.warn('DNS validation fallback:', err);
+        }
+      }
+
+      // ================= SUBMIT TO WEB3FORMS =================
       if (resetTimer) clearTimeout(resetTimer);
 
-      const btnTextEl = document.getElementById('btn-text');
-      if (btnTextEl) btnTextEl.textContent = 'Sending Message...';
+      submitBtn.innerHTML = `<span>Sending Message...</span>`;
       submitBtn.disabled = true;
 
       const formData = new FormData(contactForm);
@@ -165,16 +267,13 @@ export function initLossVerification() {
           submitBtn.innerHTML = `<span>Message Sent Successfully! 🎉</span> ${SVG_CHECK}`;
           contactForm.reset();
 
-          // Reset the slider after 5 seconds of success
           setTimeout(() => resetVerification(), 5000);
         } else {
           throw new Error('Form submission failed');
         }
       } catch (err) {
         console.error(err);
-        submitBtn.className = 'w-full py-3.5 rounded-xl bg-red-600 text-white font-semibold text-sm flex items-center justify-center gap-2';
-        submitBtn.innerHTML = `<span>Failed to Send. Please Email Directly.</span>`;
-        setTimeout(() => resetVerification(), 5000);
+        displayError('Failed to send. Please email directly.');
       }
     });
   }
