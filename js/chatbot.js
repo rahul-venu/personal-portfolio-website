@@ -53,11 +53,13 @@ export function initChatbot() {
       const data = await res.json();
       
       // Update bubble with the answer from Groq
-      loadingBubble.innerHTML = formatMarkdown(data.reply);
-    } catch (err) {
-      loadingBubble.textContent = "AI engine is currently offline. Please ensure your Python server is running on port 8000.";
-      console.error(err);
-    }
+loadingBubble.innerHTML = formatMarkdown(data.reply);
+} catch (err) {
+  loadingBubble.innerHTML =
+    "My AI is currently having an existential crisis 🫠.<br>" +
+    "Lemme check whether the Python server is running on port 8000.";
+  console.error(err);
+}
   }
 
   // 1. Handle typing & pressing Enter / Send Button
