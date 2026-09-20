@@ -94,16 +94,15 @@
 
   <main>
 
-<!-- Hero Section with 3D Voxel Manifold & Realistic Floor Shadow -->
-<section id="home" class="w-full pt-[140px] sm:pt-[180px] pb-16 sm:pb-24 px-6 sm:px-10 lg:px-12 relative overflow-hidden">  
+            <!-- Hero Section (Clean 100vh monitor fit, floor tiles removed) -->
+             
+<section id="home" class="min-h-screen flex items-center px-6 sm:px-10 lg:px-12 pt-20 pb-8 relative overflow-hidden">
+  
   <!-- OVERHEAD STUDIO SPOTLIGHT BEAM -->
   <div class="studio-nav-highlight"></div>
 
-    <!-- 1. Ambient depth glow behind the sculpture -->
+  <!-- Ambient depth glow behind the sculpture -->
   <div class="hero-depth-sphere"></div>
-
-  <!-- 2. Receding 3D floor grid -->
-  <div class="hero-perspective-floor"></div>
 
   <!-- Interactive 3D Voxel Canvas -->
   <canvas id="neural-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
@@ -111,9 +110,9 @@
   <!-- Physical 3D Floor Shadow -->
   <div class="hero-floor-shadow"></div>
 
-  <!-- Foreground Content (Left Headline & Right Floating Cards) -->
+  <!-- Foreground Content -->
   <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
-    
+
     <!-- LEFT COLUMN: Headline & Value Proposition -->
     <div class="lg:col-span-7 xl:col-span-8 flex flex-col items-start text-left -translate-y-1 sm:-translate-y-3">
   
@@ -198,13 +197,15 @@
 
 <section id="about" class="w-full relative z-10 scroll-mt-20">
   
-  <!-- Full-Width Stretched Glass Panel -->
-  <div class="w-full glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-10 lg:px-12 pt-16 sm:pt-20 pb-4 reveal">
-    
-    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+  <!-- Full-Width Glass Panel (Stretches to fit the window perfectly with zero black gaps) -->
+  <div class="w-full min-h-[calc(100vh-5rem)] flex flex-col justify-center glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-10 lg:px-12 py-12 lg:py-16">
+
+
+<!-- WIDENED: lg:col-span-8 for text/grid, lg:col-span-4 for photo to eat empty space -->
+    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
       
-      <!-- LEFT COLUMN: Concrete Credentials & Recruiter-Ready Bio -->
-      <div class="lg:col-span-7 flex flex-col items-start text-left">
+      <!-- LEFT COLUMN: Expanded to 8 columns for maximum horizontal room -->
+      <div class="lg:col-span-8 flex flex-col items-start text-left w-full">
         
         <!-- Section Tag & Academic Badges -->
         <div class="flex flex-wrap items-center gap-2.5 mb-6">
@@ -219,7 +220,7 @@
           </span>
         </div>
 
-        <!-- Headline: Direct & Impact-Driven -->
+        <!-- Headline -->
         <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight leading-snug mb-6">
           Building scalable AI systems, <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-cyan-400">
@@ -227,57 +228,109 @@
           </span>
         </h3>
 
-        <!-- Bio Paragraphs -->
-        <div class="space-y-4 text-brand-muted text-sm sm:text-base leading-relaxed mb-8">
+        <!-- Bio Paragraphs (Justified & aligned with the grid width below) -->
+        <div class="space-y-4 text-brand-muted text-sm sm:text-base leading-relaxed mb-8 text-justify w-full">
           <p>
-            I am a Generative AI & ML Engineer bridging the gap between core software engineering and applied AI. With a background in <strong class="text-white font-medium">Computer Science</strong> and a <strong class="text-white font-medium">Data Science specialization from IIT Madras</strong>, I don't just train models in notebooks—I engineer them to scale in the real world.
+            I am a <strong class="text-white">Generative AI & Machine Learning Engineer</strong> holding a <strong class="text-white">B.E. in Computer Science and Engineering</strong>, currently specializing in <strong class="text-white">Data Science & Applications</strong> from the Indian Institute of Technology Madras <strong class="text-white">(IITM)</strong>.
           </p>
           <p>
-            My current focus is on architecting <strong class="text-slate-200 font-medium">LLM-powered applications, robust RAG pipelines, and multi-agent workflows</strong>. Whether I'm orchestrating self-healing AI systems with LangGraph or fine-tuning transformer models with PyTorch, my goal is simple: building intelligent software that solves complex problems reliably.
+            My work focuses on architecting production-grade <strong class="text-white">LLM applications</strong>, autonomous <strong class="text-white">multi-agent pipelines</strong>, and robust retrieval-augmented generation <strong class="text-white">(RAG) systems</strong>. Leveraging <strong class="text-white">LangGraph</strong> and <strong class="text-white">PyTorch</strong>, I develop high-precision <strong class="text-white">AI systems</strong> optimized for execution latency, structured <strong class="text-white">tool calling</strong>, and reliable deployment.
           </p>
         </div>
 
         <!-- Mini Credentials & Core Stack Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full pt-4 border-t border-white/5">
-          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full pt-4 border-t border-white/5">
+          
+          <!-- Card 1 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
             <span class="text-[10px] font-mono text-indigo-400 block mb-1">ACADEMICS</span>
-            <p class="text-xs font-semibold text-white">IITM & B.E. CSE</p>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">IITM (Data Science & Applications) • B.E. CSE</p>
           </div>
-          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-            <span class="text-[10px] font-mono text-purple-400 block mb-1">GENAI STACK</span>
-            <p class="text-xs font-semibold text-white">LangGraph • RAG • LLMs</p>
+
+          <!-- Card 2 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-purple-400 block mb-1">AGENTIC SYSTEMS</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">LangGraph • LangChain • Agents</p>
           </div>
-          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-            <span class="text-[10px] font-mono text-cyan-400 block mb-1">ML & NLP</span>
-            <p class="text-xs font-semibold text-white">PyTorch • Transformers</p>
+
+          <!-- Card 3 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-cyan-400 block mb-1">GENAI</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">RAG • Prompt Engineering • LLM</p>
           </div>
-          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-            <span class="text-[10px] font-mono text-emerald-400 block mb-1">MLOPS & DATA</span>
-            <p class="text-xs font-semibold text-white">FastAPI • Docker • SQL</p>
+
+          <!-- Card 4 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-emerald-400 block mb-1">DEEP LEARNING</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">PyTorch • TensorFlow • Transformers </p>
           </div>
+
+          <!-- Card 5 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-amber-400 block mb-1">MACHINE LEARNING</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">Scikit-learn • Feature Eng • ML Pipelines</p>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-orange-400 block mb-1">NLP & TEXT PROCESSING</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap"> Regex • spaCy • NLTK • HuggingFace</p>
+          </div>
+
+          <!-- Card 7 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-fuchsia-400 block mb-1">LLM ORCHESTRATION</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">Tool Calling • Context & Memory Management</p>
+          </div>
+
+          <!-- Card 8: FITS CLEANLY ON ONE LINE -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-sky-400 block mb-1">SEARCH & RETRIEVAL</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">Vector Embeddings • Semantic Search</p>
+          </div>
+
+          <!-- Card 9 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-blue-400 block mb-1">PROGRAMMING</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">Python • Relational SQL</p>
+          </div>
+
+          <!-- Card 10 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-amber-400 block mb-1">DATA & TOOLS</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">Pandas • NumPy • Git • GitHub • Jupyter</p>
+          </div>
+
+          <!-- Card 11 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-teal-400 block mb-1">MLOPS & PIPELINES</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">FastAPI • Docker • MLflow • ZenML • CI/CD</p>
+          </div>
+
+          <!-- Card 12 -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
+            <span class="text-[10px] font-mono text-rose-400 block mb-1">APP UI & HOSTING</span>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">Streamlit • Heroku • Dashboards</p>
+          </div>
+
         </div>
 
-      </div>
+      </div> <!-- Closes lg:col-span-8 -->
 
-                <!-- RIGHT COLUMN: 9:16 Portrait Image -->
-      <div class="lg:col-span-5 flex justify-center lg:justify-end w-full perspective-1000">
-        
-        <!-- Main Container (Retains the 9:16 aspect and negative margins) -->
-        <div class="relative -translate-y-[35px] -mb-[35px] w-full max-w-[340px] sm:max-w-[380px] aspect-[9/16] group">
+      <!-- RIGHT COLUMN: Compact 4-column width hugging the photo tightly -->
+      <div class="lg:col-span-4 flex justify-center lg:justify-end w-full">
+        <div class="relative -translate-y-[25px] -mb-[25px] w-full max-w-[320px] sm:max-w-[350px] aspect-[9/16] group">
           
-          <!-- NEW: 3D Reveal Wrapper -->
-          <div class="w-full h-full profile-reveal-wrapper">
-            <!-- The Photo -->
-            <img 
-              src="assets/images/profile.jpg" 
-              alt="Rahul V S - AI Engineer" 
-              class="w-full h-full object-cover object-center image-dissolve group-hover:scale-105 transition-transform duration-700 ease-out"
-              onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'"
-            />
-          </div>
+          <!-- The Photo -->
+          <img 
+            src="assets/images/profile.jpg" 
+            alt="Rahul V S - AI Engineer" 
+            class="w-full h-full object-cover object-center image-dissolve group-hover:scale-105 transition-transform duration-700 ease-out"
+            onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'"
+          />
 
-          <!-- Floating IITM Verification Tag (With delayed pop-in animation) -->
-          <div class="absolute bottom-5 left-3 right-3 p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-between text-left shadow-lg tag-reveal">
+          <!-- Floating IITM Verification Tag -->
+          <div class="absolute bottom-5 left-3 right-3 p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-between text-left shadow-lg">
             <div>
               <p class="text-xs font-bold text-white tracking-wide">RAHUL V S</p>
               <p class="text-[10px] font-mono text-purple-300 mt-0.5">IIT Madras • Data Science | Gen AI</p>
@@ -286,11 +339,9 @@
           </div>
 
         </div>
-      </div>
+      </div> 
 
-    </div>
-
-  </div>
+    </div> 
 </section>
 
           <!-- ================= PROJECTS SECTION ================= -->
@@ -1097,6 +1148,9 @@
   <!-- 1. WEB3FORMS ACCESS KEY -->
   <input type="hidden" name="access_key" value="29486267-a74a-4b10-9673-93c51ad93388" />
 
+  <!-- Anti-Spam Honeypot (Invisible to humans, catches bots) -->
+  <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
   <!-- 2. Customizes the email subject in your Gmail -->
   <input type="hidden" name="subject" value="New Inquiry from Portfolio Website" />
 
@@ -1135,9 +1189,11 @@
               name="email" 
               placeholder="john@example.com" 
               required
+              pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+              title="Please enter a valid email address (e.g. name@example.com)"
               class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-brand-muted/40 focus:outline-none focus:border-purple-500/60 focus:bg-white/[0.06] transition-all text-sm"
-            />
-          </div>
+              />
+              </div>
 
           <!-- Message Field -->
           <div>
