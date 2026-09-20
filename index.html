@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RAHUL V S | Data Scientist & Generative AI Engineer</title>
 
-    <!-- BROWSER TAB ICON (FAVICON) -->
+          <!-- ================= BROWSER TAB ICON (FAVICON) ================= -->
+
+
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 
   <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
@@ -55,7 +57,7 @@
     <div class="w-full px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
       
       <!-- Far Left: Identity -->
-      <a href="#" class="group text-lg font-bold tracking-wider text-white flex items-center gap-2">
+      <a href="#home" class="group text-lg font-bold tracking-wider text-white flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-purple-500 animate-ping"></span>
   
         <span>
@@ -65,7 +67,9 @@
         <span class="text-brand-muted font-normal">| Portfolio</span>
       </a>
 
-      <!-- Navigation Links -->
+          <!-- ================= NAVIGATION LINKS/BAR ================= -->
+
+
       <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-brand-muted">
         <a href="#about" class="hover:text-white transition-colors">About</a>
         <a href="#projects" class="hover:text-white transition-colors">Projects</a>
@@ -74,9 +78,15 @@
         <a href="#contact" class="hover:text-white transition-colors">Contact</a>
       </nav>
 
-      <!-- Far Right: Resume Button -->
-      <a href="assets/docs/resume.pdf" download class="glass-btn inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium">
-        <i data-lucide="download" class="w-4 h-4 text-indigo-400"></i> Resume
+<!-- Far Right: Source Code Button -->
+      <a href="https://github.com/rahul-venu/personal-portfolio" target="_blank" rel="noopener noreferrer" class="glass-btn inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium group hover:border-[#F1502F]/40 transition-colors">
+        
+        <!-- Classic GitHub Cat Logo SVG in Official Orange -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 h-4 fill-current text-[#F1502F] group-hover:text-white group-hover:scale-110 transition-all">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        
+        <span class="group-hover:text-white transition-colors">Portfolio Repo</span>
       </a>
 
     </div>
@@ -85,10 +95,15 @@
   <main>
 
 <!-- Hero Section with 3D Voxel Manifold & Realistic Floor Shadow -->
-<section class="min-h-screen flex items-center px-6 sm:px-10 lg:px-12 pt-28 pb-16 relative overflow-hidden">
-  
+<section id="home" class="w-full pt-[140px] sm:pt-[180px] pb-16 sm:pb-24 px-6 sm:px-10 lg:px-12 relative overflow-hidden">  
   <!-- OVERHEAD STUDIO SPOTLIGHT BEAM -->
   <div class="studio-nav-highlight"></div>
+
+    <!-- 1. Ambient depth glow behind the sculpture -->
+  <div class="hero-depth-sphere"></div>
+
+  <!-- 2. Receding 3D floor grid -->
+  <div class="hero-perspective-floor"></div>
 
   <!-- Interactive 3D Voxel Canvas -->
   <canvas id="neural-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
@@ -105,7 +120,7 @@
   <!-- Status Pill -->
   <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/20 text-xs font-mono font-medium text-purple-300 mb-6 backdrop-blur-md">
     <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-    Available for AI & Data Science projects
+    Available for AI & Data Science roles & projects
   </div>
 
   <!-- Main Headline -->
@@ -178,11 +193,13 @@
   </a>
 </section>
 
-<!-- ABOUT SECTION -->
+          <!-- ================= ABOUT SECTION ================= -->
+
+
 <section id="about" class="w-full relative z-10 scroll-mt-20">
   
   <!-- Full-Width Stretched Glass Panel -->
-  <div class="w-full glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-10 lg:px-12 py-16 sm:py-20 reveal">
+  <div class="w-full glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-10 lg:px-12 pt-16 sm:pt-20 pb-4 reveal">
     
     <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
       
@@ -204,22 +221,19 @@
 
         <!-- Headline: Direct & Impact-Driven -->
         <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight leading-snug mb-6">
-          Architecting autonomous agentic workflows, <br class="hidden sm:inline" />
+          Building scalable AI systems, <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-cyan-400">
-            robust RAG pipelines & production ML.
+            from predictive ML to autonomous agents.
           </span>
         </h3>
 
         <!-- Bio Paragraphs -->
         <div class="space-y-4 text-brand-muted text-sm sm:text-base leading-relaxed mb-8">
           <p>
-            I am a Generative AI & Machine Learning Engineer with a foundational degree in <strong class="text-white font-medium">Computer Science & Engineering</strong> and specialized Data Science credentials from the <strong class="text-white font-medium">Indian Institute of Technology Madras (IITM)</strong>. My approach unites structured software engineering with practical applied AI.
+            I am a Generative AI & ML Engineer bridging the gap between core software engineering and applied AI. With a background in <strong class="text-white font-medium">Computer Science</strong> and a <strong class="text-white font-medium">Data Science specialization from IIT Madras</strong>, I don't just train models in notebooks—I engineer them to scale in the real world.
           </p>
           <p>
-            My core focus is on building reliable <strong class="text-slate-200 font-medium">Agentic Systems and RAG architectures</strong>. I work with <strong class="text-slate-200 font-medium">LangGraph</strong> to orchestrate multi-agent self-healing pipelines, build vector retrieval workflows, and fine-tune transformer models using <strong class="text-slate-200 font-medium">PyTorch & Hugging Face</strong>—optimizing for execution latency, structured tool calling, and reproducible outputs.
-          </p>
-          <p>
-            Beyond LLMs, I develop production-oriented predictive modeling pipelines—handling zero-inflated targets, custom loss functions, and multi-session user telemetry, deployed through containerized microservices with <strong class="text-slate-200 font-medium">FastAPI, Docker, and MLflow</strong>.
+            My current focus is on architecting <strong class="text-slate-200 font-medium">LLM-powered applications, robust RAG pipelines, and multi-agent workflows</strong>. Whether I'm orchestrating self-healing AI systems with LangGraph or fine-tuning transformer models with PyTorch, my goal is simple: building intelligent software that solves complex problems reliably.
           </p>
         </div>
 
@@ -231,37 +245,42 @@
           </div>
           <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
             <span class="text-[10px] font-mono text-purple-400 block mb-1">GENAI STACK</span>
-            <p class="text-xs font-semibold text-white">LangGraph • RAG • Groq</p>
+            <p class="text-xs font-semibold text-white">LangGraph • RAG • LLMs</p>
           </div>
           <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
             <span class="text-[10px] font-mono text-cyan-400 block mb-1">ML & NLP</span>
-            <p class="text-xs font-semibold text-white">PyTorch • RoBERTa • Scikit</p>
+            <p class="text-xs font-semibold text-white">PyTorch • Transformers</p>
           </div>
           <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-            <span class="text-[10px] font-mono text-emerald-400 block mb-1">MLOPS & CLOUD</span>
-            <p class="text-xs font-semibold text-white">FastAPI • Docker • Azure</p>
+            <span class="text-[10px] font-mono text-emerald-400 block mb-1">MLOPS & DATA</span>
+            <p class="text-xs font-semibold text-white">FastAPI • Docker • SQL</p>
           </div>
         </div>
 
       </div>
 
-      <!-- RIGHT COLUMN: 9:16 Portrait with True 4-Sided Dissolve -->
-      <div class="lg:col-span-5 flex justify-center lg:justify-end w-full">
-        <div class="relative -translate-y-[35px] w-full max-w-[340px] sm:max-w-[380px] aspect-[9/16] group">
+                <!-- RIGHT COLUMN: 9:16 Portrait Image -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-end w-full perspective-1000">
+        
+        <!-- Main Container (Retains the 9:16 aspect and negative margins) -->
+        <div class="relative -translate-y-[35px] -mb-[35px] w-full max-w-[340px] sm:max-w-[380px] aspect-[9/16] group">
           
-          <!-- The Photo (Dissolves on all 4 borders) -->
-          <img 
-            src="assets/images/profile.jpg" 
-            alt="Rahul Venu - Data Scientist at IIT Madras" 
-            class="w-full h-full object-cover object-center image-dissolve group-hover:scale-105 transition-transform duration-700 ease-out"
-            onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'"
-          />
+          <!-- NEW: 3D Reveal Wrapper -->
+          <div class="w-full h-full profile-reveal-wrapper">
+            <!-- The Photo -->
+            <img 
+              src="assets/images/profile.jpg" 
+              alt="Rahul V S - AI Engineer" 
+              class="w-full h-full object-cover object-center image-dissolve group-hover:scale-105 transition-transform duration-700 ease-out"
+              onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'"
+            />
+          </div>
 
-          <!-- Floating IITM Verification Tag -->
-          <div class="absolute bottom-5 left-3 right-3 p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-between text-left shadow-lg">
+          <!-- Floating IITM Verification Tag (With delayed pop-in animation) -->
+          <div class="absolute bottom-5 left-3 right-3 p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-between text-left shadow-lg tag-reveal">
             <div>
               <p class="text-xs font-bold text-white tracking-wide">RAHUL V S</p>
-              <p class="text-[10px] font-mono text-purple-300">IIT Madras • Data Science | Gen AI</p>
+              <p class="text-[10px] font-mono text-purple-300 mt-0.5">IIT Madras • Data Science | Gen AI</p>
             </div>
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           </div>
@@ -274,9 +293,11 @@
   </div>
 </section>
 
-<!-- PROJECTS SECTION -->
+          <!-- ================= PROJECTS SECTION ================= -->
+
 <section id="projects" class="w-full py-24 relative z-10 scroll-mt-20">
-  <div class="max-w-6xl mx-auto px-6">
+  <!-- WIDENED: Now matches Hero and About section width exactly -->
+  <div class="w-full px-6 sm:px-10 lg:px-12">
     
     <!-- Section Header -->
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-4 border-b border-white/5">
@@ -293,421 +314,443 @@
       </p>
     </div>
 
-    <!-- PROJECTS LIST -->
-    <div class="space-y-10">
+    <!-- 2x2 PROJECTS GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
 
       <!-- ================= PROJECT 1: ABIA ================= -->
-      <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-purple-500/40 transition-all group relative overflow-hidden">
-        <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-6">
+      <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-purple-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
+        
+        <!-- Header & Buttons Stacked for Grid -->
+        <div class="flex flex-col xl:flex-row xl:items-start justify-between gap-5 mb-6">
           <div class="space-y-2">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-xs font-mono font-medium text-purple-300 bg-purple-950/60 border border-purple-500/30 px-3 py-1 rounded-full">
-                Agentic AI System
+              <span class="text-[10px] font-mono font-medium text-purple-300 bg-purple-950/60 border border-purple-500/30 px-2.5 py-1 rounded-full">
+                Agentic AI
               </span>
-              <span class="text-xs font-mono text-purple-300 bg-purple-950/40 border border-purple-500/20 px-2.5 py-0.5 rounded-full">
-                GenAI Project
-              </span>
-              <span class="text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live App
               </span>
             </div>
-            <h4 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-purple-300 transition-colors">
-              Agentic Business Intelligence Assistant (ABIA)
+            <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors leading-snug">
+              Agentic Business Intelligence Assistant
             </h4>
           </div>
 
           <!-- Action Buttons -->
-          <div class="flex items-center gap-3 shrink-0">
-            <a href="https://github.com/rahul-venu" target="_blank" class="px-4 py-2 rounded-xl glass-btn text-xs font-medium text-white inline-flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
-              <span>GitHub</span>
-            </a>
-            <a href="#" target="_blank" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-semibold text-white inline-flex items-center gap-1.5 shadow-lg shadow-purple-600/20 transition-all">
-              <span>Live Demo</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="https://github.com/rahul-venu/Agentic-Business-Intelligence-Assistant-ABIA" target="_blank" class="p-2.5 rounded-xl glass-btn text-white hover:text-purple-300 transition-colors" aria-label="GitHub">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>            </a>
+            <a href="https://abia-ai.streamlit.app/" target="_blank" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-purple-300 hover:text-white border-purple-500/30 inline-flex items-center gap-1.5 transition-all">
+              <span>Demo</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
-        <!-- Description -->
-        <p class="text-brand-muted text-sm sm:text-base leading-relaxed mb-6 max-w-4xl">
-          Architected a self-healing <strong class="text-white">LangGraph multi-agent pipeline</strong> powered by <strong class="text-white">Groq (Llama-3)</strong> and Pandas. The system autonomously coordinates multiple specialized agents to decompose user queries, execute multi-table schema joins, generate dynamic interactive charts, and produce real-time data insights with autonomous error-recovery mechanisms.
+        <!-- Description (Flex-grow pushes footer to bottom) -->
+        <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow">
+          Architected a self-healing <strong class="text-white">LangGraph multi-agent pipeline</strong> powered by <strong class="text-white">Groq (Llama-3)</strong>. Autonomously coordinates specialized agents to decompose user queries, execute multi-table schema joins, and generate dynamic real-time insights with autonomous error-recovery.
         </p>
 
-        <!-- Methods & Stack Grid -->
-        <div class="pt-4 border-t border-white/5 space-y-3">
-          <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
-            <span class="text-[11px] text-brand-muted mr-1">TECH:</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">LangGraph</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Groq (Llama-3)</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Python</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pandas</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Tool Calling</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Multi-Agent Systems</span>
+        <!-- Footer: Methods & Stack Grid -->
+        <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
+          <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">LangGraph</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Groq</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Python</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pandas</span>
           </div>
-          <div class="text-xs text-brand-muted">
-            <strong class="text-slate-300 font-mono">Methods:</strong> Self-healing workflows, multi-step reasoning, dynamic schema joins, autonomous task decomposition.
+          <div class="text-[11px] text-brand-muted leading-relaxed">
+            <strong class="text-slate-300 font-mono">Methods:</strong> Self-healing workflows, reasoning, dynamic schema joins.
           </div>
         </div>
       </article>
 
-      <!-- ================= PROJECT 2: RoBERTa EMOTION CLASSIFIER ================= -->
-      <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all group relative overflow-hidden">
-        <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-6">
+      <!-- ================= PROJECT 2: RoBERTa EMOTION ================= -->
+      <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
+        
+        <div class="flex flex-col xl:flex-row xl:items-start justify-between gap-5 mb-6">
           <div class="space-y-2">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-xs font-mono font-medium text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-3 py-1 rounded-full">
+              <span class="text-[10px] font-mono font-medium text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-2.5 py-1 rounded-full">
                 NLP • Transformers
               </span>
-              <span class="text-xs font-mono text-purple-300 bg-purple-950/40 border border-purple-500/20 px-2.5 py-0.5 rounded-full">
-                IIT Madras Project
-              </span>
-              <span class="text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">
-                86% F1-Score (Kaggle)
+              <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+                86% F1-Score
               </span>
             </div>
-            <h4 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-cyan-300 transition-colors">
-              Multi-Label Emotion Classification using RoBERTa
+            <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+              Multi-Label Emotion Classification via RoBERTa
             </h4>
           </div>
 
           <!-- Action Buttons -->
-          <div class="flex items-center gap-3 shrink-0">
-            <a href="https://github.com/rahul-venu" target="_blank" class="px-4 py-2 rounded-xl glass-btn text-xs font-medium text-white inline-flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
-              <span>GitHub</span>
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="https://github.com/rahul-venu/roberta-emotion-detection-iitm" target="_blank" class="p-2.5 rounded-xl glass-btn text-white hover:text-cyan-300 transition-colors" aria-label="GitHub">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>            
             </a>
-            <a href="#" target="_blank" class="px-4 py-2 rounded-xl glass-btn text-xs font-medium text-cyan-300 hover:text-white border-cyan-500/30 inline-flex items-center gap-1.5">
-              <span>Streamlit App</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <a href="https://text-emotion-finder.streamlit.app/" target="_blank" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-cyan-300 hover:text-white border-cyan-500/30 inline-flex items-center gap-1.5 transition-all">
+              <span>App</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
-        <!-- Description -->
-        <p class="text-brand-muted text-sm sm:text-base leading-relaxed mb-6 max-w-4xl">
-          Fine-tuned a <strong class="text-white">RoBERTa transformer</strong> using PyTorch and Hugging Face for multi-label emotion classification, achieving an <strong class="text-white">86% F1-Score on Kaggle</strong>. Addressed severe minority-class imbalance using BCEWithLogitsLoss and Focal Loss, paired with regex text cleaning and targeted paraphrasing data augmentation. Deployed as a real-time Streamlit web app integrated with Hugging Face Hub.
+        <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow">
+          Fine-tuned a <strong class="text-white">RoBERTa transformer</strong> using PyTorch & Hugging Face. Addressed severe minority-class imbalance using BCEWithLogitsLoss and Focal Loss, paired with regex text cleaning and targeted paraphrasing data augmentation. Deployed as a real-time Streamlit web app.
         </p>
 
-        <!-- Methods & Stack Grid -->
-        <div class="pt-4 border-t border-white/5 space-y-3">
-          <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
-            <span class="text-[11px] text-brand-muted mr-1">TECH:</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">PyTorch</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Transformers</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Hugging Face Hub</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Streamlit</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pandas</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">NumPy</span>
+        <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
+          <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">PyTorch</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Transformers</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Streamlit</span>
           </div>
-          <div class="text-xs text-brand-muted">
-            <strong class="text-slate-300 font-mono">Methods:</strong> Multi-label classification, transformer fine-tuning, Focal Loss, minority paraphrasing, regex preprocessing.
+          <div class="text-[11px] text-brand-muted leading-relaxed">
+            <strong class="text-slate-300 font-mono">Methods:</strong> Multi-label classification, Focal Loss, paraphrasing.
           </div>
         </div>
       </article>
 
-      <!-- ================= PROJECT 3: PURCHASE VALUE PREDICTION ================= -->
-      <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-indigo-500/40 transition-all group relative overflow-hidden">
-        <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-6">
+      <!-- ================= PROJECT 3: PURCHASE VALUE ================= -->
+      <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-indigo-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
+        
+        <div class="flex flex-col xl:flex-row xl:items-start justify-between gap-5 mb-6">
           <div class="space-y-2">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-xs font-mono font-medium text-indigo-300 bg-indigo-950/60 border border-indigo-500/30 px-3 py-1 rounded-full">
+              <span class="text-[10px] font-mono font-medium text-indigo-300 bg-indigo-950/60 border border-indigo-500/30 px-2.5 py-1 rounded-full">
                 Predictive ML
               </span>
-              <span class="text-xs font-mono text-purple-300 bg-purple-950/40 border border-purple-500/20 px-2.5 py-0.5 rounded-full">
-                IIT Madras Project
-              </span>
-              <span class="text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">
-                R² Improved by ~12%
+              <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+                R² Improved ~12%
               </span>
             </div>
-            <h4 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-indigo-300 transition-colors">
-              Purchase Value Prediction from Multi-Session Behavior
+            <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors leading-snug">
+              Purchase Value Prediction (Multi-Session)
             </h4>
           </div>
 
           <!-- Action Buttons -->
-          <div class="flex items-center gap-3 shrink-0">
-            <a href="https://github.com/rahul-venu" target="_blank" class="px-4 py-2 rounded-xl glass-btn text-xs font-medium text-white inline-flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
-              <span>GitHub</span>
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="https://github.com/rahul-venu/purchase-value-prediction-iitm" target="_blank" class="p-2.5 rounded-xl glass-btn text-white hover:text-indigo-300 transition-colors" aria-label="GitHub">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>            
             </a>
-            <a href="#" target="_blank" class="px-4 py-2 rounded-xl glass-btn text-xs font-medium text-indigo-300 hover:text-white border-indigo-500/30 inline-flex items-center gap-1.5">
-              <span>Kaggle Notebook</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <a href="https://www.kaggle.com/competitions/engage-2-value-from-clicks-to-conversions/leaderboard" target="_blank" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-indigo-300 hover:text-white border-indigo-500/30 inline-flex items-center gap-1.5 transition-all">
+              <span>Kaggle</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
-        <!-- Description -->
-        <p class="text-brand-muted text-sm sm:text-base leading-relaxed mb-6 max-w-4xl">
-          Built an end-to-end regression ML pipeline to predict customer purchase value from high-dimensional multi-session telemetry. Handled severe zero-inflation (<strong class="text-white">~80% zeros</strong>) through logarithmic transformations and user-level aggregation, improving validation <strong class="text-white">R² by ~12%</strong>. Conducted exhaustive benchmarks across XGBoost, LightGBM, and Random Forest before selecting Random Forest for final submission.
+        <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow">
+          Built an end-to-end regression ML pipeline to predict customer value from high-dimensional telemetry. Handled severe zero-inflation (<strong class="text-white">~80% zeros</strong>) through logarithmic transformations. Benchmarked XGBoost, LightGBM, and selected Random Forest for final submission.
         </p>
 
-        <!-- Methods & Stack Grid -->
-        <div class="pt-4 border-t border-white/5 space-y-3">
-          <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
-            <span class="text-[11px] text-brand-muted mr-1">TECH:</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Scikit-learn</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Random Forest</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">XGBoost & LightGBM</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">PCA</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pandas</span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">NumPy</span>
+        <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
+          <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Scikit-learn</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Random Forest</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">XGBoost</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">PCA</span>
           </div>
-          <div class="text-xs text-brand-muted">
-            <strong class="text-slate-300 font-mono">Methods:</strong> Zero-inflated regression, user-level aggregation, PCA dimensionality reduction, feature engineering.
+          <div class="text-[11px] text-brand-muted leading-relaxed">
+            <strong class="text-slate-300 font-mono">Methods:</strong> Zero-inflated regression, PCA, user aggregation.
           </div>
         </div>
       </article>
+
+      <!-- ================= PROJECT 4: UPCOMING (PLACEHOLDER) ================= -->
+      <article class="glass-card p-8 sm:p-10 rounded-3xl border border-dashed border-white/20 hover:border-purple-500/40 transition-all group relative overflow-hidden flex flex-col items-center justify-center text-center h-full min-h-[360px]">
+        
+        <!-- Rotating Loader Icon -->
+        <div class="w-16 h-16 rounded-full bg-white/[0.02] border border-white/10 flex items-center justify-center text-brand-muted group-hover:text-purple-400 group-hover:scale-110 transition-all duration-300 mb-6">
+          <svg class="w-7 h-7 animate-[spin_3s_linear_infinite]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </div>
+        
+        <h4 class="text-xl sm:text-2xl font-bold text-white mb-3">
+          Upcoming AI Project
+        </h4>
+        
+        <p class="text-brand-muted text-sm leading-relaxed max-w-sm mb-8">
+          Currently architecting a new system. Stay tuned for updates on advanced RAG pipelines and multi-modal capabilities.
+        </p>
+
+        <!-- Pulsing Dots -->
+        <div class="flex items-center gap-2.5">
+          <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" style="animation-delay: 0s;"></span>
+          <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse" style="animation-delay: 0.2s;"></span>
+          <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" style="animation-delay: 0.4s;"></span>
+        </div>
+
+      </article>
+
     </div> 
   </div>   
 </section> 
 
-<!-- SKILLS SECTION -->
-<section id="skills" class="w-full py-24 relative z-10 scroll-mt-20">
-  <div class="max-w-6xl mx-auto px-6">
+          <!-- ================= SKILLS SECTION ================= -->
+
+
+<section id="skills" class="w-full relative z-10 scroll-mt-20">
+  <!-- Full-Width Stretched Glass Panel -->
+  <div class="w-full glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-10 lg:px-12 py-16 sm:py-24 reveal">
     
-    <!-- Section Header -->
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-4 border-b border-white/5">
-      <div>
-        <span class="text-xs uppercase font-mono tracking-widest text-indigo-400 font-bold block mb-2">
-          03. Technical Skills
-        </span>
-        <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-          Core Competencies & Stack
-        </h3>
+    <!-- REMOVED max-w-6xl to match the exact width of Hero and Projects -->
+    <div class="w-full">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-4 border-b border-white/5">
+        <div>
+          <span class="text-xs uppercase font-mono tracking-widest text-indigo-400 font-bold block mb-2">
+            03. Technical Skills
+          </span>
+          <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Core Competencies & Stack
+          </h3>
+        </div>
+        <p class="text-xs font-mono text-brand-muted mt-2 sm:mt-0">
+          [8 Dedicated Technical Domains]
+        </p>
       </div>
-      <p class="text-xs font-mono text-brand-muted mt-2 sm:mt-0">
-        [8 Dedicated Technical Domains]
-      </p>
+
+      <!-- Symmetrical 4x2 Grid (Added items-stretch for uniform heights) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+
+        <!-- ================= 1. AGENTIC AI & LLM SYSTEMS ================= -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all flex flex-col h-full group shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-purple-950/40 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                <i data-lucide="bot" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-mono text-purple-300 bg-purple-950/60 border border-purple-500/20 px-2 py-0.5 rounded-full">
+                Specialty
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-4 group-hover:text-purple-300 transition-colors">
+              Agentic AI & LLM Systems
+            </h4>
+          </div>
+
+          <!-- mt-auto pushes this to the bottom so all cards line up perfectly -->
+          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangChain</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Tool Calling</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Autonomous Workflows</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Task Decomposition</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LLM Orchestration</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Memory & Context</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Multi-step Reasoning</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">AI Agents</span>
+          </div>
+        </div>
+
+        <!-- ================= 2. NLP & GENAI ================= -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-cyan-500/50 transition-all flex flex-col h-full group shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-500/20 px-2 py-0.5 rounded-full">
+                Production
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-4 group-hover:text-cyan-300 transition-colors">
+              NLP & GenAI
+            </h4>
+          </div>
+
+          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">RAG</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Vector Embeddings</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Semantic Search</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">HuggingFace</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">BERT & LLMs</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Prompt Engineering</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">spaCy & NLTK</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regex</span>
+          </div>
+        </div>
+
+        <!-- ================= 3. DEEP LEARNING ================= -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-indigo-500/50 transition-all flex flex-col h-full group shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-500/20 px-2 py-0.5 rounded-full">
+                Modeling
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors">
+              Deep Learning
+            </h4>
+          </div>
+
+          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">PyTorch</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">TensorFlow</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Transformers</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Neural Networks</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Fine-Tuning</span>
+          </div>
+        </div>
+
+        <!-- ================= 4. MACHINE LEARNING ================= -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all flex flex-col h-full group shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <i data-lucide="binary" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                Analytics
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-4 group-hover:text-emerald-300 transition-colors">
+              Machine Learning
+            </h4>
+          </div>
+
+          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Scikit-learn</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Feature Engineering</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Evaluation</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regression & Classification</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Cross-Validation</span>
+          </div>
+        </div>
+
+        <!-- ================= 5. PROGRAMMING ================= -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all flex flex-col h-full group shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                <i data-lucide="terminal" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-mono text-blue-300 bg-blue-950/60 border border-blue-500/20 px-2 py-0.5 rounded-full">
+                Languages
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-4 group-hover:text-blue-300 transition-colors">
+              Programming
+            </h4>
+          </div>
+
+          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Python</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">SQL (Relational Queries)</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Object-Oriented Design</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Data Structures</span>
+          </div>
+        </div>
+
+        <!-- ================= 6. DATA & TOOLS ================= -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/50 transition-all flex flex-col h-full group shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                <i data-lucide="database" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-mono text-amber-300 bg-amber-950/60 border border-amber-500/20 px-2 py-0.5 rounded-full">
+                Data Core
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-4 group-hover:text-amber-300 transition-colors">
+              Data & Tools
+            </h4>
+          </div>
+
+          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Pandas</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">NumPy</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Jupyter Notebook</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Git</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">GitHub</span>
+          </div>
+        </div>
+
+        <!-- ================= 7. APPLICATION & VISUALIZATION ================= -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-fuchsia-500/50 transition-all flex flex-col h-full group shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-fuchsia-950/40 border border-fuchsia-500/30 flex items-center justify-center text-fuchsia-400">
+                <i data-lucide="layout" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-mono text-fuchsia-300 bg-fuchsia-950/60 border border-fuchsia-500/20 px-2 py-0.5 rounded-full">
+                UI & Apps
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-4 group-hover:text-fuchsia-300 transition-colors">
+              Application & Visualization
+            </h4>
+          </div>
+
+          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Streamlit</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Interactive Dashboards</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Deployment UI</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Data Visualization</span>
+          </div>
+        </div>
+
+        <!-- ================= 8. MLOPS & DEPLOYMENT ================= -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-sky-500/50 transition-all flex flex-col h-full group shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-sky-950/40 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                <i data-lucide="server" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-mono text-sky-300 bg-sky-950/60 border border-sky-500/20 px-2 py-0.5 rounded-full">
+                Pipelines
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-4 group-hover:text-sky-300 transition-colors">
+              MLOps & Deployment
+            </h4>
+          </div>
+
+          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">FastAPI</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Docker</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">MLflow</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">ZenML</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">CI/CD Pipelines</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Versioning</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Experiment Tracking</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Heroku</span>
+          </div>
+        </div>
+
+      </div>
+
     </div>
-
-    <!-- Symmetrical 4x2 Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-
-      <!-- ================= 1. AGENTIC AI & LLM SYSTEMS ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all flex flex-col justify-between group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-purple-950/40 border border-purple-500/30 flex items-center justify-center text-purple-400">
-              <i data-lucide="bot" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/60 border border-purple-500/20 px-2 py-0.5 rounded-full">
-              Specialty
-            </span>
-          </div>
-          <h4 class="text-base font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
-            Agentic AI & LLM Systems
-          </h4>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[11px]">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangChain</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Tool Calling</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Autonomous Workflows</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Task Decomposition</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LLM Orchestration</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Memory & Context</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Multi-step Reasoning</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">AI Agents (Google ADK)</span>
-        </div>
-      </div>
-
-      <!-- ================= 2. NLP & GENAI ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-cyan-500/50 transition-all flex flex-col justify-between group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-              <i data-lucide="sparkles" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-500/20 px-2 py-0.5 rounded-full">
-              Production
-            </span>
-          </div>
-          <h4 class="text-base font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
-            NLP & GenAI
-          </h4>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[11px]">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">RAG</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Vector Embeddings</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Semantic Search</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">HuggingFace</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">BERT & LLMs</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Prompt Engineering</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">spaCy & NLTK</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regex</span>
-        </div>
-      </div>
-
-      <!-- ================= 3. DEEP LEARNING ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-indigo-500/50 transition-all flex flex-col justify-between group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
-              <i data-lucide="layers" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-500/20 px-2 py-0.5 rounded-full">
-              Modeling
-            </span>
-          </div>
-          <h4 class="text-base font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
-            Deep Learning
-          </h4>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[11px]">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">PyTorch</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">TensorFlow</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Transformers</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Neural Networks</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Fine-Tuning</span>
-        </div>
-      </div>
-
-      <!-- ================= 4. MACHINE LEARNING ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all flex flex-col justify-between group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-              <i data-lucide="binary" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-              Analytics
-            </span>
-          </div>
-          <h4 class="text-base font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors">
-            Machine Learning
-          </h4>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[11px]">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Scikit-learn</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Feature Engineering</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Evaluation</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regression & Classification</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Cross-Validation</span>
-        </div>
-      </div>
-
-      <!-- ================= 5. PROGRAMMING ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all flex flex-col justify-between group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
-              <i data-lucide="terminal" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-blue-300 bg-blue-950/60 border border-blue-500/20 px-2 py-0.5 rounded-full">
-              Languages
-            </span>
-          </div>
-          <h4 class="text-base font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
-            Programming
-          </h4>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[11px]">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Python</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">SQL (Relational Queries)</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Object-Oriented Design</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Data Structures</span>
-        </div>
-      </div>
-
-      <!-- ================= 6. DATA & TOOLS ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/50 transition-all flex flex-col justify-between group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-amber-400">
-              <i data-lucide="database" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-amber-300 bg-amber-950/60 border border-amber-500/20 px-2 py-0.5 rounded-full">
-              Data Core
-            </span>
-          </div>
-          <h4 class="text-base font-bold text-white mb-3 group-hover:text-amber-300 transition-colors">
-            Data & Tools
-          </h4>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[11px]">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Pandas</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">NumPy</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Jupyter Notebook</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Git</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">GitHub</span>
-        </div>
-      </div>
-
-      <!-- ================= 7. APPLICATION & VISUALIZATION ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-fuchsia-500/50 transition-all flex flex-col justify-between group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-fuchsia-950/40 border border-fuchsia-500/30 flex items-center justify-center text-fuchsia-400">
-              <i data-lucide="layout" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-fuchsia-300 bg-fuchsia-950/60 border border-fuchsia-500/20 px-2 py-0.5 rounded-full">
-              UI & Apps
-            </span>
-          </div>
-          <h4 class="text-base font-bold text-white mb-3 group-hover:text-fuchsia-300 transition-colors">
-            Application & Visualization
-          </h4>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[11px]">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Streamlit</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Interactive Dashboards</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Deployment UI</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Data Visualization</span>
-        </div>
-      </div>
-
-      <!-- ================= 8. MLOPS & DEPLOYMENT (BASIC) ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-sky-500/50 transition-all flex flex-col justify-between group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-sky-950/40 border border-sky-500/30 flex items-center justify-center text-sky-400">
-              <i data-lucide="server" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-sky-300 bg-sky-950/60 border border-sky-500/20 px-2 py-0.5 rounded-full">
-              Pipelines
-            </span>
-          </div>
-          <h4 class="text-base font-bold text-white mb-3 group-hover:text-sky-300 transition-colors">
-            MLOps & Deployment
-          </h4>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[11px]">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">FastAPI</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Docker</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">MLflow</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">ZenML</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">CI/CD Pipelines</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Versioning</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Experiment Tracking</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Heroku</span>
-        </div>
-      </div>
-
-    </div>
-
   </div>
 </section>
 
 
-<!-- CERTIFICATIONS SECTION -->
+          <!-- ================= CERTIFICATIONS SECTION ================= -->
+
+
 <section id="certifications" class="w-full py-24 relative z-10 scroll-mt-20">
-  <div class="max-w-6xl mx-auto px-6">
+  <!-- WIDENED: Now matches Hero, About, and Projects width exactly -->
+  <div class="w-full px-6 sm:px-10 lg:px-12">
     
     <!-- Section Header -->
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-4 border-b border-white/5">
       <div>
         <span class="text-xs uppercase font-mono tracking-widest text-indigo-400 font-bold block mb-2">
-          03. Certifications
+          04. Certifications
         </span>
         <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
           Verified Credentials & Accreditations
@@ -718,19 +761,20 @@
       </p>
     </div>
 
-    <!-- UNIFORM 7-CARD BALANCED DECK -->
-    <div class="flex flex-wrap justify-center gap-5">
+    <!-- 4-COLUMN GRID (Added items-stretch for uniform heights) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
 
-      <!-- ================= CARD 1: AZURE AI-900 ================= -->
+
+      <!-- ================= CARD 1: AZURE AI FUNDAMENTALS ================= -->
       <a 
-        href="YOUR_CREDENTIAL_LINK_1" 
+        href="https://learn.microsoft.com/en-us/users/rahulvs-8640/credentials/40f0dc9deb863f75?ref=https%3A%2F%2Fwww.linkedin.com%2F" 
         target="_blank" 
         rel="noopener noreferrer"
-        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all group flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] min-h-[270px] shadow-lg hover:-translate-y-1"
+        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-[#0078D4]/50 transition-all group flex flex-col h-full shadow-lg hover:-translate-y-1"
       >
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-[#0078D4]/15 border border-[#0078D4]/30 flex items-center justify-center text-[#50A9F5] shrink-0">
               <i data-lucide="cloud" class="w-5 h-5"></i>
             </div>
             <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
@@ -738,10 +782,10 @@
             </span>
           </div>
 
-          <span class="text-[10px] font-mono text-blue-300 bg-blue-950/60 border border-blue-500/20 px-2 py-0.5 rounded-full inline-block mb-2">
+          <span class="text-[10px] font-mono text-[#50A9F5] bg-[#0078D4]/20 border border-[#0078D4]/20 px-2 py-0.5 rounded-full inline-block mb-2">
             Microsoft Azure
           </span>
-          <h4 class="text-base font-bold text-white group-hover:text-blue-300 transition-colors mb-1.5">
+          <h4 class="text-base font-bold text-white group-hover:text-[#50A9F5] transition-colors mb-1.5">
             Azure AI Fundamentals
           </h4>
           <p class="text-xs text-brand-muted leading-relaxed">
@@ -749,120 +793,19 @@
           </p>
         </div>
 
-        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-blue-400 group-hover:text-blue-300">
+        <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-[#50A9F5] group-hover:text-white">
           <span>Verify Credential</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
         </div>
       </a>
 
-      <!-- ================= CARD 2: AZURE DP-900 ================= -->
+
+      <!-- ================= CARD 2: MACHINE LEARNING MASTERCLASS ================= -->
       <a 
-        href="YOUR_CREDENTIAL_LINK_2" 
+        href="https://www.udemy.com/certificate/UC-a372f544-ae5f-4030-8dae-ccee2ac54d3a/" 
         target="_blank" 
         rel="noopener noreferrer"
-        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-sky-500/50 transition-all group flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] min-h-[270px] shadow-lg hover:-translate-y-1"
-      >
-        <div>
-          <div class="flex items-start justify-between gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-sky-950/40 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
-              <i data-lucide="database" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verified
-            </span>
-          </div>
-
-          <span class="text-[10px] font-mono text-sky-300 bg-sky-950/60 border border-sky-500/20 px-2 py-0.5 rounded-full inline-block mb-2">
-            Microsoft Azure
-          </span>
-          <h4 class="text-base font-bold text-white group-hover:text-sky-300 transition-colors mb-1.5">
-            Azure Data Fundamentals
-          </h4>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Relational, non-relational core data concepts, and analytical data workloads on Azure.
-          </p>
-        </div>
-
-        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-sky-400 group-hover:text-sky-300">
-          <span>Verify Credential</span>
-          <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
-        </div>
-      </a>
-
-      <!-- ================= CARD 3: APACHE SPARK ================= -->
-      <a 
-        href="YOUR_CREDENTIAL_LINK_3" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-orange-500/50 transition-all group flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] min-h-[270px] shadow-lg hover:-translate-y-1"
-      >
-        <div>
-          <div class="flex items-start justify-between gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-orange-950/40 border border-orange-500/30 flex items-center justify-center text-orange-400 shrink-0">
-              <i data-lucide="flame" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verified
-            </span>
-          </div>
-
-          <span class="text-[10px] font-mono text-orange-300 bg-orange-950/60 border border-orange-500/20 px-2 py-0.5 rounded-full inline-block mb-2">
-            Databricks
-          </span>
-          <h4 class="text-base font-bold text-white group-hover:text-orange-300 transition-colors mb-1.5">
-            Apache Spark Programming
-          </h4>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Large-scale distributed data processing, Spark DataFrames, and query execution.
-          </p>
-        </div>
-
-        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-orange-400 group-hover:text-orange-300">
-          <span>Verify Credential</span>
-          <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
-        </div>
-      </a>
-
-      <!-- ================= CARD 4: DATABRICKS FUNDAMENTALS ================= -->
-      <a 
-        href="YOUR_CREDENTIAL_LINK_4" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/50 transition-all group flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] min-h-[270px] shadow-lg hover:-translate-y-1"
-      >
-        <div>
-          <div class="flex items-start justify-between gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
-              <i data-lucide="layers" class="w-5 h-5"></i>
-            </div>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verified
-            </span>
-          </div>
-
-          <span class="text-[10px] font-mono text-amber-300 bg-amber-950/60 border border-amber-500/20 px-2 py-0.5 rounded-full inline-block mb-2">
-            Databricks
-          </span>
-          <h4 class="text-base font-bold text-white group-hover:text-amber-300 transition-colors mb-1.5">
-            Databricks Fundamentals
-          </h4>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Lakehouse architecture, Delta Lake operations, data governance, and data engineering.
-          </p>
-        </div>
-
-        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-amber-400 group-hover:text-amber-300">
-          <span>Verify Credential</span>
-          <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
-        </div>
-      </a>
-
-      <!-- ================= CARD 5: MACHINE LEARNING MASTERCLASS ================= -->
-      <a 
-        href="YOUR_CREDENTIAL_LINK_5" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all group flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] min-h-[270px] shadow-lg hover:-translate-y-1"
+        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all group flex flex-col h-full shadow-lg hover:-translate-y-1"
       >
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
@@ -875,43 +818,79 @@
           </div>
 
           <span class="text-[10px] font-mono text-purple-300 bg-purple-950/60 border border-purple-500/20 px-2 py-0.5 rounded-full inline-block mb-2">
-            Machine Learning
+            Udemy
           </span>
           <h4 class="text-base font-bold text-white group-hover:text-purple-300 transition-colors mb-1.5">
-            ML Masterclass with Python
+            ML Masterclass with Python 2025
           </h4>
           <p class="text-xs text-brand-muted leading-relaxed">
             Supervised & unsupervised learning, advanced regression, tree models, and statistical validation.
           </p>
         </div>
 
-        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-purple-400 group-hover:text-purple-300">
+        <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-purple-400 group-hover:text-purple-300">
           <span>Verify Credential</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
         </div>
       </a>
 
-      <!-- ================= CARD 6: PYTHON FOR DS & DATA ENG ================= -->
+
+      <!-- ================= CARD 3: APACHE SPARK ================= -->
       <a 
-        href="YOUR_CREDENTIAL_LINK_6" 
+        href="https://www.credential.net/4ed4383e-1d9d-45d3-9096-9f6f9336c025?username=rahulvenu13" 
         target="_blank" 
         rel="noopener noreferrer"
-        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all group flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] min-h-[270px] shadow-lg hover:-translate-y-1"
+        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-[#FF3621]/50 transition-all group flex flex-col h-full shadow-lg hover:-translate-y-1"
       >
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
-              <i data-lucide="code-2" class="w-5 h-5"></i>
+            <div class="w-10 h-10 rounded-xl bg-[#FF3621]/15 border border-[#FF3621]/30 flex items-center justify-center text-[#FF3621] shrink-0">
+              <i data-lucide="layers" class="w-5 h-5"></i>
             </div>
             <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verified
             </span>
           </div>
 
-          <span class="text-[10px] font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-500/20 px-2 py-0.5 rounded-full inline-block mb-2">
-            Data Engineering
+          <span class="text-[10px] font-mono text-[#FF5F46] bg-[#FF3621]/20 border border-[#FF3621]/20 px-2 py-0.5 rounded-full inline-block mb-2">
+            Databricks
           </span>
-          <h4 class="text-base font-bold text-white group-hover:text-emerald-300 transition-colors mb-1.5">
+          <h4 class="text-base font-bold text-white group-hover:text-[#FF5F46] transition-colors mb-1.5">
+          <p>Apache<sup>TM</sup> Spark Programming </p> 
+          </h4>
+          <p class="text-xs text-brand-muted leading-relaxed">
+            Large-scale distributed data processing, Spark DataFrames, and query execution.
+          </p>
+        </div>
+
+        <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-[#FF3621] group-hover:text-[#FF5F46]">
+          <span>Verify Credential</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+        </div>
+      </a>
+
+
+      <!-- ================= CARD 4: PYTHON FOR DS & DATA ENG ================= -->
+      <a 
+        href="https://www.credential.net/f02d4d64-1d7d-4f07-a0b7-a517742737bf?username=rahulvenu13" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-[#FF3621]/50 transition-all group flex flex-col h-full shadow-lg hover:-translate-y-1"
+      >
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-[#FF3621]/15 border border-[#FF3621]/30 flex items-center justify-center text-[#FF3621] shrink-0">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verified
+            </span>
+          </div>
+
+          <span class="text-[10px] font-mono text-[#FF5F46] bg-[#FF3621]/20 border border-[#FF3621]/20 px-2 py-0.5 rounded-full inline-block mb-2">
+            Databricks
+          </span>
+          <h4 class="text-base font-bold text-white group-hover:text-[#FF5F46] transition-colors mb-1.5">
             Python for DS & Data Engineering
           </h4>
           <p class="text-xs text-brand-muted leading-relaxed">
@@ -919,23 +898,94 @@
           </p>
         </div>
 
-        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-emerald-400 group-hover:text-emerald-300">
+        <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-[#FF3621] group-hover:text-[#FF5F46]">
           <span>Verify Credential</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
         </div>
       </a>
 
-      <!-- ================= CARD 7: 7TH CERTIFICATE ================= -->
+
+      <!-- ================= CARD 5: DATABRICKS FUNDAMENTALS ================= -->
       <a 
-        href="YOUR_CREDENTIAL_LINK_7" 
+        href="https://credentials.databricks.com/592a86e3-baf2-451d-aa34-c5238decd63f#acc.kblrBDNH" 
         target="_blank" 
         rel="noopener noreferrer"
-        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-indigo-500/50 transition-all group flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] min-h-[270px] shadow-lg hover:-translate-y-1"
+        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-[#FF3621]/50 transition-all group flex flex-col h-full shadow-lg hover:-translate-y-1"
+      >
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-[#FF3621]/15 border border-[#FF3621]/30 flex items-center justify-center text-[#FF3621] shrink-0">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verified
+            </span>
+          </div>
+
+          <span class="text-[10px] font-mono text-[#FF5F46] bg-[#FF3621]/20 border border-[#FF3621]/20 px-2 py-0.5 rounded-full inline-block mb-2">
+            Databricks
+          </span>
+          <h4 class="text-base font-bold text-white group-hover:text-[#FF5F46] transition-colors mb-1.5">
+            Databricks Fundamentals
+          </h4>
+          <p class="text-xs text-brand-muted leading-relaxed">
+            Lakehouse architecture, Delta Lake operations, data governance, and data engineering.
+          </p>
+        </div>
+
+        <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-[#FF3621] group-hover:text-[#FF5F46]">
+          <span>Verify Credential</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+        </div>
+      </a>
+
+
+            <!-- ================= CARD 6: AZURE DATA FUNDAMENTALS ================= -->
+      <a 
+        href="https://learn.microsoft.com/en-us/users/rahulvs-8640/credentials/ae569f8af7de5bcd?ref=https%3A%2F%2Fwww.linkedin.com%2F" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-[#0078D4]/50 transition-all group flex flex-col h-full shadow-lg hover:-translate-y-1"
+      >
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-[#0078D4]/15 border border-[#0078D4]/30 flex items-center justify-center text-[#50A9F5] shrink-0">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verified
+            </span>
+          </div>
+
+          <span class="text-[10px] font-mono text-[#50A9F5] bg-[#0078D4]/20 border border-[#0078D4]/20 px-2 py-0.5 rounded-full inline-block mb-2">
+            Microsoft Azure
+          </span>
+          <h4 class="text-base font-bold text-white group-hover:text-[#50A9F5] transition-colors mb-1.5">
+            Azure Data Fundamentals
+          </h4>
+          <p class="text-xs text-brand-muted leading-relaxed">
+            Relational, non-relational core data concepts, and analytical data workloads on Azure.
+          </p>
+        </div>
+
+        <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-[#50A9F5] group-hover:text-white">
+          <span>Verify Credential</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+        </div>
+      </a>
+
+
+      <!-- ================= CARD 7: ANDROID APP DEVELOPMENT ================= -->
+      <a 
+        href="https://elearn.nptel.ac.in/Ecertificate?q=NP23WS714460092817&trk=public_profile_certification-title" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="glass-card p-6 rounded-2xl border border-white/10 hover:border-indigo-500/50 transition-all group flex flex-col h-full shadow-lg hover:-translate-y-1"
       >
         <div>
           <div class="flex items-start justify-between gap-3 mb-4">
             <div class="w-10 h-10 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0">
-              <i data-lucide="sparkles" class="w-5 h-5"></i>
+              <i data-lucide="smartphone" class="w-5 h-5"></i>
             </div>
             <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 shrink-0">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verified
@@ -943,30 +993,33 @@
           </div>
 
           <span class="text-[10px] font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-500/20 px-2 py-0.5 rounded-full inline-block mb-2">
-            AI Specialization
+            Android App Development
           </span>
           <h4 class="text-base font-bold text-white group-hover:text-indigo-300 transition-colors mb-1.5">
-            Generative AI & Deep Learning
+            Introduction to Android App Development
           </h4>
           <p class="text-xs text-brand-muted leading-relaxed">
             Neural architectures, foundational transformers, vector representations, and fine-tuning.
           </p>
         </div>
 
-        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-indigo-400 group-hover:text-indigo-300">
+        <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-indigo-400 group-hover:text-indigo-300">
           <span>Verify Credential</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+
         </div>
       </a>
-
     </div>
-
   </div>
 </section>
 
-<!-- CONTACT SECTION (Left Info + Right Project Form) -->
-<section id="contact" class="w-full py-24 relative z-10 scroll-mt-20">
-  <div class="max-w-6xl mx-auto px-6">
+          <!-- ================= CONTACTS SECTION (Left Info + Right Project Form) ================= -->
+
+
+<section id="contact" class="w-full relative z-10 scroll-mt-20">
+  <!-- Full-Width Stretched Glass Panel -->
+  <div class="w-full glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-10 lg:px-12 py-16 sm:py-24 reveal">
+    <div class="max-w-6xl mx-auto w-full">
     
     <!-- Grid Container -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
@@ -1092,13 +1145,15 @@
             <textarea 
               name="message" 
               rows="4" 
-              placeholder="Tell me about your project, team, or opportunity..." 
+              placeholder="Tell me about your project or opportunity..." 
               required
               class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-brand-muted/40 focus:outline-none focus:border-purple-500/60 focus:bg-white/[0.06] transition-all text-sm resize-none"
             ></textarea>
           </div>
 
-    <!-- INTERACTIVE GRADIENT DESCENT VERIFICATION -->
+           <!-- ================= INTERACTIVE GRADIENT DESCENT VERIFICATION ================= -->
+
+           
     <div id="loss-verification-container" class="space-y-1.5 text-left select-none">
       <div class="flex items-center justify-between text-[11px] font-mono">
         <span class="text-brand-muted flex items-center gap-1.5">
@@ -1152,7 +1207,8 @@
 </section>
 </main>
 
-<!-- FOOTER -->
+           <!-- ================= FOOTER SECTION ================= -->
+            
 <footer class="py-3 border-t border-white/5 relative z-10">
   <div class="max-w-3xl mx-auto px-6 flex flex-col items-center justify-center text-center">
     
@@ -1204,15 +1260,16 @@
         </svg>
       </a>
 
-      <!-- WhatsApp -->
+      <!-- X / Twitter -->
       <a 
-        href="https://wa.me/919876543210" 
+        href="https://x.com/rahul__venu" 
         target="_blank" 
-        aria-label="WhatsApp"
+        rel="noopener noreferrer"
+        aria-label="X (Twitter)"
         class="hover:text-white hover:scale-110 transition-all p-1"
       >
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.13.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.59.21-1.09.14-1.19-.06-.09-.22-.16-.47-.28"/>
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       </a>
 
@@ -1221,12 +1278,14 @@
     <!-- 3. Rights: Snapped tightly with closed span -->
     <p class="text-[11px] text-brand-muted/70 font-mono inline-flex items-center justify-center gap-1.5 text-center">
       <span class="text-sm font-sans leading-none">©</span>
-      <span><span id="year"></span> Rahul Venu. All rights reserved. Made with <span class="text-red-500">❤</span></span>
+      <span><span id="year"></span> Rahul V S. All rights reserved. Made with <span class="text-red-500">❤</span></span>
     </p>
   </div>
 </footer>
 
-  <!-- ================= CHATBOT WIDGET ================= -->
+           <!-- ================= CHATBOT WIDGET SECTION ================= -->
+
+
   <button id="chatbot-toggle" class="chat-toggle-btn" aria-label="Open AI Assistant">
     <i data-lucide="sparkles" id="chat-icon-open" class="w-5 h-5 text-white"></i>
     <i data-lucide="x" id="chat-icon-close" class="w-5 h-5 text-white hidden"></i>
@@ -1268,7 +1327,7 @@
 
     <!-- Line 3: Purpose -->
     <p class="text-xs text-slate-300 leading-relaxed">
-      I know Rahul's projects, skills, tech stack, and probably more than his resume would tell you.
+      I know Rahul’s projects, skills, tech stack, and everything his resume conveniently left out!..
     </p>
 
     <!-- Line 4: Prompt -->
@@ -1300,9 +1359,14 @@
       </button>
     </form>
   </div>
-  <!-- =================================================== -->
 
-  <!-- Load Master Entry Script -->
+
+      <!-- ====================================================================================================== -->
+
+
+
+           <!-- ================= MAIN ENTRY SCRIPT ================= -->
+
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
