@@ -90,7 +90,6 @@ body {
   z-index: 0;
 }
 
-
 /* Floor Shadow Grounded Below the Sculpture */
 .hero-floor-shadow {
   position: absolute;
@@ -124,42 +123,45 @@ body {
 }
 
 
-/* ================= 3. MATTE CHARCOAL THEME (CARDS & BANDS) ================= */
+/* ================= 3. CARDS, PANELS & BUTTONS ================= */
 
-/* Standalone Cards (Projects & Certifications) */
+/* 1. Standalone Cards on #000000 Canvas (Projects & Certifications) */
 .glass-card {
-  background: #0a0a0d;
+  /* Lighter charcoal so it stands out distinctly against pitch black */
+  background: #18181c; 
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow: none;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Unified Hover: Color + Lift + Pauses Drift Animation */
 .glass-card:hover {
-  background: #111116;
+  background: #202026;
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-3px);
   animation-play-state: paused;
 }
 
-/* Full-Width Alternating Bands (About, Skills, Contact) */
+/* 2. Full-Width Alternating Section Bands (About, Skills, Contact) */
 .glass-card.border-y {
-  background: #141416 !important;
+  background: #141416 !important; /* Lighter charcoal band */
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   box-shadow: none !important;
   transform: none !important;
 }
 
-/* Cards Nested INSIDE the Alternating Band (Skills 4x2 Grid) */
-.glass-card.border-y .glass-card {
-  background: #0a0a0d;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+/* 3. Cards & Tiles INSIDE Band (About, Skills, Contact) */
+/* Darker obsidian tone so they contrast sharply */
+.glass-card.border-y .glass-card,
+.glass-card.border-y [class*="bg-white/[0.02]"] {
+  background-color: #0a0a0d !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
 }
 
-.glass-card.border-y .glass-card:hover {
-  background: #111116;
-  border-color: rgba(255, 255, 255, 0.2);
+.glass-card.border-y .glass-card:hover,
+.glass-card.border-y [class*="bg-white/[0.02]"]:hover {
+  background-color: #111116 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
   transform: translateY(-3px) !important;
 }
 
@@ -175,7 +177,6 @@ body {
   background: #18181f;
   border-color: rgba(255, 255, 255, 0.25);
 }
-
 
 /* ================= 4. HERO DRIFT ANIMATIONS & IMAGE MASK ================= */
 
