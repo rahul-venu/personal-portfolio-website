@@ -22,8 +22,6 @@ export function initNeuralCanvas() {
   let rotX = 0.26;
   let rotY = -0.38;
 
-  const TOTAL_PARTICLES = 3200;
-
   function resize() {
     const parent = canvas.parentElement;
     dpr = window.devicePixelRatio || 1;
