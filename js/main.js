@@ -4,6 +4,7 @@ import { initChatbot } from './chatbot.js';
 import { initBikeRun } from './bike-anim.js';
 import { initNeuralCanvas } from './neural.js';
 import { initLossVerification } from './verification.js';
+import { initRotaryCounter } from './rotary.js'; 
 
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
@@ -18,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initChatbot();
   initNeuralCanvas();
   initBikeRun();
-  initLossVerification(); 
+  initLossVerification();
+  initRotaryCounter(); 
 
   // ================= CLICK-TO-COPY EMAIL =================
   const emailCard = document.querySelector('a[href^="mailto:"]');
