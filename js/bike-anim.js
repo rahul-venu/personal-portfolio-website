@@ -111,7 +111,7 @@ export function initBikeRun() {
             opacity: 0
           }
         ], {
-          duration: 5100, // 1.7 second smooth ride
+          duration: 5100, 
           easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
           fill: 'forwards'
         });
