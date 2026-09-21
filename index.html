@@ -292,7 +292,7 @@
           <!-- Card 9 -->
           <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
             <span class="text-[10px] font-mono text-blue-400 block mb-1">PROGRAMMING</span>
-            <p class="text-xs font-semibold text-white whitespace-nowrap">Python • Relational SQL</p>
+            <p class="text-xs font-semibold text-white whitespace-nowrap">Python • Relational SQL • HTML&CSS [Basic]</p>
           </div>
 
           <!-- Card 10 -->
@@ -371,21 +371,22 @@
       <!-- ================= PROJECT 1: ABIA ================= -->
       <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-purple-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
         
-        <!-- TOP ROW: Badges on left + Lifted Buttons on top-right -->
+        <!-- Top Row: Badges + Buttons -->
         <div class="flex items-center justify-between gap-4 mb-4">
-          <!-- Badges -->
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-[10px] font-mono font-medium text-purple-300 bg-purple-950/60 border border-purple-500/30 px-2.5 py-1 rounded-full">
-              Agentic AI
+              Agentic AI System
+            </span>
+            <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-2.5 py-1 rounded-full">
+              Self-Healing Graph
             </span>
             <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live App
             </span>
           </div>
 
-          <!-- Action Buttons (Shifted Upwards to Top-Right Corner) -->
           <div class="flex items-center gap-2 shrink-0 -translate-y-1">
-            <a href="https://github.com/rahul-venu/Agentic-Business-Intelligence-Assistant-ABIA" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-purple-300 transition-colors" aria-label="GitHub">
+            <a href="https://github.com/rahul-venu/Agentic-Business-Intelligence-Assistant-ABIA" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
               </svg>
@@ -397,26 +398,30 @@
           </div>
         </div>
 
-        <!-- Full-Width Single Line Title -->
+        <!-- Single Line Title -->
         <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors tracking-tight mb-4 truncate">
           ABIA : Agentic Business Intelligence Assistant
         </h4>
 
-        <!-- Description -->
+        <!-- Curated Description -->
         <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow text-justify">
-          Architected a self-healing <strong class="text-white">LangGraph multi-agent pipeline</strong> powered by <strong class="text-white">Groq (Llama-3)</strong>. Autonomously coordinates specialized agents to decompose user queries, execute multi-table schema joins, and generate dynamic real-time insights with autonomous error-recovery.
+          Architected an enterprise-grade agentic analytics platform using <strong class="text-white">LangGraph</strong> and <strong class="text-white">Groq (Llama-3.3-70B)</strong> that eliminates mathematical hallucinations and unsafe dynamic code execution. The LLM acts strictly as a semantic compiler outputting typed <strong class="text-white">Pydantic</strong> query plans, delegating 100% of arithmetic and relational joins to a deterministic <strong class="text-white">Pandas</strong> engine. Features a cyclic self-healing state graph with automated retry loops, auto-injecting join guardrails, and full observability traced via <strong class="text-white">LangSmith</strong>.
         </p>
 
-        <!-- Footer -->
+        <!-- Tech Stack & Architecture -->
         <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
           <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
             <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">LangGraph</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Groq</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Python</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Groq LPU</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Llama-3.3-70B</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pydantic v2</span>
             <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pandas</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Plotly</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">LangSmith</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Streamlit</span>
           </div>
           <div class="text-[11px] text-brand-muted leading-relaxed">
-            <strong class="text-slate-300 font-mono">Methods:</strong> Self-healing workflows, reasoning, dynamic schema joins.
+            <strong class="text-slate-300 font-mono">Architecture:</strong> Semantic plan compilation, deterministic execution safety, cyclic self-healing loops, auto-join injection.
           </div>
         </div>
       </article>
@@ -424,47 +429,58 @@
       <!-- ================= PROJECT 2: RoBERTa EMOTION ================= -->
       <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
         
-        <!-- TOP ROW: Badges on left + Lifted Buttons on top-right -->
+        <!-- Top Row: Badges + Lifted Buttons -->
         <div class="flex items-center justify-between gap-4 mb-4">
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-[10px] font-mono font-medium text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-2.5 py-1 rounded-full">
               NLP • Transformers
             </span>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full">
-              86% F1-Score
+            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/40 border border-purple-500/20 px-2.5 py-1 rounded-full">
+              IITM Project
+            </span>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 86% F1 (Kaggle)
             </span>
           </div>
 
           <div class="flex items-center gap-2 shrink-0 -translate-y-1">
-            <a href="https://github.com/rahul-venu/roberta-emotion-detection-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-cyan-300 transition-colors" aria-label="GitHub">
+            <a href="https://github.com/rahul-venu/roberta-emotion-detection-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
               </svg>
             </a>
             <a href="https://text-emotion-finder.streamlit.app/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-cyan-300 hover:text-white border-cyan-500/30 inline-flex items-center gap-1.5 transition-all">
-              <span>App</span>
+              <span>Live App</span>
               <i data-lucide="external-link" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
-        <!-- Full-Width Single Line Title -->
+        <!-- Single Line Title -->
         <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors tracking-tight mb-4 truncate">
           Multi-Label Emotion Classification via RoBERTa
         </h4>
 
+        <!-- Curated Description -->
         <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow text-justify">
-          Fine-tuned a <strong class="text-white">RoBERTa transformer</strong> using PyTorch & Hugging Face. Addressed severe minority-class imbalance using BCEWithLogitsLoss and Focal Loss, paired with regex text cleaning and targeted paraphrasing data augmentation. Deployed as a real-time Streamlit web app.
+          Fine-tuned a <strong class="text-white">RoBERTa-base</strong> transformer with <strong class="text-white">PyTorch & Hugging Face</strong> for multi-label emotion classification, securing an <strong class="text-white">86% macro F1-score on Kaggle</strong>. Neutralized severe minority-class sparsity through <strong class="text-white">targeted paraphrasing data augmentation</strong> and <strong class="text-white">regex text normalization</strong>, paired with calibrated <strong class="text-white">BCEWithLogitsLoss</strong> and threshold-based logit filtering. Deployed via a modular <strong class="text-white">Streamlit Cloud</strong> app streaming weights dynamically from the <strong class="text-white">Hugging Face Hub</strong>.
         </p>
 
+        <!-- Tech Stack & Architecture -->
         <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
           <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
             <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">PyTorch</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Transformers</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Streamlit</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Hugging Face Hub</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">RoBERTa-base</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">BCEWithLogitsLoss</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Tokenizers</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">NumPy</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Data Augmentation</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Regex</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Streamlit Cloud</span>
           </div>
           <div class="text-[11px] text-brand-muted leading-relaxed">
-            <strong class="text-slate-300 font-mono">Methods:</strong> Multi-label classification, Focal Loss, paraphrasing.
+            <strong class="text-slate-300 font-mono">Architecture:</strong> Minority paraphrasing augmentation, regex text cleaning, threshold logit calibration, decoupled HF Hub weight streaming.
           </div>
         </div>
       </article>
@@ -472,48 +488,57 @@
       <!-- ================= PROJECT 3: PURCHASE VALUE ================= -->
       <article class="glass-card p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-indigo-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
         
-        <!-- TOP ROW: Badges on left + Lifted Buttons on top-right -->
+        <!-- Top Row: Badges + Lifted Buttons -->
         <div class="flex items-center justify-between gap-4 mb-4">
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-[10px] font-mono font-medium text-indigo-300 bg-indigo-950/60 border border-indigo-500/30 px-2.5 py-1 rounded-full">
               Predictive ML
             </span>
+            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/40 border border-purple-500/20 px-2.5 py-1 rounded-full">
+              IITM Project
+            </span>
             <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full">
-              R² Improved ~12%
+              R² Improved ~12% (Kaggle)
             </span>
           </div>
 
           <div class="flex items-center gap-2 shrink-0 -translate-y-1">
-            <a href="https://github.com/rahul-venu/purchase-value-prediction-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-indigo-300 transition-colors" aria-label="GitHub">
+            <a href="https://github.com/rahul-venu/purchase-value-prediction-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
               <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
               </svg>
             </a>
-            <a href="https://www.kaggle.com/competitions/engage-2-value-from-clicks-to-conversions" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-indigo-300 hover:text-white border-indigo-500/30 inline-flex items-center gap-1.5 transition-all">
+            <a href="https://www.kaggle.com/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-indigo-300 hover:text-white border-indigo-500/30 inline-flex items-center gap-1.5 transition-all">
               <span>Kaggle</span>
               <i data-lucide="external-link" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
-        <!-- Full-Width Single Line Title -->
+        <!-- Single Line Title -->
         <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors tracking-tight mb-4 truncate">
-          Purchase Value Prediction (Multi-Session)
+          Purchase Value Prediction (Multi-Session Telemetry)
         </h4>
 
+        <!-- Curated Description -->
         <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow text-justify">
-          Built an end-to-end regression ML pipeline to predict customer value from high-dimensional telemetry. Handled severe zero-inflation (<strong class="text-white">~80% zeros</strong>) through logarithmic transformations. Benchmarked XGBoost, LightGBM, and selected Random Forest for final submission.
+          Engineered an end-to-end tabular regression pipeline predicting customer spend from high-dimensional multi-session user telemetry for an <strong class="text-white">IIT Madras Kaggle benchmark</strong>. Neutralized severe <strong class="text-white">≈80% zero-inflation</strong> and right-tail skewness via log1p target transformation and inverse exponential inference, boosting validation <strong class="text-white">R² by ~12%</strong>. Formulated session-to-user aggregations, target encodings, and <strong class="text-white">PCA</strong> dimensionality reduction before benchmarking <strong class="text-white">XGBoost, LightGBM, and Random Forest</strong>.
         </p>
 
+        <!-- Tech Stack & Architecture -->
         <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
           <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
             <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Scikit-learn</span>
             <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Random Forest</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">LightGBM</span>
             <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">XGBoost</span>
             <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">PCA</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pandas</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">NumPy</span>
+            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Kaggle</span>
           </div>
           <div class="text-[11px] text-brand-muted leading-relaxed">
-            <strong class="text-slate-300 font-mono">Methods:</strong> Zero-inflated regression, PCA, user aggregation.
+            <strong class="text-slate-300 font-mono">Architecture:</strong> Zero-inflated log1p target modeling, multi-session feature aggregation, PCA variance compression.
           </div>
         </div>
       </article>
@@ -585,33 +610,34 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
 
         <!-- ================= 1. AGENTIC AI & LLM SYSTEMS ================= -->
-        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all flex flex-col h-full group shadow-lg">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-purple-950/40 border border-purple-500/30 flex items-center justify-center text-purple-400">
-                <i data-lucide="bot" class="w-5 h-5"></i>
-              </div>
-              <span class="text-[10px] font-mono text-purple-300 bg-purple-950/60 border border-purple-500/20 px-2 py-0.5 rounded-full">
-                Specialty
-              </span>
+      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all flex flex-col h-full group shadow-lg">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-purple-950/40 border border-purple-500/30 flex items-center justify-center text-purple-400">
+              <i data-lucide="bot" class="w-5 h-5"></i>
             </div>
-            <h4 class="text-base font-bold text-white mb-4 group-hover:text-purple-300 transition-colors">
-              Agentic AI & LLM Systems
-            </h4>
+            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/60 border border-purple-500/20 px-2 py-0.5 rounded-full">
+              Specialty
+            </span>
           </div>
-
-          <!-- mt-auto pushes this to the bottom so all cards line up perfectly -->
-          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangChain</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Tool Calling</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Autonomous Workflows</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Task Decomposition</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LLM Orchestration</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Memory & Context</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Multi-step Reasoning</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">AI Agents</span>
-          </div>
+          <h4 class="text-base font-bold text-white mb-4 group-hover:text-purple-300 transition-colors">
+            Agentic AI & LLM Systems
+          </h4>
         </div>
+
+        <!-- Tightly Packed Tag Container -->
+        <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangChain</span>
+          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangGraph</span>
+          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">AI Agents</span>
+          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Google ADK</span>
+          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Autonomous Workflows</span>
+          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LLM Orchestration</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Context & Memory</span>
+          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Multi-Step Reasoning</span>
+          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Tool Calling</span>
+        </div>
+      </div>
 
         <!-- ================= 2. NLP & GENAI ================= -->
         <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-cyan-500/50 transition-all flex flex-col h-full group shadow-lg">
@@ -631,13 +657,15 @@
 
           <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">RAG</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">spaCy</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">NLTK</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regex</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LLMs</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Vector Embeddings</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Semantic Search</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">HuggingFace</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">BERT & LLMs</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Prompt Engineering</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">spaCy & NLTK</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regex</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">BERT</span>
           </div>
         </div>
 
@@ -660,9 +688,12 @@
           <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">PyTorch</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">TensorFlow</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Transformers</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Quantization</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Transformers [HuggingFace]</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Neural Networks</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Fine-Tuning</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Attention Mechanisms</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LoRA / QLoRA</span>
           </div>
         </div>
 
@@ -684,10 +715,14 @@
 
           <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Scikit-learn</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">XGBoost / LightGBM</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Feature Engineering</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regression</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Evaluation</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regression & Classification</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Classification</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Hyper Para. Tuning</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Cross-Validation</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Supervised / Unsupervised Learning</span>
           </div>
         </div>
 
@@ -710,6 +745,8 @@
           <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Python</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Relational SQL</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">HTML [Basic] </span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">CSS [Basic] </span>
           </div>
         </div>
 
@@ -730,11 +767,12 @@
           </div>
 
           <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">PySpark</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Pandas</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">NumPy</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Jupyter Notebook</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Git</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">GitHub</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Jupyter</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Git | GitHub</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">VS Code | PyCharm</span>
           </div>
         </div>
 
@@ -756,12 +794,14 @@
 
           <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Streamlit</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Gradio</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Matplotlib</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Seaborn</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Interactive Dashboards</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Deployment UI</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Data Visualization</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Plotly</span>
           </div>
         </div>
-
+        
         <!-- ================= 8. MLOPS & DEPLOYMENT ================= -->
         <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-sky-500/50 transition-all flex flex-col h-full group shadow-lg">
           <div>
@@ -782,11 +822,11 @@
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">FastAPI</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Docker</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">MLflow</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangSmith</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Azure Cloud</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">ZenML</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">CI/CD Pipelines</span>
+            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">GitHub Actions</span>
             <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Versioning</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Experiment Tracking</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Heroku</span>
           </div>
         </div>
 
@@ -1071,7 +1111,7 @@
   </div>
 </section>
 
-          <!-- ================= CONTACTS SECTION (Left Info + Right Project Form) ================= -->
+          <!-- ================= CONTACTS SECTION (Left Info + Right Contact Form) ================= -->
 
 
 <section id="contact" class="w-full relative z-10 scroll-mt-20">
@@ -1112,15 +1152,20 @@
         <div class="space-y-4 w-full">
           
           <!-- Location Card -->
-          <div class="flex items-center gap-4 p-3.5 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-white/10 transition-colors">
-            <div class="w-11 h-11 rounded-xl bg-purple-950/40 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0">
+          <a 
+            href="https://www.google.com/maps/search/?api=1&query=9.2648,76.7870" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="flex items-center gap-4 p-3.5 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-purple-500/40 hover:bg-purple-950/10 transition-all group cursor-pointer"
+          >
+            <div class="w-11 h-11 rounded-xl bg-purple-950/40 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0 group-hover:scale-110 transition-transform">
               <i data-lucide="map-pin" class="w-5 h-5"></i>
             </div>
             <div>
               <span class="text-[11px] font-mono text-brand-muted block">Location</span>
-              <p class="text-sm font-semibold text-white">Pathanamthitta, Kerala, India </p>
+              <p class="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors">Pathanamthitta, Keralam, India</p>
             </div>
-          </div>
+          </a>
 
           <!-- Email Card -->
           <a href="mailto:rahulvenuklr@gmail.com" class="flex items-center gap-4 p-3.5 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-purple-500/40 hover:bg-purple-950/10 transition-all group">
@@ -1292,7 +1337,7 @@
         href="https://github.com/rahul-venu" 
         target="_blank" 
         aria-label="GitHub"
-        class="hover:text-white hover:scale-110 transition-all p-1"
+          class="hover:text-[#F1502F] hover:scale-110 transition-all p-1"
       >
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
           <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
@@ -1304,7 +1349,7 @@
         href="https://linkedin.com/in/rahulvs13" 
         target="_blank" 
         aria-label="LinkedIn"
-        class="hover:text-white hover:scale-110 transition-all p-1"
+        class="hover:text-[#0A66C2] hover:scale-110 transition-all p-1"
       >
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
           <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.97 0-1.75-.79-1.75-1.76s.78-1.75 1.75-1.75c.97 0 1.76.78 1.76 1.75s-.79 1.76-1.76 1.76m1.39 9.74v-8.37H5.07v8.37h2.78z"/>
@@ -1316,10 +1361,23 @@
         href="https://instagram.com/rahul__venu" 
         target="_blank" 
         aria-label="Instagram"
-        class="hover:text-white hover:scale-110 transition-all p-1"
+        class="hover:text-[#E1306C] hover:scale-110 transition-all p-1"
       >
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+
+      <!-- Kaggle -->
+      <a 
+        href="https://kaggle.com/rahulvenu13" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        aria-label="Kaggle"
+        class="hover:text-cyan-400 hover:scale-110 transition-all p-1"
+      >
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+          <path d="M18.825 23.859c-.022.09-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.352c-.234 0-.352-.117-.352-.352V.352c0-.235.118-.352.352-.352h2.584c.234 0 .351.117.351.352v13.328l6.398-6.398c.141-.141.282-.211.423-.211h3.35c.164 0 .258.07.281.211.023.187-.047.305-.211.469l-6.188 6.011 6.681 9.479c.141.164.188.282.164.446z"/>
         </svg>
       </a>
 
