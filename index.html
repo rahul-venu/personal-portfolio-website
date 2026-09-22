@@ -1420,7 +1420,8 @@
   <div class="chat-header">
   <div class="flex items-center gap-2">
     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-    <span class="font-semibold text-sm text-white">Ask My AI</span>
+    <span class="font-semibold text-sm text-white">Zoe</span>
+    <span class="text-[11px] font-mono text-white/80">| AI Companion</span>
   </div>
 
   <!-- MINIMIZE BUTTON -->
@@ -1441,7 +1442,7 @@
     
     <!-- Line 1: Friendly Greeting -->
     <div class="flex items-center gap-1.5 font-semibold text-white text-sm">
-      <span>Hey there!</span>
+      <span>Hey I'm Zoe..! </span>
       <span class="inline-block animate-pulse">👋</span>
     </div>
 
@@ -1460,19 +1461,28 @@
       So… what are you curious about?
     </p>
 
-    <!-- Line 5: Clickable Quick-Tap Prompt Chips -->
-    <div class="pt-1.5 flex flex-wrap gap-1.5">
-      <button type="button" class="chat-chip text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 text-purple-300 transition-all">
+    <!-- Line 5: Clickable Quick-Tap Prompt Chips (Clean 2x2 Grid) -->
+    <div class="pt-1.5 grid grid-cols-2 gap-1.5">
+      
+      <!-- Row 1 -->
+      <button type="button" class="chat-chip text-[11px] px-2 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 text-purple-300 transition-all text-center truncate">
         ⚡ Top skills & stack?
       </button>
-      <button type="button" class="chat-chip text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 text-purple-300 transition-all">
+
+      <button type="button" class="chat-chip text-[11px] px-2 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 text-purple-300 transition-all text-center truncate">
         🚀 Key projects?
       </button>
-      <button type="button" class="chat-chip text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 text-purple-300 transition-all">
-        📬 How to contact?
-      </button>
-    </div>
 
+      <!-- Row 2 -->
+      <button type="button" class="chat-chip text-[11px] px-2 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 text-purple-300 transition-all text-center truncate">
+        🏔️ Fav destination?
+      </button>
+
+      <button type="button" class="chat-chip text-[11px] px-2 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 text-purple-300 transition-all text-center truncate">
+        👀 Single/Committed?
+      </button>
+
+    </div>
   </div>
 
 </div>
