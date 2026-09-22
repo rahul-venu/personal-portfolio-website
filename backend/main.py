@@ -1,16 +1,24 @@
 import os
+from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from groq import Groq
 from pydantic import BaseModel
+from rag_engine import initialize_rag, retrieve_context
 
 load_dotenv()
 
-app = FastAPI(title="Rahul Venu's Portfolio Chatbot API")
 
-# Allow your frontend to communicate with this backend
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    initialize_rag()
+    yield
+
+
+app = FastAPI(title="Rahul V S Portfolio RAG API", lifespan=lifespan)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -19,58 +27,88 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize Groq client
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+
+# 1. Pydantic Models for Multi-Turn History
+class HistoryMessage(BaseModel):
+    role: str  # "user" or "assistant"
+    content: str
 
 
 class ChatRequest(BaseModel):
     message: str
+    history: list[HistoryMessage] = []
 
 
-# SYSTEM PROMPT: The Brain of AI Clone
-SYSTEM_PROMPT = """
-You are Rahul Venu's AI clone on his portfolio. Speak in first-person ('I', 'my'). Be confident, friendly, and concise (2–4 sentences unless technical depth is requested).
+STRICT_RAG_PROMPT = """
+You are Zoe, Rahul V S's personal AI Assistant and digital representative on his portfolio website.
+Speak in the first person ("I", "my") representing Rahul with a confident, warm, witty, and professional tone.
+Keep answers concise (2 to 4 sentences usually, unless depth is asked).
+You have access to the recent conversation history to understand pronouns like "it", "that", "he", or "the project".
 
-Profile:
-- Role: Data Scientist & Generative AI Engineer
-- Education: B.E. CSE | Data Science & Applications at IIT Madras (IITM)
-- Core Stack: LangGraph, Groq, RAG, PyTorch, Hugging Face, Scikit-Learn, FastAPI, Docker, SQL
 
-Featured Projects:
-1. ABIA: Self-healing multi-agent BI system (LangGraph, Groq Llama-3.3-70B, Pydantic, Pandas) for zero-hallucination relational analytics.
-2. RoBERTa Emotion Detection: Multi-label transformer fine-tuned in PyTorch with Focal Loss (86% Kaggle F1).
-3. Purchase Value Prediction: Regression pipeline for 80% zero-inflated telemetry using PCA & tree ensembles (R² +12%).
-
-Guidelines:
-- Direct hiring/contact queries to rahulvenuklr@gmail.com, LinkedIn, or the site contact form.
-- Never hallucinate or invent unlisted skills/experience.
-- Format with generous spacing and line breaks; put every bullet point on its own separate line.
+GROUNDING RULES:
+1. Answer using the factual and personal details provided in the [RETRIEVED CONTEXT] and conversation history.
+2. Conversational & Nuanced Queries: If the context explains your perspective on a topic (e.g., asking "who is your girlfriend" when context says you are single, or asking for "favorite cinema" when context explains your movie habits and cache clearing), answer naturally and wittily using those facts!
+3. Fallback: ONLY trigger the fallback if the topic is 100 percent absent from the context:
+   "I don't have that specific detail in my knowledge base, but feel free to connect with Rahul directly at rahulvenuklr@gmail.com or via LinkedIn!"
+4. Anti-Hallucination: NEVER invent, fabricate, or extrapolate unlisted projects, skills, or personal life details.
+5. Formatting: Format responses cleanly with line breaks; put every bullet point on its own separate line.
+6. Connect & Socials: When asked about socials or ways to connect, provide clickable markdown links to all the socials listed in the context, and include Rahul's email address.
 """
 
 
 @app.get("/")
 def root():
-    return {"status": "online", "model": "llama-3.3-70b-versatile"}
+    return {"status": "online", "engine": "RAG-ChromaDB + Groq (openai/gpt-oss-20b)"}
 
 
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
-    if not request.message.strip():
+    user_query = request.message.strip()
+    if not user_query:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
+
+    # 2. Contextualized Semantic Search for Follow-ups
+    # If the user says "What model does it use?", enrich search with prior query
+    search_query = user_query
+    if request.history:
+        last_user_query = next(
+            (m.content for m in reversed(request.history) if m.role == "user"), ""
+        )
+        if last_user_query:
+            search_query = f"{last_user_query} {user_query}"
+
+    # Retrieve relevant chunks from ChromaDB
+    context = retrieve_context(search_query, n_results=2)
+
+    # 3. Construct Multi-Turn Messages Array
+    messages = [{"role": "system", "content": STRICT_RAG_PROMPT}]
+
+    # Inject last 4 messages for conversational context
+    for msg in request.history[-4:]:
+        messages.append({"role": msg.role, "content": msg.content})
+
+    # Add current grounded user turn
+    grounded_turn = f"""[RETRIEVED CONTEXT]:
+{context}
+
+[USER QUESTION]:
+{user_query}"""
+
+    messages.append({"role": "user", "content": grounded_turn})
 
     try:
         completion = client.chat.completions.create(
             model="openai/gpt-oss-20b",
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": request.message},
-            ],
-            temperature=0.6,
+            messages=messages,
+            temperature=0.2,
             max_tokens=350,
         )
         reply = completion.choices[0].message.content
         return {"reply": reply}
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         print(f"Groq API Error: {e}")
         return {
             "reply": "I'm having a brief connection glitch with my AI engine. Feel free to reach out to Rahul directly via email or LinkedIn!"
