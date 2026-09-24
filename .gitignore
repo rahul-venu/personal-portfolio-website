@@ -16,4 +16,4 @@ Thumbs.db
 .vscode/
 
 # Private Personal Profile (RAG Knowledge Base)
-backend/data/rahul_profile.md
+**/rahul_profile.md
