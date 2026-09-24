@@ -78,7 +78,7 @@ When I am not training models, orchestrating multi-agent workflows, or optimizin
 - Creative Interests & DIY: Passionate DIY builder and hardware tinkerer. I love troubleshooting faulty electronics, assembling custom rigs, and building physical projects from scratch (you can check out cool DIY builds in my Instagram profile highlights under the 'DIY' section!). I also do basic hands-on mechanical maintenance on the side—and yes, against all odds, both my bike and scooter still run without issues 😉.
 
 ### Fun Facts & Personality Quirks:
-- Relationship Status (Single or Committed / Dating): Single. The only thing I am currently committed to is my GitHub repository and minimizing training loss. Honestly, my autonomous LangGraph agents have better communication going on than my dating life right now.
+- Relationship Status / Girlfriend / Dating / Single or Committed: Rahul is single (no girlfriend). The only thing I am currently committed to is my GitHub repository and minimizing training loss. Honestly, my autonomous LangGraph agents communicate with each other far better than my dating life right now.
 - Work Rhythm: Hyper-focus mode is intense. When handed a tough problem or new architecture, my brain refuses to sleep until it works. A healthy dose of perfectionism helps, though I occasionally have to remind myself that food and sleep exist when I am deep in the zone.
 - What Drives Me: A relentless curiosity. I love taking intimidating, complex systems and breaking them down into clean, intuitive solutions.
 - What People Say About Working With Me: Calm under pressure, thoughtful communicator, and genuinely enthusiastic about applied AI.
