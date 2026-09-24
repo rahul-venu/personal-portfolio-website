@@ -70,27 +70,49 @@ async def chat(request: ChatRequest):
     if not user_query:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
 
-    # 2. Contextualized Semantic Search for Follow-ups
-    # If the user says "What model does it use?", enrich search with prior query
+    # 1. Smart Search (Avoids Query Pollution)
+    # Only attach previous turn if the user query is an ambiguous follow-up
+    pronoun_words = {
+        "it",
+        "that",
+        "this",
+        "they",
+        "them",
+        "its",
+        "why",
+        "how",
+        "more",
+        "and",
+    }
+    query_words = set(user_query.lower().split())
+
     search_query = user_query
-    if request.history:
+    if request.history and (
+        query_words.intersection(pronoun_words) or len(query_words) <= 2
+    ):
         last_user_query = next(
             (m.content for m in reversed(request.history) if m.role == "user"), ""
         )
         if last_user_query:
             search_query = f"{last_user_query} {user_query}"
 
-    # Retrieve relevant chunks from ChromaDB
-    context = retrieve_context(search_query, n_results=2)
+    # 2. Retrieve Top 4 Chunks (Zero latency penalty, massive context safety)
+    context = retrieve_context(search_query, n_results=4)
+
+    # DEBUG LOGS: Look at your VS Code terminal to see what ChromaDB found!
+    print(f"\n{'=' * 20} RAG DEBUG {'=' * 20}")
+    print(f"User Asked:   '{user_query}'")
+    print(f"Search Query: '{search_query}'")
+    print(f"Chunks Found: {len(context.split('---')) if context else 0}")
+    print(f"{'=' * 50}\n")
 
     # 3. Construct Multi-Turn Messages Array
     messages = [{"role": "system", "content": STRICT_RAG_PROMPT}]
 
-    # Inject last 4 messages for conversational context
+    # Inject last 4 messages for conversational continuity
     for msg in request.history[-4:]:
         messages.append({"role": msg.role, "content": msg.content})
 
-    # Add current grounded user turn
     grounded_turn = f"""[RETRIEVED CONTEXT]:
 {context}
 
@@ -103,8 +125,8 @@ async def chat(request: ChatRequest):
         completion = client.chat.completions.create(
             model="openai/gpt-oss-20b",
             messages=messages,
-            temperature=0.2,
-            max_tokens=350,
+            temperature=0.3,
+            max_tokens=400,
         )
         reply = completion.choices[0].message.content
         return {"reply": reply}
