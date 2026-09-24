@@ -10,9 +10,8 @@ export function initChatbot() {
 
   if (!toggleBtn || !chatWindow || !chatForm || !chatInput || !messagesContainer) return;
 
-  // Local Python FastAPI backend endpoint
-  const BACKEND_URL = "http://127.0.0.1:8000/api/chat";
-
+// Live Render URL:
+const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat";
   function toggleChat() {
     const isHidden = chatWindow.classList.contains('hidden');
     if (isHidden) {
