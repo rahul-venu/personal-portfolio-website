@@ -125,7 +125,7 @@ async def chat(request: ChatRequest):
         completion = client.chat.completions.create(
             model="openai/gpt-oss-20b",
             messages=messages,
-            temperature=0.3,
+            temperature=0.4,
             max_tokens=400,
         )
         reply = completion.choices[0].message.content
