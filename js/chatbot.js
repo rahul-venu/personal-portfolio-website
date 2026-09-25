@@ -11,7 +11,7 @@ export function initChatbot() {
   if (!toggleBtn || !chatWindow || !chatForm || !chatInput || !messagesContainer) return;
 
 // Live Render URL:
-const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat";
+const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat"; 
   function toggleChat() {
     const isHidden = chatWindow.classList.contains('hidden');
     if (isHidden) {
@@ -96,7 +96,7 @@ const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat";
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
             // ~18ms per character gives that buttery smooth typing rhythm
-            setTimeout(step, 18);
+            setTimeout(step, 8);
           } else if (streamDone) {
             // Ensure full text & markdown links are cleanly resolved at the end
             loadingBubble.innerHTML = formatMarkdown(fullStreamedText);
