@@ -72,7 +72,7 @@ def initialize_rag():
         )
 
 
-def retrieve_context(user_query: str, n_results: int = 4) -> str:
+def retrieve_context(user_query: str, n_results: int = 3) -> str:
     """Performs semantic similarity search to extract relevant context."""
     if collection.count() == 0:
         return ""
