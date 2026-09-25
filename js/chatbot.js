@@ -32,17 +32,29 @@ const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat";
   // --- IN-MEMORY CONVERSATION HISTORY ---
   let chatHistory = [];
 
-// CORE FUNCTION: Streams response in real-time from Python Backend
+// CORE FUNCTION: Streams response with smooth typewriter pacing
   async function sendQuery(userText) {
     if (!userText || !userText.trim()) return;
     const cleanText = userText.trim();
 
-    // 1. Add User's Message Bubble
+    // 1. Add User Bubble
     appendMessage(cleanText, 'user');
     chatInput.value = '';
 
-    // 2. Add Temporary Thinking Bubble
-    const loadingBubble = appendMessage("Thinking...", 'bot');
+    // 2. Free-floating pulsing orb 
+    const pulseOrb = `
+      <span class="relative flex h-2.5 w-2.5 my-1">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.9)]"></span>
+      </span>
+    `;
+
+    const loadingBubble = document.createElement('div');
+    loadingBubble.className = 'flex items-center py-1.5 px-1 self-start'; // Transparent, no background box!
+    loadingBubble.innerHTML = pulseOrb;
+    messagesContainer.appendChild(loadingBubble);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
 
     try {
       const res = await fetch(BACKEND_URL, {
@@ -56,34 +68,65 @@ const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat";
 
       if (!res.ok) throw new Error('Network error');
 
-      // 3. Read the stream token-by-token
       const reader = res.body.getReader();
       const decoder = new TextDecoder('utf-8');
-      let fullReply = '';
-      let isFirstChunk = true;
 
+      let fullStreamedText = '';
+      let displayedLength = 0;
+      let isFirstChar = true;
+      let streamDone = false;
+
+      // 3. Adaptive Smooth Typewriter Pacer
+      const typeLoop = new Promise((resolve) => {
+        const step = () => {
+          if (displayedLength < fullStreamedText.length) {
+            // Remove the floating state and style as a message when text lands
+            if (isFirstChar) {
+              loadingBubble.className = 'bot-bubble leading-relaxed';
+              loadingBubble.innerHTML = '';
+              isFirstChar = false;
+            }
+
+            // Adaptive Speed: Types 1 char at a time, but speeds up if queue is long
+            const diff = fullStreamedText.length - displayedLength;
+            const charsToAdd = diff > 80 ? 6 : diff > 30 ? 3 : 1;
+            displayedLength = Math.min(displayedLength + charsToAdd, fullStreamedText.length);
+
+            loadingBubble.innerHTML = formatMarkdown(fullStreamedText.slice(0, displayedLength));
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // ~18ms per character gives that buttery smooth typing rhythm
+            setTimeout(step, 18);
+          } else if (streamDone) {
+            // Ensure full text & markdown links are cleanly resolved at the end
+            loadingBubble.innerHTML = formatMarkdown(fullStreamedText);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            resolve();
+          } else {
+            // Wait for next network packet
+            setTimeout(step, 20);
+          }
+        };
+        step();
+      });
+
+      // 4. Stream Reader Consumer
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
-
-        // Wipe "Thinking..." the millisecond the first token lands
-        if (isFirstChunk) {
-          loadingBubble.innerHTML = '';
-          isFirstChunk = false;
+        if (done) {
+          streamDone = true;
+          break;
         }
-
         const chunk = decoder.decode(value, { stream: true });
-        fullReply += chunk;
-
-        // Live formatting & auto-scroll as words stream in
-        loadingBubble.innerHTML = formatMarkdown(fullReply);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        fullStreamedText += chunk;
       }
 
-      // 4. Save completed response to conversation history
-      chatHistory.push({ role: 'user', content: cleanText });
-      chatHistory.push({ role: 'assistant', content: fullReply.trim() });
+      // Wait until the visual typewriter finishes printing
+      await typeLoop;
 
+      // 5. Save completed turn to conversation history
+      chatHistory.push({ role: 'user', content: cleanText });
+      chatHistory.push({ role: 'assistant', content: fullStreamedText.trim() });
       if (chatHistory.length > 6) {
         chatHistory = chatHistory.slice(-6);
       }
@@ -163,12 +206,12 @@ const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat";
     const bubble = document.createElement('div');
     bubble.className = sender === 'user' ? 'user-bubble' : 'bot-bubble leading-relaxed';
     
-    // Use innerHTML for bot so formatting displays immediately
     if (sender === 'bot') {
-      bubble.innerHTML = formatMarkdown(text);
-    } else {
-      bubble.textContent = text;
-    }
+    // If it's the pulsing orb HTML, inject directly; otherwise format markdown
+    bubble.innerHTML = text.startsWith('<') ? text : formatMarkdown(text);
+  } else {
+    bubble.textContent = text;
+  }
     
     messagesContainer.appendChild(bubble);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
