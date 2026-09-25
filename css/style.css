@@ -404,3 +404,29 @@ section.page-active .photo-tag-reveal {
   transform: translateY(0);
   filter: blur(0px);
 }
+
+/* ================= 7. MOBILE RESPONSIVE GUARDS ================= */
+
+@media (max-width: 768px) {
+  /* Prevent background glowing spheres from bleeding off mobile screens */
+  .hero-depth-sphere {
+    width: 320px;
+    height: 320px;
+    left: 50%;
+    top: 45%;
+  }
+
+  .studio-nav-highlight {
+    width: 100vw;
+    height: 300px;
+  }
+
+  /* Compact the chat window for mobile phone screens */
+  .chat-window {
+    width: calc(100vw - 32px) !important;
+    right: 16px !important;
+    bottom: 78px !important;
+    height: 480px !important;
+    max-height: calc(100dvh - 120px) !important;
+  }
+}
