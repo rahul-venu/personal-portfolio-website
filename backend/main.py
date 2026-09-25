@@ -96,7 +96,7 @@ async def chat(request: ChatRequest):
         if last_user_query:
             search_query = f"{last_user_query} {user_query}"
 
-    context = retrieve_context(search_query, n_results=4)
+    context = retrieve_context(search_query, n_results=3)
 
     # 2. Multi-Turn Messages
     messages = [{"role": "system", "content": STRICT_RAG_PROMPT}]
