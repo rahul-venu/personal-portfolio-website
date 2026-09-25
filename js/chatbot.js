@@ -32,7 +32,7 @@ const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat";
   // --- IN-MEMORY CONVERSATION HISTORY ---
   let chatHistory = [];
 
-  // CORE FUNCTION: Sends message + history to Python Backend
+// CORE FUNCTION: Streams response in real-time from Python Backend
   async function sendQuery(userText) {
     if (!userText || !userText.trim()) return;
     const cleanText = userText.trim();
@@ -50,27 +50,46 @@ const BACKEND_URL = "https://rahul-portfolio-api.onrender.com/api/chat";
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           message: cleanText,
-          history: chatHistory // Sends multi-turn conversation memory
+          history: chatHistory 
         })
       });
 
       if (!res.ok) throw new Error('Network error');
-      const data = await res.json();
-      
-      // Update bubble with clean formatted answer from Groq
-      loadingBubble.innerHTML = formatMarkdown(data.reply);
 
-      // Save turns to history
+      // 3. Read the stream token-by-token
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let fullReply = '';
+      let isFirstChunk = true;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        // Wipe "Thinking..." the millisecond the first token lands
+        if (isFirstChunk) {
+          loadingBubble.innerHTML = '';
+          isFirstChunk = false;
+        }
+
+        const chunk = decoder.decode(value, { stream: true });
+        fullReply += chunk;
+
+        // Live formatting & auto-scroll as words stream in
+        loadingBubble.innerHTML = formatMarkdown(fullReply);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      // 4. Save completed response to conversation history
       chatHistory.push({ role: 'user', content: cleanText });
-      chatHistory.push({ role: 'assistant', content: data.reply });
+      chatHistory.push({ role: 'assistant', content: fullReply.trim() });
 
-      // Keep last 6 messages to stay lightweight
       if (chatHistory.length > 6) {
         chatHistory = chatHistory.slice(-6);
       }
 
     } catch (err) {
-      loadingBubble.textContent = "AI engine is currently offline. Please ensure your Python server is running on port 8000.";
+      loadingBubble.textContent = "AI engine is currently offline. Please ensure your Python server is running.";
       console.error(err);
     }
   }

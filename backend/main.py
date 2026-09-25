@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from groq import Groq
 from pydantic import BaseModel
 from rag_engine import initialize_rag, retrieve_context
@@ -70,8 +71,7 @@ async def chat(request: ChatRequest):
     if not user_query:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
 
-    # 1. Smart Search (Avoids Query Pollution)
-    # Only attach previous turn if the user query is an ambiguous follow-up
+    # 1. Smart Search (Contextualized RAG)
     pronoun_words = {
         "it",
         "that",
@@ -96,20 +96,10 @@ async def chat(request: ChatRequest):
         if last_user_query:
             search_query = f"{last_user_query} {user_query}"
 
-    # 2. Retrieve Top 4 Chunks (Zero latency penalty, massive context safety)
     context = retrieve_context(search_query, n_results=4)
 
-    # DEBUG LOGS: Look at your VS Code terminal to see what ChromaDB found!
-    print(f"\n{'=' * 20} RAG DEBUG {'=' * 20}")
-    print(f"User Asked:   '{user_query}'")
-    print(f"Search Query: '{search_query}'")
-    print(f"Chunks Found: {len(context.split('---')) if context else 0}")
-    print(f"{'=' * 50}\n")
-
-    # 3. Construct Multi-Turn Messages Array
+    # 2. Multi-Turn Messages
     messages = [{"role": "system", "content": STRICT_RAG_PROMPT}]
-
-    # Inject last 4 messages for conversational continuity
     for msg in request.history[-4:]:
         messages.append({"role": msg.role, "content": msg.content})
 
@@ -121,20 +111,26 @@ async def chat(request: ChatRequest):
 
     messages.append({"role": "user", "content": grounded_turn})
 
-    try:
-        completion = client.chat.completions.create(
-            model="openai/gpt-oss-20b",
-            messages=messages,
-            temperature=0.4,
-            max_tokens=400,
-        )
-        reply = completion.choices[0].message.content
-        return {"reply": reply}
-    except Exception as e:
-        print(f"Groq API Error: {e}")
-        return {
-            "reply": "I'm having a brief connection glitch with my AI engine. Feel free to reach out to Rahul directly via email or LinkedIn!"
-        }
+    # 3. Stream Generator Function
+    def stream_generator():
+        try:
+            stream = client.chat.completions.create(
+                model="openai/gpt-oss-20b",
+                messages=messages,
+                temperature=0.4,
+                max_tokens=400,
+                stream=True,  # Groq streams tokens in real-time
+            )
+            for chunk in stream:
+                content = chunk.choices[0].delta.content
+                if content:
+                    yield content
+        except Exception as e:
+            print(f"Groq Stream Error: {e}")
+            yield "\n\nI'm having a brief connection glitch. Please reach out to Rahul directly via email or LinkedIn!"
+
+    # Returns native HTTP chunked stream
+    return StreamingResponse(stream_generator(), media_type="text/plain; charset=utf-8")
 
 
 if __name__ == "__main__":
