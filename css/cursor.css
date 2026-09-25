@@ -54,3 +54,14 @@
     border-color: rgba(192, 132, 252, 0.85);
   }
 }
+
+/* Disable custom cursor entirely on mobile touch devices */
+@media (pointer: coarse), (hover: none) {
+  .custom-cursor,
+  .cursor-follower {
+    display: none !important;
+  }
+  body {
+    cursor: auto !important;
+  }
+}
