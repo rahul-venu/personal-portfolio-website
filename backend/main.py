@@ -129,8 +129,16 @@ async def chat(request: ChatRequest):
             print(f"Groq Stream Error: {e}")
             yield "\n\nI'm having a brief connection glitch. Please reach out to Rahul directly via email or LinkedIn!"
 
-    # Returns native HTTP chunked stream
-    return StreamingResponse(stream_generator(), media_type="text/plain; charset=utf-8")
+    # Return with explicit anti-buffering headers
+    return StreamingResponse(
+        stream_generator(),
+        media_type="text/plain; charset=utf-8",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+            "Connection": "keep-alive",
+        },
+    )
 
 
 if __name__ == "__main__":
