@@ -68,7 +68,7 @@ GROUNDING & BEHAVIOR RULES:
 """
 
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def root():
     return {"status": "online", "engine": "RAG-ChromaDB + Groq (openai/gpt-oss-20b)"}
 
