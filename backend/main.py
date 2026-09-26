@@ -1,3 +1,4 @@
+import logging
 import os
 from contextlib import asynccontextmanager
 
@@ -8,6 +9,10 @@ from fastapi.responses import StreamingResponse
 from groq import Groq
 from pydantic import BaseModel
 from rag_engine import initialize_rag, retrieve_context
+
+# 1. Configure Uvicorn Logger (Guaranteed to show in Render logs)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("uvicorn")
 
 load_dotenv()
 
@@ -31,7 +36,7 @@ app.add_middleware(
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
-# 1. Pydantic Models for Multi-Turn History
+# 2. Pydantic Models for Multi-Turn History
 class HistoryMessage(BaseModel):
     role: str  # "user" or "assistant"
     content: str
@@ -101,13 +106,15 @@ async def chat(request: ChatRequest):
 
     context = retrieve_context(search_query, n_results=3)
 
-    # ====== LOG USER QUERY (flush=True forces Render to display immediately) ======
-
-    print(f"\n{'=' * 20} 💬 RAG QUERY LOG {'=' * 20}", flush=True)
-    print(f"User Asked:   '{user_query}'", flush=True)
-    print(f"Search Query: '{search_query}'", flush=True)
-    print(f"Chunks Found: {len(context.split('---')) if context else 0}", flush=True)
-    print(f"{'=' * 55}\n", flush=True)
+    # ================= REAL-TIME UVICORN LOGGER =================
+    chunks_count = len(context.split("---")) if context else 0
+    logger.info(
+        f"\n{'=' * 20} 💬 RAG QUERY LOG {'=' * 20}\n"
+        f"User Asked:   '{user_query}'\n"
+        f"Search Query: '{search_query}'\n"
+        f"Chunks Found: {chunks_count}\n"
+        f"{'=' * 55}"
+    )
 
     # 2. Multi-Turn Messages
     messages = [{"role": "system", "content": STRICT_RAG_PROMPT}]
@@ -137,7 +144,7 @@ async def chat(request: ChatRequest):
                 if content:
                     yield content
         except Exception as e:
-            print(f"Groq Stream Error: {e}")
+            logger.error(f"Groq Stream Error: {e}")
             yield "\n\nI'm having a brief connection glitch. Please reach out to Rahul directly via email or LinkedIn!"
 
     # Return with explicit anti-buffering headers
@@ -155,4 +162,5 @@ async def chat(request: ChatRequest):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
