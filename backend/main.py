@@ -101,6 +101,14 @@ async def chat(request: ChatRequest):
 
     context = retrieve_context(search_query, n_results=3)
 
+    # ====== LOG USER QUERY (flush=True forces Render to display immediately) ======
+
+    print(f"\n{'=' * 20} 💬 RAG QUERY LOG {'=' * 20}", flush=True)
+    print(f"User Asked:   '{user_query}'", flush=True)
+    print(f"Search Query: '{search_query}'", flush=True)
+    print(f"Chunks Found: {len(context.split('---')) if context else 0}", flush=True)
+    print(f"{'=' * 55}\n", flush=True)
+
     # 2. Multi-Turn Messages
     messages = [{"role": "system", "content": STRICT_RAG_PROMPT}]
     for msg in request.history[-4:]:
