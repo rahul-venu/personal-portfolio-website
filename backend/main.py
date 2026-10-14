@@ -1,3 +1,4 @@
+# backend/main.py
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -7,10 +8,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from groq import Groq
+from music_service import get_live_music_context, music_router
 from pydantic import BaseModel
 from rag_engine import initialize_rag, retrieve_context
 
-# 1. Configure Uvicorn Logger (Guaranteed to show in Render logs)
+# 1. Configure Uvicorn Logger
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("uvicorn")
 
@@ -33,10 +35,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 2. Attach the Modular Music Service
+app.include_router(music_router)
+
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
-# 2. Pydantic Models for Multi-Turn History
+# 3. Pydantic Models for Chat
 class HistoryMessage(BaseModel):
     role: str  # "user" or "assistant"
     content: str
@@ -65,6 +70,11 @@ GROUNDING & BEHAVIOR RULES:
 4. Connect & Socials: When asked how to connect or for socials, ALWAYS provide clickable markdown links to LinkedIn, GitHub, and email.
 5. Fallback: If a topic is completely absent from context, politely state you don't have that detail and direct them to Rahul's email.
 6. Formatting: Clean line breaks and separate lines for bullet points.
+7. LIVE MUSIC QUERIES:
+   - If asked what music, track, or song Rahul or you are listening to right now, refer strictly to [LIVE MUSIC STATUS].
+   - If 'Currently Playing': excitedly share the title, artist, and album, mentioning it is playing live on Poweramp!
+   - If 'Not Playing (Last Played)': clearly state you aren't listening to anything right now, but state what was last played, nothing else.
+   - If 'No recent playback data recorded yet': warmly state that Rahul hasn't turned on Poweramp yet today or music isn't currently synced.
 """
 
 
@@ -73,6 +83,7 @@ def root():
     return {"status": "online", "engine": "RAG-ChromaDB + Groq (openai/gpt-oss-20b)"}
 
 
+# ================= CHAT ENDPOINT WITH LIVE MUSIC AWARENESS =================
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
     user_query = request.message.strip()
@@ -105,6 +116,7 @@ async def chat(request: ChatRequest):
             search_query = f"{last_user_query} {user_query}"
 
     context = retrieve_context(search_query, n_results=3)
+    live_music_status = get_live_music_context()
 
     # ================= REAL-TIME UVICORN LOGGER =================
     chunks_count = len(context.split("---")) if context else 0
@@ -112,6 +124,7 @@ async def chat(request: ChatRequest):
         f"\n{'=' * 20} 💬 RAG QUERY LOG {'=' * 20}\n"
         f"User Asked:   '{user_query}'\n"
         f"Search Query: '{search_query}'\n"
+        f"Live Music:   '{live_music_status}'\n"
         f"Chunks Found: {chunks_count}\n"
         f"{'=' * 55}"
     )
@@ -121,7 +134,10 @@ async def chat(request: ChatRequest):
     for msg in request.history[-4:]:
         messages.append({"role": msg.role, "content": msg.content})
 
-    grounded_turn = f"""[RETRIEVED CONTEXT]:
+    grounded_turn = f"""[LIVE MUSIC STATUS]:
+{live_music_status}
+
+[RETRIEVED CONTEXT]:
 {context}
 
 [USER QUESTION]:
@@ -137,7 +153,7 @@ async def chat(request: ChatRequest):
                 messages=messages,
                 temperature=0.4,
                 max_tokens=400,
-                stream=True,  # Groq streams tokens in real-time
+                stream=True,
             )
             for chunk in stream:
                 content = chunk.choices[0].delta.content
@@ -147,7 +163,6 @@ async def chat(request: ChatRequest):
             logger.error(f"Groq Stream Error: {e}")
             yield "\n\nI'm having a brief connection glitch. Please reach out to Rahul directly via email or LinkedIn!"
 
-    # Return with explicit anti-buffering headers
     return StreamingResponse(
         stream_generator(),
         media_type="text/plain; charset=utf-8",
