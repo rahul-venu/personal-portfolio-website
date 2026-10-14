@@ -430,3 +430,68 @@ section.page-active .photo-tag-reveal {
     max-height: calc(100dvh - 120px) !important;
   }
 }
+
+/* ================= SEAMLESS VECTOR MORPH (THE NAME) ================= */
+
+/* Initial Unscrolled State */
+.brand-morph-unit {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 1. R is permanently anchored: stays 100% still */
+.brand-svg-r {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transform: none !important;
+  margin: 0 !important;
+}
+
+/* 2. V glides leftward as in-between characters collapse */
+.brand-svg-v {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: margin 0.42s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+}
+
+/* Collapsible characters (AHUL and S) */
+.brand-collapsible-char {
+  max-width: 140px;
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: left center;
+  transition: 
+    max-width 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.2s ease,
+    transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.brand-collapsible-space {
+  max-width: 8px;
+  transition: max-width 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ================= SCROLLED STATE ================= */
+
+/* 1. ONLY AHUL, space, and S collapse to 0 width */
+#brand-identity.is-scrolled .brand-collapsible-char,
+#brand-identity.is-scrolled .brand-collapsible-space {
+  max-width: 0px !important;
+  opacity: 0 !important;
+  transform: scaleX(0) translateX(-4px) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 2. V joins R seamlessly */
+#brand-identity.is-scrolled .brand-svg-v {
+  margin-left: -0.22em;
+  filter: drop-shadow(0 0 8px rgba(109, 53, 232, 0.5));
+}
+
+#brand-identity.is-scrolled:hover .brand-svg-v {
+  filter: drop-shadow(0 0 12px rgba(109, 53, 232, 0.8));
+}
