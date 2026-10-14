@@ -1,8 +1,10 @@
 # Personal Portfolio Website feat: a RAG-powered AI Assistant ("Zoe") 
 
 [![Live Portfolio](https://img.shields.io/badge/Live-Portfolio-8B5CF6.svg?style=flat&logo=vercel&logoColor=white)](https://rahulvenu.vercel.app/)
+[![Render](https://img.shields.io/badge/Backend_Host-Render-46E3B7.svg?logo=render&logoColor=black)](https://render.com)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Package Manager: uv](https://img.shields.io/badge/Tooling-uv-DE5FE9.svg?logo=astral&logoColor=white)](https://docs.astral.sh/uv/)
 [![Vector DB - ChromaDB](https://img.shields.io/badge/Vector%20DB-ChromaDB-blue.svg)](https://www.trychroma.com/)
 [![LLM - Groq LPU](https://img.shields.io/badge/LLM-Groq%20LPU%20(gpt--oss--20b)-green.svg)](https://groq.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Style-Tailwind_CSS-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com/)
@@ -86,6 +88,35 @@ Raw Query ──► Contextual Search ──► Top-K Chunks ──► Grounded 
 * **Client-Side Typewriter Engine:** Powered by Groq's high-speed inference (~1,000 tokens/sec), text can outpace human reading speed. The client processes incoming `ReadableStream` chunks through an adaptive buffer (`setTimeout` pacer running at ~18ms/char), dynamically scaling character delivery based on network queue depth to produce a smooth, readable typewriter effect.
 * **Live Markdown & Link Parser:** Custom regex engine transforms raw URLs, emails, bold syntax, and single-asterisk italics (`*text*` $\rightarrow$ `<em>`) into interactive DOM nodes in real time without external parser libraries.
 
+### 5. Zero-Permission Real-Time Music Telemetry (Poweramp + MacroDroid)
+Zoe features dynamic live awareness of what music Rahul is listening to in the physical world via a decoupled, private webhook architecture:
+
+```text
+[Poweramp Android Player]
+       │ (Built-in Broadcast: com.adam.aslfms.notify.playstatechanged)
+       ▼
+[MacroDroid Android Client] ──(Zero Notification/Privacy Permissions)
+       │ 
+       ▼ (HTTPS POST • Bearer Token Auth)
+[/api/music/update (music_service.py)]
+       │
+       ├──► [In-Memory State: LIVE_MUSIC_STATE]
+       └──► [OS Temp Directory: /tmp/poweramp_live_music.json]
+                     │
+                     ▼
+       [Injected into Zoe's Prompt via [LIVE MUSIC STATUS]]
+```
+* **Zero-Permission Intent Interception:** Completely bypasses Android's invasive `BIND_NOTIFICATION_LISTENER_SERVICE` (which reads private SMS, notifications, and OTPs). Instead, it isolates Poweramp's built-in developer broadcast intent (`com.adam.aslfms.notify.playstatechanged`), capturing only music metadata (`track`, `artist`, `album`, `state`).
+
+* **State Machine & Playback Normalization:**
+Playback states `0` (Start) and `1` (Resume) evaluate to `is_playing = True`.
+Playback states `2` (Pause) and `3` (Complete) evaluate to `is_playing = False`.
+
+* **Stateful Continuity & Metadata Fallback:** When a track is paused, Poweramp frequently emits an empty title. The service automatically retains the last-known track in memory so Zoe can accurately answer "Rahul is not playing music right now, but was last listening to..." without loss of context.
+
+* **Smart Album Filter:** Heuristically sanitizes Poweramp's default dummy tags (`"Unknown Album"`, `None`, `empty string`) so Zoe naturally omits album references for standalone singles or downloads rather than speaking placeholder metadata.
+
+* **In-Memory + OS Temp Caching:** The live state is stored in an in-memory dictionary and mirrored to the operating system's temporary directory (`tempfile.gettempdir()`). This ensures sub-millisecond retrieval, eliminates disk I/O bottlenecks, prevents local hot-reloader loops (VS Code Live Server), and leaves zero traces in Git version control.       
 ---
 
 ## 🛡 Security, Anti-Abuse & Contact Verification Pipeline
@@ -193,6 +224,7 @@ portfolio-web/
 │   ├── .env.example                   # Environment configuration template
 │   ├── .gitignore                     # Python build and virtual environment exclusions
 │   ├── main.py                        # FastAPI application routes, CORS, and Groq streaming
+|   ├── music_service.py               # Decoupled APIRouter for real-time Poweramp(music player) telemetry & state
 │   ├── pyproject.toml                 # PEP 621 dependency manifest (uv application mode)
 │   ├── rag_engine.py                  # In-memory ChromaDB vectorizer, chunker, & retrieval
 │   ├── requirements.txt               # Production build manifest for cloud environments
@@ -216,6 +248,7 @@ portfolio-web/
 | **Vector Engine** | ChromaDB (In-Memory Ephemeral Engine) | Fast cosine similarity search and embedding storage |
 | **Embedding Model** | `all-MiniLM-L6-v2` (ONNX Runtime) | Dense 384-dimensional semantic text representation |
 | **LLM Inference** | Groq LPU (`openai/gpt-oss-20b`) | Real-time token generation (~1,000 tps) |
+| **Music Telemetry** | Poweramp (Android), MacroDroid, Android Intent API | Zero-permission real-time music broadcast and authenticated webhook push |
 | **Email Security** | Google DoH API, Web3Forms | Real-time MX verification, honeypot, and mail dispatch |
 | **Tooling & Env** | `uv` (Astral), Pip | Deterministic virtual environment and dependency tracking |
 | **Cloud Hosting** | Vercel (Edge CDN), Render (Backend Service) | Zero-configuration global edge delivery and container hosting |
@@ -239,6 +272,7 @@ cp .env.example .env
 
 # Configure your Groq API key inside .env:
 # GROQ_API_KEY="gsk_your_key_here"
+# MUSIC_SYNC_TOKEN="your_custom_secret_sync_token_here"
 
 # Sync dependencies and build virtual environment
 uv sync
@@ -261,7 +295,11 @@ Open `http://localhost:5500` in your browser.
 ## 🔒 Security Summary
 
 * **Encrypted Knowledge Ingestion:** Real personal data is isolated from public version control and ingested dynamically into cloud memory via `PROFILE_MD_BASE64`.
+
 * **Zero Client-Side API Keys:** Third-party credentials (Groq) are executed strictly on isolated cloud servers with CORS enforcement.
+
+* **Sandboxed Mobile Telemetry:** Music telemetry relies on explicit Android system broadcast receivers rather than notification scraping. Webhook endpoints require pre-shared Bearer token authentication (`MUSIC_SYNC_TOKEN`) with instant rejection of unauthorized payloads.
+
 * **Defensive Form Architecture:** Submissions require verified human mathematical interaction and live domain validation before hitting external mail relays.
 
 ---
