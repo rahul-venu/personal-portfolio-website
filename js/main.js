@@ -6,6 +6,25 @@ import { initNeuralCanvas } from './neural.js';
 import { initLossVerification } from './verification.js';
 import { initRotaryCounter } from './rotary.js'; 
 
+// ================= NAME MORPH =================
+function initBrandMorph() {
+  const brandIdentity = document.getElementById('brand-identity');
+  if (!brandIdentity) return;
+
+  let isScrolled = false;
+  const handleBrandScroll = () => {
+    // Triggers packing into RV logo once scrolled past 50px
+    const shouldScroll = window.scrollY > 50;
+    if (shouldScroll !== isScrolled) {
+      isScrolled = shouldScroll;
+      brandIdentity.classList.toggle('is-scrolled', isScrolled);
+    }
+  };
+
+  window.addEventListener('scroll', handleBrandScroll, { passive: true });
+  handleBrandScroll(); // Initial check on load/refresh
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
     window.lucide.createIcons();
@@ -21,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBikeRun();
   initLossVerification();
   initRotaryCounter(); 
+  initBrandMorph(); // <-- Initializes the letter-packing morph
 
   // ================= CLICK-TO-COPY EMAIL =================
   const emailCard = document.querySelector('a[href^="mailto:"]');
