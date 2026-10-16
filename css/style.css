@@ -486,12 +486,19 @@ section.page-active .photo-tag-reveal {
   padding: 0 !important;
 }
 
-/* 2. V joins R seamlessly */
-#brand-identity.is-scrolled .brand-svg-v {
-  margin-left: -0.22em;
+/* 2. V joins R seamlessly (Used in both Navbar on scroll & Footer at rest) */
+#brand-identity.is-scrolled .brand-svg-v,
+.footer-svg-v {
+  margin-left: -0.28em;
   filter: drop-shadow(0 0 8px rgba(109, 53, 232, 0.5));
 }
 
-#brand-identity.is-scrolled:hover .brand-svg-v {
+/* Reset margin on hover in the footer so RAHUL expands cleanly */
+.group\/footer-logo:hover .footer-svg-v {
+  margin-left: 0 !important;
+}
+
+#brand-identity.is-scrolled:hover .brand-svg-v,
+.group\/footer-logo:hover .footer-svg-v {
   filter: drop-shadow(0 0 12px rgba(109, 53, 232, 0.8));
 }
