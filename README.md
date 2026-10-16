@@ -271,8 +271,8 @@ cd backend
 cp .env.example .env
 
 # Configure your Groq API key inside .env:
-# GROQ_API_KEY="gsk_your_key_here"
-# MUSIC_SYNC_TOKEN="your_custom_secret_sync_token_here"
+GROQ_API_KEY="gsk_your_key_here"
+MUSIC_SYNC_TOKEN="your_custom_secret_sync_token_here"
 
 # Sync dependencies and build virtual environment
 uv sync
