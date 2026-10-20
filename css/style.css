@@ -18,12 +18,19 @@ body {
   color: #f1f5f9;
 }
 
-/* Translucent Pitch-Black Header */
 .glass-panel {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+/* Glass activates only when user scrolls down */
+header.is-scrolled .glass-panel,
+body:has(#brand-identity.is-scrolled) .glass-panel {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 
