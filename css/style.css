@@ -489,7 +489,7 @@ section.page-active .photo-tag-reveal {
 /* 2. V joins R seamlessly (Used in both Navbar on scroll & Footer at rest) */
 #brand-identity.is-scrolled .brand-svg-v,
 .footer-svg-v {
-  margin-left: -0.28em;
+  margin-left: -0.30em;
   filter: drop-shadow(0 0 8px rgba(109, 53, 232, 0.5));
 }
 
