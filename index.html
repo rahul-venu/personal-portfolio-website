@@ -76,77 +76,95 @@
 
                             <!-- ================= NAVIGATION SECTION ================= -->
 
-<!-- Full-Width Edge-to-Edge Navigation Bar -->
+<!-- Full-Width Edge-to-Edge Navigation Bar (Split Layout with Center Brand) -->
   <header class="fixed top-0 left-0 w-full glass-panel z-40">
-    <!-- Added 'relative' so the center nav locks to exact 50% center -->
-    <div class="w-full px-4 sm:px-8 lg:px-12 py-2.5 md:py-0 md:h-14 flex flex-wrap md:flex-nowrap items-center justify-between gap-y-2 md:gap-y-0 relative">
+    <!-- md:grid md:grid-cols-3 guarantees the middle item stays dead-center -->
+    <div class="w-full px-4 sm:px-8 lg:px-12 py-2.5 md:py-0 md:h-14 flex flex-col md:grid md:grid-cols-3 items-center justify-between gap-y-2 md:gap-y-0 relative">
       
-      <!-- 1. Seamless Vector SVG Identity -->
-      <a href="#home" id="brand-identity" class="order-1 group text-sm sm:text-base lg:text-lg font-bold tracking-wider text-white flex items-center h-10 select-none" aria-label="Rahul V S - Home">
-        
-        <!-- Permanent Pulsing Status Dot -->
-        <!-- <span class="relative flex h-2 w-2 mr-2 sm:mr-2.5 shrink-0">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-        </span> -->
-
-        <!-- The Morphing Brand Unit -->
-        <div class="brand-morph-unit flex items-center font-extrabold font-sans leading-none">
-          
-          <!-- Exact Vector R (Scaled to match text cap-height) -->
-          <span class="brand-svg-r inline-flex items-center shrink-0">
-            <svg class="h-[0.85em] w-auto transition-transform duration-300" viewBox="0 300 485 445" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#ffffff" d="M8 312 H385 V392 H8 Z"/>
-              <path fill="#ffffff" d="M68 508 H392 A35 35 0 0 1 392 578 H348 L483 733 H382 L250 578 H145 V733 H68 Z"/>
-            </svg>
-          </span>
-
-          <!-- Collapsible 'AHUL' -->
-          <span class="brand-collapsible-char inline-block overflow-hidden whitespace-nowrap ml-1">
-            <span>A</span><span class="text-white group-hover:text-purple-400 transition-colors">HU</span><span>L</span>
-          </span>
-
-          <!-- Collapsible Space -->
-          <span class="brand-collapsible-space inline-block w-2 overflow-hidden"></span>
-
-          <!-- Exact Vector V + Purple Slash (Scaled to match text cap-height) -->
-          <span class="brand-svg-v inline-flex items-center shrink-0">
-            <svg class="h-[0.85em] w-auto transition-transform duration-300" viewBox="380 300 555 445" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#ffffff" d="M385 312 C415 312 436 326 452 350 L630 585 L718 458 H812 L630 720 L405 413 C397 402 388 392 368 392 L385 312 Z"/>
-              <polygon fill="#6d35e8" points="805,312 928,312 840,420 718,420"/>
-            </svg>
-          </span>
-
-          <!-- Collapsible ' S' -->
-          <span class="brand-collapsible-char inline-block overflow-hidden whitespace-nowrap">
-            <span>&nbsp;S</span>
-          </span>
-
-          <!-- Permanent '| Portfolio' (Glides smoothly next to RV on scroll) -->
-          <span class="text-brand-muted font-normal text-xs sm:text-sm pl-2 whitespace-nowrap hidden sm:inline-block">
-            | Portfolio
-          </span>
-
-        </div>
-      </a>
-
-      <!-- 2. Navigation Links (LOCKED TO ABSOLUTE CENTER) -->
-      <nav class="order-3 md:order-2 w-full md:w-auto flex items-center justify-center space-x-3.5 sm:space-x-6 md:space-x-8 text-[11.5px] sm:text-xs md:text-sm font-medium text-brand-muted md:absolute md:left-1/2 md:-translate-x-1/2">
+      <!-- ================= 1. LEFT GROUP: Navigation Links ================= -->
+      <nav class="hidden md:flex items-center justify-start space-x-6 lg:space-x-8 text-xs lg:text-sm font-medium text-brand-muted">
         <a href="#about" class="hover:text-white transition-colors">About</a>
         <a href="#projects" class="hover:text-white transition-colors">Projects</a>
         <a href="#skills" class="hover:text-white transition-colors">Skills</a>
-        <a href="#certifications" class="hover:text-white transition-colors">Certifications</a>
-        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
       </nav>
 
-      <!-- 3. Repo Button with </> Syntax -->
-      <a href="https://github.com/rahul-venu/personal-portfolio-website" target="_blank" rel="noopener noreferrer" class="order-2 md:order-3 glass-btn inline-flex items-center gap-1.5 sm:gap-2 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium group hover:border-[#F1502F]/40 transition-colors" aria-label="View Source Code">
-        <!-- Official Orange Git Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current text-[#F1502F] group-hover:text-white group-hover:scale-110 transition-all">
-          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-        </svg>
-        <span class="font-mono text-xs sm:text-sm font-semibold tracking-wider text-slate-300 group-hover:text-white transition-colors">&lt;/&gt;</span>
-      </a>
+      <!-- ================= 2. CENTER GROUP: Brand Identity & Morph ================= -->
+      <div class="w-full md:w-auto flex items-center justify-between md:justify-center">
+        
+        <a href="#home" id="brand-identity" class="group text-sm sm:text-base lg:text-lg font-bold tracking-wider text-white flex items-center h-10 select-none mx-auto md:mx-0" aria-label="Rahul V S - Home">
+          
+          <!-- The Morphing Brand Unit -->
+          <div class="brand-morph-unit flex items-center font-extrabold font-sans leading-none">
+            
+            <!-- Exact Vector R -->
+            <span class="brand-svg-r inline-flex items-center shrink-0">
+              <svg class="h-[0.85em] w-auto transition-transform duration-300" viewBox="0 300 485 445" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#ffffff" d="M8 312 H385 V392 H8 Z"/>
+                <path fill="#ffffff" d="M68 508 H392 A35 35 0 0 1 392 578 H348 L483 733 H382 L250 578 H145 V733 H68 Z"/>
+              </svg>
+            </span>
+
+            <!-- Collapsible 'AHUL' -->
+            <span class="brand-collapsible-char inline-block overflow-hidden whitespace-nowrap ml-1">
+              <span>A</span><span class="text-white group-hover:text-purple-400 transition-colors">HU</span><span>L</span>
+            </span>
+
+            <!-- Collapsible Space -->
+            <span class="brand-collapsible-space inline-block w-2 overflow-hidden"></span>
+
+            <!-- Exact Vector V + Purple Slash -->
+            <span class="brand-svg-v inline-flex items-center shrink-0">
+              <svg class="h-[0.85em] w-auto transition-transform duration-300" viewBox="380 300 555 445" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#ffffff" d="M385 312 C415 312 436 326 452 350 L630 585 L718 458 H812 L630 720 L405 413 C397 402 388 392 368 392 L385 312 Z"/>
+                <polygon fill="#6d35e8" points="805,312 928,312 840,420 718,420"/>
+              </svg>
+            </span>
+
+            <!-- Collapsible ' S' -->
+            <span class="brand-collapsible-char inline-block overflow-hidden whitespace-nowrap">
+              <span>&nbsp;S</span>
+            </span>
+
+            <!-- Permanent '| Portfolio' -->
+            <span class="text-brand-muted font-normal text-xs sm:text-sm pl-2 whitespace-nowrap hidden sm:inline-block">
+              | Portfolio
+            </span>
+
+          </div>
+        </a>
+
+        <!-- Mobile Repo Quick-Link (Visible only on mobile top-right) -->
+        <a href="https://github.com/rahul-venu/personal-portfolio-website" target="_blank" rel="noopener noreferrer" class="md:hidden glass-btn p-1.5 rounded-lg text-slate-300" aria-label="GitHub Repo">
+          <svg class="w-4 h-4 fill-current text-[#F1502F]" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+        </a>
+      </div>
+
+      <!-- ================= 3. RIGHT GROUP: Certifications + Contact + Repo ================= -->
+      <div class="hidden md:flex items-center justify-end space-x-4 lg:space-x-6 text-xs lg:text-sm font-medium">
+        
+        <a href="#certifications" class="text-brand-muted hover:text-white transition-colors">Certifications</a>
+
+        <!-- Contact Button -->
+        <a href="#contact" class="text-brand-muted hover:text-white transition-colors">Contact </a>
+
+        <!-- Repo Button with </> Syntax -->
+        <a href="https://github.com/rahul-venu/personal-portfolio-website" target="_blank" rel="noopener noreferrer" class="glass-btn inline-flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-medium group hover:border-[#F1502F]/40 transition-colors" aria-label="View Source Code">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current text-[#F1502F] group-hover:text-white group-hover:scale-110 transition-all">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span class="font-mono text-xs font-semibold tracking-wider text-slate-300 group-hover:text-white transition-colors">&lt;/&gt;</span>
+        </a>
+
+      </div>
+
+      <!-- ================= MOBILE NAVIGATION (Row 2 on Small Screens) ================= -->
+      <nav class="md:hidden w-full flex items-center justify-center space-x-3.5 text-[11px] font-medium text-brand-muted pt-1 border-t border-white/5">
+        <a href="#about" class="hover:text-white transition-colors">About</a>
+        <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+        <a href="#skills" class="hover:text-white transition-colors">Skills</a>
+        <a href="#certifications" class="hover:text-white transition-colors">Certs</a>
+        <a href="#contact" class="hover:text-white transition-colors text-purple-400">Contact</a>
+      </nav>
 
     </div>
   </header>
