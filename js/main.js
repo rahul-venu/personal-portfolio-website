@@ -40,8 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initBikeRun();
   initLossVerification();
   initRotaryCounter(); 
-  initBrandMorph(); // <-- Initializes the letter-packing morph
+  initBrandMorph();
 
+  import('./avatar.js')
+  .then(module => {
+    module.initAvatar();
+  })
+  .catch(err => {
+    console.warn('[Avatar] 3D Model initialization deferred or failed:', err);
+  });
+
+  
   // ================= CLICK-TO-COPY EMAIL =================
   const emailCard = document.querySelector('a[href^="mailto:"]');
   emailCard?.addEventListener('click', (e) => {
