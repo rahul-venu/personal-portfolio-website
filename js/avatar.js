@@ -60,7 +60,7 @@ export function initAvatar() {
   let mixer;
   const clock = new THREE.Clock();
   const loader = new GLTFLoader();
-  const MODEL_PATH = 'https://rahul-portfolio-api.onrender.com/api/assets/avatar.glb';
+  const MODEL_PATH = 'https://cmofepqpzqkijftxafxl.supabase.co/storage/v1/object/public/models/3D/hero-2hand-wave.glb';
 
   loader.load(
     MODEL_PATH,
@@ -70,7 +70,7 @@ export function initAvatar() {
       character.scale.setScalar(0.99);
 
       // =====================================================================
-      // 🎛️ RAISED POSITION: 0.20 lifts his face & chest out of the button
+      // RAISED POSITION: 0.20 lifts his face & chest out of the button
       // (Increase to 0.24 to show even more chest; decrease to 0.16 to lower)
       character.position.set(0, 0.18, 0); 
 

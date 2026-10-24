@@ -33,7 +33,7 @@ export function initBikeRun() {
     clone.innerHTML = `
       <div class="scooter-ride relative">
         <img 
-          src="https://rahul-portfolio-api.onrender.com/api/assets/rahul.png" 
+          src="https://cmofepqpzqkijftxafxl.supabase.co/storage/v1/object/public/models/images/rahul.png" 
           alt="Scooter Character" 
           class="w-28 h-28 object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.65)] select-none pointer-events-none"
         />
