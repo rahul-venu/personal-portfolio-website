@@ -34,6 +34,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- ================= THREE.JS IMPORT MAP ================= -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  } </script>
+
+        <!-- ================= Lenis Smooth Inertia Scroll ================= -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+        <!-- ================= STYLESHEETS ================= -->
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -183,7 +196,7 @@
 
   <!-- Interactive 3D Voxel Canvas -->
   <canvas id="neural-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
-
+  
   <!-- Physical 3D Floor Shadow -->
   <div class="hero-floor-shadow"></div>
 
@@ -1541,8 +1554,21 @@
 
   </div>
 </footer>
+
            <!-- ================= CHATBOT WIDGET SECTION ================= -->
 
+  <!-- 3D PEEK-A-BOO AVATAR -->
+  <div id="avatar-peek-wrapper" class="avatar-peek-hidden">
+
+    <!-- Isolated White Thought Cloud -->
+    <div class="avatar-thought-cloud">
+      <span class="cloud-text-top">Psst..</span>
+      <span class="cloud-text-bottom">Need help?</span>
+      <div class="cloud-dot-1"></div>
+      <div class="cloud-dot-2"></div>
+    </div>
+    <canvas id="avatar-peek-canvas"></canvas>
+  </div>
 
   <button id="chatbot-toggle" class="chat-toggle-btn" aria-label="Open AI Assistant">
     <i data-lucide="sparkles" id="chat-icon-open" class="w-5 h-5 text-white"></i>
@@ -1550,6 +1576,8 @@
   </button>
 
   <div id="chatbot-window" class="chat-window hidden">
+  
+  <!-- CHAT HEADER -->  
   <div class="chat-header">
   <div class="flex items-center gap-2">
     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
