@@ -60,7 +60,7 @@ export function initAvatar() {
   let mixer;
   const clock = new THREE.Clock();
   const loader = new GLTFLoader();
-  const MODEL_PATH = 'assets/models/hero-2hand-wave.glb';
+  const MODEL_PATH = 'https://rahul-portfolio-api.onrender.com/api/assets/avatar.glb';
 
   loader.load(
     MODEL_PATH,

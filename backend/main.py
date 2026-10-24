@@ -2,6 +2,7 @@ import logging
 import os
 from contextlib import asynccontextmanager
 
+import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,6 +17,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("uvicorn")
 
 load_dotenv()
+
+# Read private Supabase URLs from Render Environment
+SUPABASE_IMAGE_URL = os.getenv("SUPABASE_IMAGE_URL", "").strip()
+SUPABASE_3DMODEL_URL = os.getenv("SUPABASE_3DMODEL_URL", "").strip()
 
 
 @asynccontextmanager
@@ -75,6 +80,59 @@ RULES & GUARDRAILS:
 @app.api_route("/", methods=["GET", "HEAD"])
 def root():
     return {"status": "online", "engine": "RAG-ChromaDB + Groq (openai/gpt-oss-20b)"}
+
+
+# ================= ASSET PROXIES (Hides Supabase URLs from GitHub) =================
+@app.get("/api/assets/model.glb")
+async def get_3d_model():
+    if not SUPABASE_3DMODEL_URL:
+        logger.error("SUPABASE_3DMODEL_URL not configured on server")
+        raise HTTPException(
+            status_code=500, detail="3D model URL not configured on server"
+        )
+    try:
+        http_client = httpx.AsyncClient(timeout=30.0)
+        req = http_client.build_request("GET", SUPABASE_3DMODEL_URL)
+        res = await http_client.send(req, stream=True)
+        return StreamingResponse(
+            res.aiter_raw(),
+            status_code=res.status_code,
+            media_type="model/gltf-binary",
+            headers={
+                "Cache-Control": "public, max-age=86400",  # Cache in visitor's browser for 24h
+                "Access-Control-Allow-Origin": "*",
+            },
+            background=http_client.aclose,
+        )
+    except Exception as e:
+        logger.error(f"Error streaming 3D model from Supabase: {e}")
+        raise HTTPException(status_code=502, detail="Failed to retrieve 3D model")
+
+
+@app.get("/api/assets/image.png")
+async def get_private_image():
+    if not SUPABASE_IMAGE_URL:
+        logger.error("SUPABASE_IMAGE_URL not configured on server")
+        raise HTTPException(
+            status_code=500, detail="Image URL not configured on server"
+        )
+    try:
+        http_client = httpx.AsyncClient(timeout=15.0)
+        req = http_client.build_request("GET", SUPABASE_IMAGE_URL)
+        res = await http_client.send(req, stream=True)
+        return StreamingResponse(
+            res.aiter_raw(),
+            status_code=res.status_code,
+            media_type="image/png",
+            headers={
+                "Cache-Control": "public, max-age=86400",  # Cache in visitor's browser for 24h
+                "Access-Control-Allow-Origin": "*",
+            },
+            background=http_client.aclose,
+        )
+    except Exception as e:
+        logger.error(f"Error streaming image from Supabase: {e}")
+        raise HTTPException(status_code=502, detail="Failed to retrieve image asset")
 
 
 # ================= CHAT ENDPOINT WITH LIVE MUSIC AWARENESS =================
