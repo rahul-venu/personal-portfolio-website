@@ -509,3 +509,119 @@ section.page-active .photo-tag-reveal {
 .group\/footer-logo:hover .footer-svg-v {
   filter: drop-shadow(0 0 12px rgba(109, 53, 232, 0.8));
 }
+
+
+/* ================= 9. PEEK-A-BOO CHATBOT AVATAR ================= */
+
+#avatar-peek-wrapper {
+  position: fixed;
+  width: 180px;
+  height: 140px; /* Fixed height container */
+  pointer-events: none;
+  z-index: 49;   /* Sits safely behind the chat button (z-50) */
+
+  /* Spawns directly from the center of the circle */
+  transform-origin: center bottom;
+  transform: scale(0) translateY(45px);
+  opacity: 0;
+  transition: 
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.25s ease;
+}
+
+#avatar-peek-wrapper.is-peeking {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+#avatar-peek-canvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 180px !important;
+  height: 130px !important;
+  display: block;
+
+  /* 1. BENDS THE CUT: Curves the bottom into a round arc matching the circle */
+  clip-path: ellipse(85% 72% at 50% 28%);
+
+  /* 2. SOFTENS THE EDGE: Dissolves the curved edge into the pitch-black background */
+  -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+}
+
+/* THOUGHT CLOUD: Pushed to HIS right (viewer's left into the open screen) */
+.avatar-thought-cloud {
+  position: absolute !important;
+  bottom: 78px !important;  /* Height beside his head */
+  left: auto !important;
+  right: 105px !important;  /* PUSHED TO HIS RIGHT SIDE (no screen clipping) */
+  
+  /* Slight natural tilt angled toward his head */
+  transform: scale(0.8) rotate(-6deg) !important;
+  
+  background: #ffffff !important;
+  padding: 5px 13px !important;
+  border-radius: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: max-content !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  z-index: 35 !important;
+  
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s !important;
+}
+
+/* Active pop-up state */
+#avatar-peek-wrapper.is-peeking .avatar-thought-cloud {
+  transform: scale(1) rotate(-6deg) !important;
+}
+
+.cloud-text-top {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  color: #7c3aed !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.04em !important;
+  display: block !important;
+}
+
+.cloud-text-bottom {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  display: block !important;
+}
+
+/* Comic Thought Trailing Dots: Angled toward his head on the right */
+.cloud-dot-1, .cloud-dot-2 {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Upper thought dot on the bottom-right of cloud */
+.cloud-dot-1 {
+  bottom: -5px;
+  left: auto;
+  right: 20%; /* Points toward his hair on the right */
+  width: 6.5px;
+  height: 6.5px;
+}
+
+/* Lower small thought dot */
+.cloud-dot-2 {
+  bottom: -11px;
+  left: auto;
+  right: 10%; /* Closer to his head */
+  width: 4px;
+  height: 4px;
+}
