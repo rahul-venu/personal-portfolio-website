@@ -5,6 +5,7 @@ import { initBikeRun } from './bike-anim.js';
 import { initNeuralCanvas } from './neural.js';
 import { initLossVerification } from './verification.js';
 import { initRotaryCounter } from './rotary.js'; 
+import { initAvatar } from './avatar.js';
 
 // ================= NAME MORPH =================
 function initBrandMorph() {
@@ -41,16 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initLossVerification();
   initRotaryCounter(); 
   initBrandMorph();
+  initAvatar();
 
-  import('./avatar.js')
-  .then(module => {
-    module.initAvatar();
-  })
-  .catch(err => {
-    console.warn('[Avatar] 3D Model initialization deferred or failed:', err);
-  });
-
-  
   // ================= CLICK-TO-COPY EMAIL =================
   const emailCard = document.querySelector('a[href^="mailto:"]');
   emailCard?.addEventListener('click', (e) => {
