@@ -17,3 +17,10 @@ Thumbs.db
 
 # Private Personal Profile (RAG Knowledge Base)
 **/rahul_profile.md
+
+# Private 3D Models & Specific Assets
+assets/models/
+*.glb
+
+# Private Image Assets
+assets/images/rahul.png
