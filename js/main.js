@@ -6,6 +6,9 @@ import { initNeuralCanvas } from './neural.js';
 import { initLossVerification } from './verification.js';
 import { initRotaryCounter } from './rotary.js'; 
 import { initAvatar } from './avatar.js';
+import { initSynapse } from './synapse.js';
+import { initScrollbar } from './scrollbar.js';
+import { initLogoAnim } from './logo-anim.js';
 
 // ================= NAME MORPH =================
 function initBrandMorph() {
@@ -41,8 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initBikeRun();
   initLossVerification();
   initRotaryCounter(); 
-  initBrandMorph();
   initAvatar();
+  initSynapse();
+  initScrollbar();
+  initLogoAnim();
+
 
   // ================= CLICK-TO-COPY EMAIL =================
   const emailCard = document.querySelector('a[href^="mailto:"]');
