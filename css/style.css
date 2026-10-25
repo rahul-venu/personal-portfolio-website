@@ -412,33 +412,8 @@ section.page-active .photo-tag-reveal {
   filter: blur(0px);
 }
 
-/* ================= 7. MOBILE RESPONSIVE GUARDS ================= */
 
-@media (max-width: 768px) {
-  /* Prevent background glowing spheres from bleeding off mobile screens */
-  .hero-depth-sphere {
-    width: 320px;
-    height: 320px;
-    left: 50%;
-    top: 45%;
-  }
-
-  .studio-nav-highlight {
-    width: 100vw;
-    height: 300px;
-  }
-
-  /* Compact the chat window for mobile phone screens */
-  .chat-window {
-    width: calc(100vw - 32px) !important;
-    right: 16px !important;
-    bottom: 78px !important;
-    height: 480px !important;
-    max-height: calc(100dvh - 120px) !important;
-  }
-}
-
-/* ================= SEAMLESS VECTOR MORPH (THE NAME) ================= */
+/* ================= 7. SEAMLESS VECTOR MORPH (THE NAME) ================= */
 
 /* Initial Unscrolled State */
 .brand-morph-unit {
@@ -481,7 +456,7 @@ section.page-active .photo-tag-reveal {
   transition: max-width 0.42s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ================= SCROLLED STATE ================= */
+/* ================= 8. SCROLLED STATE ================= */
 
 /* 1. ONLY AHUL, space, and S collapse to 0 width */
 #brand-identity.is-scrolled .brand-collapsible-char,
@@ -624,4 +599,400 @@ section.page-active .photo-tag-reveal {
   right: 10%; /* Closer to his head */
   width: 4px;
   height: 4px;
+}
+
+/* ================= 10. MOBILE RESPONSIVE GUARDS ================= */
+
+@media (max-width: 768px) {
+  /* Prevent background glowing spheres from bleeding off mobile screens */
+  .hero-depth-sphere {
+    width: 320px;
+    height: 320px;
+    left: 50%;
+    top: 45%;
+  }
+
+  .studio-nav-highlight {
+    width: 100vw;
+    height: 300px;
+  }
+
+  /* Compact the chat window for mobile phone screens */
+  .chat-window {
+    width: calc(100vw - 32px) !important;
+    right: 16px !important;
+    bottom: 78px !important;
+    height: 480px !important;
+    max-height: calc(100dvh - 120px) !important;
+  }
+}
+
+/* ================= 11. CONTACT: BUMP, DROP & SYNAPSE PANEL ================= */
+
+:root {
+  --cs-panel: #141416;
+  --cs-top: 72px;                          /* space above the bump (navbar 56 + 16 breathing room) */
+  --cs-chat: 88px;                         /* clearance for the chatbot button */
+  --cs-dd: 26px;                           /* depth of the center drop / step-up notch */
+  --cs-rim: 20px;                          /* continuous bottom band thickness below the center drop */
+  --cs-notch: clamp(240px, 19vw, 340px);   /* width of the left/right notches */
+  --cs-bump-w: 300px;                      /* bump width */
+}
+#contact { padding-top: var(--cs-top); }
+
+@media (min-width: 1024px) {
+  #contact { padding-bottom: var(--cs-rim) !important; }
+}
+
+/* Bump (top) + drop (bottom) shapes */
+.cs-bump, .cs-drop { position: absolute; display: flex; z-index: 5; pointer-events: none; }
+.cs-bump { left: 50%; transform: translateX(-50%); width: var(--cs-bump-w); height: 32px; bottom: calc(100% - 1px); }
+.cs-drop { left: var(--cs-notch); right: var(--cs-notch); top: -1px; height: calc(100% + 1px); }
+.cs-sh   { flex: none; width: 56px; height: 100%; display: block; fill: var(--cs-panel); }
+
+.cs-drop .cs-sh { width: 68px; }   /* smooth S-curve slope matching the deeper 36px drop */
+.cs-fill { flex: 1; margin: 0 -.5px; background: var(--cs-panel); }
+@media (max-width: 1023px) { .cs-drop { display: none; } }
+
+/* Footer band: copyright | RV logo (inside drop) | socials */
+.cs-foot { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px 12px 64px; }
+.cs-foot-logo { position: relative; z-index: 6; display: inline-flex; align-items: center; height: 24px; }
+
+.cs-foot-copy { position: relative; z-index: 6; font-size: 11.5px; line-height: 1; color: rgba(255, 255, 255, 0.9); white-space: nowrap; }
+
+.cs-foot-social { position: relative; z-index: 6; display: flex; align-items: center; gap: 20px; }
+
+@media (min-width: 1024px) {
+  .cs-foot { display: block; height: var(--cs-dd); padding: 0; }
+  /* RV logo sits centered inside the gray drop */
+  .cs-foot-logo   { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  /* Copyright & socials sit vertically centered inside the full notch + bottom rim space */
+  .cs-foot-copy   { position: absolute; left: 12px; top: calc((var(--cs-dd) + var(--cs-rim)) / 2 - 2px); transform: translateY(-50%); }
+  .cs-foot-social { position: absolute; right: var(--cs-chat); top: calc((var(--cs-dd) + var(--cs-rim)) / 2 - 2px); transform: translateY(-50%); }
+}
+
+/* Contact cards: same tile look your old .glass-card.border-y rules gave them */
+#contact [class*="bg-white/[0.02]"] { background-color: #0a0a0d; border-color: rgba(255, 255, 255, 0.07); }
+#contact [class*="bg-white/[0.02]"]:hover { background-color: #111116; border-color: rgba(255, 255, 255, 0.2); }
+
+/* Hide the scrollbar on the fallback scroll area */
+.cs-scroll { scrollbar-width: none; }
+.cs-scroll::-webkit-scrollbar { display: none; }
+
+/* Short laptop screens: drop the subtext so nothing is cropped */
+@media (min-width: 1024px) and (max-height: 700px) { .cs-sub { display: none; } }
+
+
+/* ================= 12. FOOTER LOGO CHOREOGRAPHY (TYPE -> PURPLE SWEEP -> RV) ================= */
+
+/* Base state before scroll trigger: characters hidden, slash is pure white */
+#footer-brand-logo .fb-char {
+  opacity: 0;
+  transform: translateY(7px);
+  color: #ffffff;
+  transition:
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.25s ease;
+}
+
+/* The top-right slash of V starts pure white (#ffffff) */
+#footer-brand-logo .fb-v-slash {
+  fill: #ffffff;
+  transition: fill 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
+}
+
+/* Collapsible wrappers start expanded so RAHUL VENU can type out in full */
+#footer-brand-logo .fb-collapse {
+  transition:
+    max-width 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    margin 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+}
+
+#footer-brand-logo .fb-collapse-ahul {
+  max-width: 80px;
+  margin-left: 3px;
+  opacity: 1;
+}
+
+#footer-brand-logo .fb-collapse-space {
+  width: 7px;
+  max-width: 7px;
+  opacity: 1;
+}
+
+#footer-brand-logo .fb-collapse-enu {
+  max-width: 65px;
+  margin-left: 2px;
+  opacity: 1;
+}
+
+#footer-brand-logo .fb-svg-v {
+  margin-left: 0;
+  transition:
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    margin-left 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
+}
+
+/* STAGE 1: Type/Reveal One by One in Pure White */
+#footer-brand-logo.is-typing .fb-char {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--char-idx) * 0.085s);
+}
+
+/* STAGE 2: Purple Energy Wave Running Inside R -> A -> H -> U -> L -> V */
+@keyframes purpleLetterPulse {
+  0% {
+    color: #ffffff;
+    filter: drop-shadow(0 0 0px rgba(109, 53, 232, 0));
+  }
+  45% {
+    color: #8b5cf6; /* Vivid purple core inside the letter */
+    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.85));
+  }
+  100% {
+    color: #ffffff;
+    filter: drop-shadow(0 0 0px rgba(109, 53, 232, 0));
+  }
+}
+
+#footer-brand-logo.is-sweeping .fb-char {
+  transition-delay: 0s !important;
+}
+
+/* Only R (0) through V (5) get the purple wave traveling inside them */
+#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 0"] { animation: purpleLetterPulse 0.55s ease-in-out 0.00s forwards; }
+#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 1"] { animation: purpleLetterPulse 0.55s ease-in-out 0.11s forwards; }
+#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 2"] { animation: purpleLetterPulse 0.55s ease-in-out 0.22s forwards; }
+#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 3"] { animation: purpleLetterPulse 0.55s ease-in-out 0.33s forwards; }
+#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 4"] { animation: purpleLetterPulse 0.55s ease-in-out 0.44s forwards; }
+#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 5"] .fb-v-body {
+  animation: purpleVBodyPulse 0.55s ease-in-out 0.55s forwards;
+}
+
+@keyframes purpleVBodyPulse {
+  0%, 100% { fill: #ffffff; }
+  45% { fill: #8b5cf6; }
+}
+
+/* When the purple wave hits V, the top-right slash permanently ignites to #6d35e8 */
+#footer-brand-logo.slash-ignited .fb-v-slash {
+  fill: #6d35e8;
+  filter: drop-shadow(0 0 6px rgba(109, 53, 232, 0.75));
+}
+
+/* STAGE 3: Butter-Smooth Collapse into Compact RV */
+#footer-brand-logo.is-collapsed .fb-collapse {
+  max-width: 0px !important;
+  opacity: 0 !important;
+  margin-left: 0px !important;
+  transform: scaleX(0.75);
+}
+
+#footer-brand-logo.is-collapsed .fb-svg-v {
+  margin-left: -0.30em;
+  filter: drop-shadow(0 0 8px rgba(109, 53, 232, 0.5));
+}
+
+/* Hovering after collapse smoothly expands RAHUL VENU back out */
+#footer-brand-logo.is-collapsed:hover .fb-collapse-ahul {
+  max-width: 80px !important;
+  opacity: 1 !important;
+  margin-left: 3px !important;
+  transform: scaleX(1);
+}
+
+#footer-brand-logo.is-collapsed:hover .fb-collapse-space {
+  max-width: 7px !important;
+  opacity: 1 !important;
+  transform: scaleX(1);
+}
+
+#footer-brand-logo.is-collapsed:hover .fb-collapse-enu {
+  max-width: 65px !important;
+  opacity: 1 !important;
+  margin-left: 2px !important;
+  transform: scaleX(1);
+}
+
+#footer-brand-logo.is-collapsed:hover .fb-svg-v {
+  margin-left: 0 !important;
+  filter: drop-shadow(0 0 12px rgba(109, 53, 232, 0.8));
+}
+
+/* ================= 13. TYPOGRAPHY & MAGNIFY PRO FONT SYSTEM ================= */
+
+/* 1. Register the 3 Magnify PRO Weights (.ttf) */
+@font-face {
+  font-family: 'Magnify PRO';
+  src: local('Magnify PRO Thin'), local('MagnifyPRO-Thin'),
+       url('../assets/fonts/MagnifyPRO-Thin.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Magnify PRO';
+  src: local('Magnify PRO Light'), local('MagnifyPRO-Light'),
+       url('../assets/fonts/MagnifyPRO-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Magnify PRO';
+  src: local('Magnify PRO Medium'), local('MagnifyPRO-Medium'),
+       url('../assets/fonts/MagnifyPRO-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback Stack Variable: Automatically switches to Plus Jakarta Sans -> System UI if .ttf fails */
+:root {
+  --font-magnify: 'Magnify PRO', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Utility Classes */
+.font-magnify-thin   { font-family: var(--font-magnify) !important; font-weight: 200 !important; }
+.font-magnify-light  { font-family: var(--font-magnify) !important; font-weight: 300 !important; }
+.font-magnify-medium { font-family: var(--font-magnify) !important; font-weight: 500 !important; }
+
+
+/* =========================================================================
+   1. MAGNIFY PRO THIN (200) — Delicate Accents & Secondary Labels
+   ========================================================================= */
+
+/* Navbar "| Portfolio" suffix */
+#brand-identity .brand-morph-unit > span:last-child {
+  font-family: var(--font-magnify) !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.03em;
+}
+
+/* Hero Floating Cards — Subtitles ("Autonomous & grounded", "High-precision modeling", etc.) */
+#home .animate-float-1 p,
+#home .animate-float-2 p,
+#home .animate-float-3 p {
+  font-family: var(--font-magnify) !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.02em;
+}
+
+/* Contact Secondary Metadata Labels ("Location", "Email", "Website") */
+#contact .space-y-2\.5 span.text-brand-muted {
+  font-family: var(--font-magnify) !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.03em;
+}
+
+/* Footer Copyright: "All rights reserved" in Thin (200) */
+.cs-foot-copy {
+  font-family: var(--font-magnify) !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.01em;
+}
+
+
+/* =========================================================================
+   2. MAGNIFY PRO LIGHT (300) — Long-Form Body Paragraphs & Descriptions
+   ========================================================================= */
+
+/* Hero Intro Paragraph */
+#home .lg\:col-span-7 > p {
+  font-family: var(--font-magnify) !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.01em;
+}
+
+/* 01. About Me — Justified Bio Paragraphs */
+#about .space-y-4 p {
+  font-family: var(--font-magnify) !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.01em;
+}
+
+/* 02. Projects — Card Descriptions */
+#projects article > p {
+  font-family: var(--font-magnify) !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0.01em;
+}
+
+/* 04. Certifications — Skill Summary Paragraphs */
+#certifications a p.text-xs {
+  font-family: var(--font-magnify) !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.01em;
+}
+
+/* 05. Contact — Intro Paragraph */
+#contact p.cs-sub {
+  font-family: var(--font-magnify) !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0.01em;
+}
+
+
+/* =========================================================================
+   3. MAGNIFY PRO MEDIUM (500) — Nav Links, CTAs, Highlights & Card Values
+   ========================================================================= */
+
+/* Header Navigation Links (Desktop & Mobile) */
+header nav a,
+header .hidden.md\:flex > a:not(.glass-btn) {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
+}
+
+/* Hero Action Buttons ("Ask Me Somethin'", "Get In Touch") & Floating Card Titles */
+#home #clone-btn,
+#home a[href="#contact"],
+#home .animate-float-1 h4,
+#home .animate-float-2 h4,
+#home .animate-float-3 h4 {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em;
+}
+
+/* Highlighted Keywords (<strong>) inside About & Projects (True Native 500 Weight) */
+#about .space-y-4 p strong,
+#projects article p strong,
+#projects article .mt-auto strong {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+}
+
+/* 01. About Me — 12 Mini-Tile Credential Values */
+#about .grid > div > p {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+}
+
+/* 05. Contact — Location / Email / Website Values & Submit Button */
+#contact .space-y-2\.5 p,
+#contact #contact-submit-btn {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+}
+
+/* Footer Copyright Name: "2026 Rahul V S." in Medium (500) */
+.cs-foot-copy > span:first-child {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em;
 }
