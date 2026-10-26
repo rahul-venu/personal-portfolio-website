@@ -281,42 +281,53 @@
   </a>
 </section>
 
-                <!-- ================= ABOUT SECTION ================= -->
+                <!-- ================= ABOUT SECTION (B&W EDITORIAL + DUAL RUNNING BANDS) ================= -->
 
 <section id="about" class="w-full relative z-10 scroll-mt-14">
   
-  <!-- Full-Width Glass Panel -->
-  <div class="w-full min-h-[calc(100vh-5rem)] flex flex-col justify-center glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-10 lg:px-12 py-12 lg:py-16">
+  <div class="w-full lg:h-[calc(100dvh-3.5rem)] flex flex-col justify-between glass-card border-x-0 border-y border-white/10 rounded-none pt-4 lg:pt-5 pb-4 overflow-hidden">
 
-    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+    <!-- ================= 1. UPPER 12-COLUMN EDITORIAL GRID ================= -->
+    <div class="w-full px-6 sm:px-8 lg:pl-4 lg:pr-12 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center my-auto">
       
-      <!-- LEFT COLUMN -->
-      <div class="lg:col-span-8 flex flex-col items-start text-left w-full">
-        
-        <!-- Section Tag & Academic Badges -->
-        <div class="flex flex-wrap items-center gap-2.5 mb-6">
-          <span class="rotary-title text-xs uppercase font-mono tracking-widest text-indigo-400 font-bold">
-           01. About Me
+      <!-- A. LEFT SPINE: '01' + Vertical Divider + 'ABOUT ME' -->
+      <div class="hidden lg:flex lg:col-span-2 flex-col items-center justify-center select-none -ml-4">
+        <span class="rotary-title text-6xl xl:text-7xl font-serif font-bold text-zinc-500/80 tracking-tighter leading-none">
+          01
+        </span>
+        <div class="w-px h-14 bg-white/25 my-5"></div>
+        <div class="h-28 flex items-center justify-center">
+          <span class="rotary-title -rotate-90 whitespace-nowrap text-[11px] font-mono uppercase tracking-[0.35em] text-zinc-400">
+            ABOUT ME
           </span>
+        </div>
+      </div>
 
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border border-purple-500/30 bg-purple-950/30 text-purple-300 backdrop-blur-md">
+      <!-- B. CENTER BIO COLUMN -->
+      <div class="lg:col-span-6 lg:-ml-4 flex flex-col items-start text-left w-full">
+        
+        <div class="flex flex-wrap items-center gap-2.5 mb-4">
+          <span class="lg:hidden rotary-title text-xs uppercase font-mono tracking-widest text-indigo-400 font-bold mr-1">
+            01. About Me
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-medium border border-purple-500/30 bg-purple-950/20 text-purple-300 backdrop-blur-md">
             🎓 IIT Madras • Data Science
           </span>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border border-white/10 bg-white/5 text-slate-300">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-300">
             💻 B.E. Computer Science
           </span>
         </div>
 
-        <!-- Headline -->
-        <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight leading-snug mb-6">
-          Building scalable AI systems, <br class="hidden sm:inline" />
+        <h3 class="text-2xl sm:text-3xl xl:text-4xl font-bold text-white tracking-tight leading-snug">
+          Building scalable AI systems, from <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-cyan-400">
-            from predictive ML to autonomous agents.
+            predictive ML to autonomous agents.
           </span>
         </h3>
 
-        <!-- Bio Paragraphs (Justified) -->
-        <div class="space-y-4 text-brand-muted text-sm sm:text-base leading-relaxed mb-8 text-justify w-full">
+        <div class="w-12 h-[2px] bg-white/80 my-4"></div>
+
+        <div class="space-y-3.5 text-brand-muted text-sm sm:text-base leading-relaxed text-justify w-full max-w-2xl">
           <p>
             I am a <strong class="text-white">Generative AI & Machine Learning Engineer</strong> holding a <strong class="text-white">B.E. in Computer Science and Engineering</strong>, currently specializing in <strong class="text-white">Data Science & Applications</strong> from the Indian Institute of Technology Madras <strong class="text-white">(IITM)</strong>.
           </p>
@@ -325,135 +336,97 @@
           </p>
         </div>
 
-        <!-- ================= MOBILE-ONLY PHOTO (Appears directly after Bio on Phones) ================= -->
-        <div class="block lg:hidden w-full max-w-[280px] sm:max-w-[320px] mx-auto my-8 aspect-[9/16] relative group">
+        <!-- MOBILE PHOTO -->
+        <div class="block lg:hidden w-full max-w-[260px] mx-auto mt-6 mb-4 aspect-[9/16] relative group">
           <div class="photo-reveal-mask">
             <img 
               src="assets/images/profile.jpg" 
               alt="Rahul V S - AI Engineer" 
               class="w-full h-full object-cover object-center image-dissolve"
-              onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'"
             />
           </div>
-          <!-- Floating IITM Verification Tag -->
-          <div class="photo-tag-reveal absolute bottom-4 left-3 right-3 p-2.5 rounded-xl bg-black/70 backdrop-blur-md border border-white/10 flex items-center justify-between text-left shadow-lg">
-            <div>
-              <p class="text-xs font-bold text-white tracking-wide">RAHUL V S</p>
-              <p class="text-[10px] font-mono text-purple-300 mt-0.5">IIT Madras • Data Science | Gen AI</p>
-            </div>
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          </div>
-        </div>
-
-        <!-- Mini Credentials & Core Stack Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3 w-full pt-4 border-t border-white/5">
-          
-          <!-- Card 1 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-indigo-400 block mb-1">ACADEMICS</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">IITM (Data Science & Applications) • B.E. CSE</p>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-purple-400 block mb-1">AGENTIC SYSTEMS</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">LangGraph • LangChain • Agents</p>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-cyan-400 block mb-1">GENAI</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">RAG • Prompt Engineering • LLM</p>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-emerald-400 block mb-1">DEEP LEARNING</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">PyTorch • TensorFlow • Transformers</p>
-          </div>
-
-          <!-- Card 5 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-amber-400 block mb-1">MACHINE LEARNING</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">Scikit-learn • Feature Eng • ML Pipelines</p>
-          </div>
-
-          <!-- Card 6 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-orange-400 block mb-1">NLP & TEXT PROCESSING</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">Regex • spaCy • NLTK • HuggingFace</p>
-          </div>
-
-          <!-- Card 7: Fully visible on desktop without cuts -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-fuchsia-400 block mb-1">LLM ORCHESTRATION</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">Tool Calling • Context & Memory Management</p>
-          </div>
-
-          <!-- Card 8 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-sky-400 block mb-1">SEARCH & RETRIEVAL</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">Vector Embeddings • Semantic Search</p>
-          </div>
-
-          <!-- Card 9: Fully visible on desktop without cuts -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-blue-400 block mb-1">PROGRAMMING</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">Python • Relational SQL • HTML & CSS [Basic]</p>
-          </div>
-
-          <!-- Card 10 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-amber-400 block mb-1">DATA & TOOLS</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">Pandas • NumPy • Git • GitHub • Jupyter</p>
-          </div>
-
-          <!-- Card 11 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-teal-400 block mb-1">MLOPS & PIPELINES</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">FastAPI • Docker • MLflow • ZenML • CI/CD</p>
-          </div>
-
-          <!-- Card 12 -->
-          <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center">
-            <span class="text-[10px] font-mono text-rose-400 block mb-1">APP UI & HOSTING</span>
-            <p class="text-[11px] xl:text-xs font-semibold text-white whitespace-nowrap">Streamlit • Heroku • Dashboards</p>
-          </div>
-
+          <div class="about-sig-mount absolute -bottom-3 -right-2 z-20 pointer-events-none select-none"></div>
         </div>
 
       </div> 
 
-      <!-- ================= DESKTOP-ONLY RIGHT COLUMN (Pinned to far right with lg:ml-auto) ================= -->
-      <div class="hidden lg:flex lg:col-span-4 justify-end w-full">
-        <!-- lg:ml-auto guarantees the photo is pushed all the way to the right edge! -->
-        <div class="relative lg:-translate-y-[25px] lg:-mb-[25px] w-full max-w-[320px] sm:max-w-[350px] aspect-[9/16] group lg:ml-auto">
+      <!-- C. DESKTOP RIGHT COLUMN -->
+      <div class="hidden lg:flex lg:col-span-4 justify-center w-full relative">
+        <div class="relative h-[54vh] max-h-[480px] min-h-[380px] w-auto aspect-[9/16] group lg:-translate-y-3 lg:-translate-x-6">
           
-          <!-- Soft Right-to-Left Reveal Mask Wrapper -->
-          <div class="photo-reveal-mask">
+          <!-- Two-Image Spotlight Stack: B&W Base + Cursor-Revealed Color Layer -->
+          <div class="photo-reveal-mask photo-color-spotlight relative select-none">
+            <!-- 1. Base B&W Transparent PNG -->
             <img 
-              src="assets/images/profile.jpg" 
+              src="assets/images/profile-bw.png" 
               alt="Rahul V S - AI Engineer" 
-              class="w-full h-full object-cover object-center image-dissolve group-hover:scale-105 transition-transform duration-700 ease-out"
-              onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'"
+              class="w-full h-full object-contain object-bottom image-dissolve-bottom pointer-events-none"
+            />
+            <!-- 2. Top Color Transparent PNG (Revealed only under cursor) -->
+            <img 
+              src="assets/images/profile-color.png" 
+              alt="" 
+              aria-hidden="true"
+              class="photo-color-layer absolute inset-0 w-full h-full object-contain object-bottom image-dissolve-bottom pointer-events-none"
             />
           </div>
 
-          <!-- Floating IITM Verification Tag -->
-          <div class="photo-tag-reveal absolute bottom-5 left-3 right-3 p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-between text-left shadow-lg">
-            <div>
-              <p class="text-xs font-bold text-white tracking-wide">RAHUL V S</p>
-              <p class="text-[10px] font-mono text-purple-300 mt-0.5">IIT Madras • Data Science | Gen AI</p>
-            </div>
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          </div>
+          <!-- -30° Signature Mount below/right of portrait -->
+          <div class="about-sig-mount absolute -bottom-3 -right-8 z-20 pointer-events-none select-none"></div>
 
         </div>
       </div>
 
-    </div> 
+    </div> <!-- <--- THIS CLOSES THE 12-COL GRID SO THE BANDS BELOW SPAN 100% FULL WIDTH! -->
+
+    <!-- ================= 2. BOTTOM FULL-WIDTH RUNNING BANDS (6 TOP L->R, 6 BOTTOM R->L) ================= -->
+    <div class="about-marquee-wrap w-full mt-2 pt-4 border-t border-white/5 flex flex-col gap-2.5 select-none">
+      
+      <!-- TOP ROW: 6 Pills Scrolling Left-to-Right -->
+      <div class="about-marquee-mask w-full overflow-hidden flex">
+        <div class="about-marquee-track track-ltr flex items-center gap-3 pr-3">
+          <!-- Set A (Pills 1-6) -->
+          <div class="about-Band-pill"><span class="text-indigo-400">ACADEMICS</span><span class="about-pill-sep">•</span><p>IITM (Data Science & Applications) • B.E. CSE</p></div>
+          <div class="about-Band-pill"><span class="text-purple-400">AGENTIC SYSTEMS</span><span class="about-pill-sep">•</span><p>LangGraph • LangChain • Agents</p></div>
+          <div class="about-Band-pill"><span class="text-cyan-400">GENAI</span><span class="about-pill-sep">•</span><p>RAG • Prompt Engineering • LLM</p></div>
+          <div class="about-Band-pill"><span class="text-emerald-400">DEEP LEARNING</span><span class="about-pill-sep">•</span><p>PyTorch • TensorFlow • Transformers</p></div>
+          <div class="about-Band-pill"><span class="text-amber-400">MACHINE LEARNING</span><span class="about-pill-sep">•</span><p>Scikit-learn • Feature Eng • ML Pipelines</p></div>
+          <div class="about-Band-pill"><span class="text-orange-400">NLP & TEXT PROCESSING</span><span class="about-pill-sep">•</span><p>Regex • spaCy • NLTK • HuggingFace</p></div>
+          <!-- Set B (Duplicate for Seamless Infinite Loop) -->
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-indigo-400">ACADEMICS</span><span class="about-pill-sep">•</span><p>IITM (Data Science & Applications) • B.E. CSE</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-purple-400">AGENTIC SYSTEMS</span><span class="about-pill-sep">•</span><p>LangGraph • LangChain • Agents</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-cyan-400">GENAI</span><span class="about-pill-sep">•</span><p>RAG • Prompt Engineering • LLM</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-emerald-400">DEEP LEARNING</span><span class="about-pill-sep">•</span><p>PyTorch • TensorFlow • Transformers</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-amber-400">MACHINE LEARNING</span><span class="about-pill-sep">•</span><p>Scikit-learn • Feature Eng • ML Pipelines</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-orange-400">NLP & TEXT PROCESSING</span><span class="about-pill-sep">•</span><p>Regex • spaCy • NLTK • HuggingFace</p></div>
+        </div>
+      </div>
+
+      <!-- BOTTOM ROW: 6 Pills Scrolling Right-to-Left -->
+      <div class="about-marquee-mask w-full overflow-hidden flex">
+        <div class="about-marquee-track track-rtl flex items-center gap-3 pr-3">
+          <!-- Set A (Pills 7-12) -->
+          <div class="about-Band-pill"><span class="text-fuchsia-400">LLM ORCHESTRATION</span><span class="about-pill-sep">•</span><p>Tool Calling • Context & Memory Management</p></div>
+          <div class="about-Band-pill"><span class="text-sky-400">SEARCH & RETRIEVAL</span><span class="about-pill-sep">•</span><p>Vector Embeddings • Semantic Search</p></div>
+          <div class="about-Band-pill"><span class="text-blue-400">PROGRAMMING</span><span class="about-pill-sep">•</span><p>Python • Relational SQL • HTML & CSS [Basic]</p></div>
+          <div class="about-Band-pill"><span class="text-amber-400">DATA & TOOLS</span><span class="about-pill-sep">•</span><p>Pandas • NumPy • Git • GitHub • Jupyter</p></div>
+          <div class="about-Band-pill"><span class="text-teal-400">MLOPS & PIPELINES</span><span class="about-pill-sep">•</span><p>FastAPI • Docker • MLflow • ZenML • CI/CD</p></div>
+          <div class="about-Band-pill"><span class="text-rose-400">APP UI & HOSTING</span><span class="about-pill-sep">•</span><p>Streamlit • Heroku • Dashboards</p></div>
+          <!-- Set B (Duplicate for Seamless Infinite Loop) -->
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-fuchsia-400">LLM ORCHESTRATION</span><span class="about-pill-sep">•</span><p>Tool Calling • Context & Memory Management</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-sky-400">SEARCH & RETRIEVAL</span><span class="about-pill-sep">•</span><p>Vector Embeddings • Semantic Search</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-blue-400">PROGRAMMING</span><span class="about-pill-sep">•</span><p>Python • Relational SQL • HTML & CSS [Basic]</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-amber-400">DATA & TOOLS</span><span class="about-pill-sep">•</span><p>Pandas • NumPy • Git • GitHub • Jupyter</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-teal-400">MLOPS & PIPELINES</span><span class="about-pill-sep">•</span><p>FastAPI • Docker • MLflow • ZenML • CI/CD</p></div>
+          <div class="about-Band-pill" aria-hidden="true"><span class="text-rose-400">APP UI & HOSTING</span><span class="about-pill-sep">•</span><p>Streamlit • Heroku • Dashboards</p></div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </section>
+
 
           <!-- ================= PROJECTS SECTION ================= -->
 
