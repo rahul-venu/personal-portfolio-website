@@ -1,19 +1,24 @@
-/* ================= 1. GLOBAL & PITCH-BLACK CANVAS ================= */
+/* ================= 1. GLOBAL & MATTE OBSIDIAN CANVAS (HARUN PALETTE) ================= */
 
-/* Ensures anchor links glide smoothly */
+/* Ensures anchor links glide smoothly and lock flush below the 3.5rem (56px) navbar */
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
 }
 
-/* True Pitch-Black Canvas */
+section#home,
+section#about,
+section#projects,
+section#skills,
+section#certifications,
+section#contact {
+  scroll-snap-align: start;
+}
+
+/* Uniform Deep Matte Obsidian Canvas across every section */
 body {
-  background-color: #000000;
-  background-image: 
-    /* Soft top ambient bloom */
-    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
-    /* Faint ambient backlight behind 3D sculpture */
-    radial-gradient(circle at 54% 42%, rgba(255, 255, 255, 0.02) 0%, transparent 65%);
-  background-attachment: fixed;
+  background-color: #0b0b0c;
+  background-image: none;
   min-height: 100vh;
   color: #f1f5f9;
 }
@@ -27,77 +32,26 @@ body {
 /* Glass activates only when user scrolls down */
 header.is-scrolled .glass-panel,
 body:has(#brand-identity.is-scrolled) .glass-panel {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(11, 11, 12, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 
-/* ================= 2. HERO 3D ENVIRONMENT & LIGHTING ================= */
+/* ================= 2. HERO 3D ENVIRONMENT & LIGHTING (CLEAN MATTE) ================= */
 
-/* Overhead Downward Studio U-Glow */
-.studio-nav-highlight {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 860px;
-  max-width: 100vw;
-  height: 520px;
-  background: radial-gradient(
-    ellipse 65% 60% at 50% 0%,
-    rgba(56, 189, 248, 0.22) 0%,
-    rgba(99, 102, 241, 0.12) 35%,
-    rgba(147, 51, 234, 0.04) 60%,
-    transparent 80%
-  );
-  filter: blur(40px);
-  pointer-events: none;
-  z-index: 0;
+#home {
+  background: #0b0b0c;
 }
 
-/* Radiant Slit Escaping Under Navbar */
-.studio-nav-highlight::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 380px;
-  max-width: 80vw;
-  height: 2px;
-  background: linear-gradient(
-    90deg, 
-    transparent 0%, 
-    rgba(56, 189, 248, 0.95) 50%, 
-    transparent 100%
-  );
-  box-shadow: 
-    0 0 20px 4px rgba(56, 189, 248, 0.6),
-    0 0 40px 10px rgba(99, 102, 241, 0.4);
-}
-
-/* 3D Depth Sphere Behind Sculpture */
+/* Muted overhead studio glow so the canvas stays clean matte black */
+.studio-nav-highlight,
 .hero-depth-sphere {
-  position: absolute;
-  top: 38%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  width: 580px;
-  height: 580px;
-  background: radial-gradient(
-    circle, 
-    rgba(99, 102, 241, 0.12) 0%, 
-    rgba(168, 85, 247, 0.05) 45%, 
-    transparent 70%
-  );
-  filter: blur(60px);
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
-/* Floor Shadow Grounded Below the Sculpture */
+/* Subtle grounded floor shadow below the 3D sculpture */
 .hero-floor-shadow {
   position: absolute;
   bottom: 14%;
@@ -108,7 +62,7 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
   background: radial-gradient(
     ellipse at center, 
     rgba(0, 0, 0, 0.95) 0%, 
-    rgba(217, 70, 239, 0.15) 30%, 
+    rgba(0, 0, 0, 0.4) 45%, 
     transparent 75%
   );
   filter: blur(14px);
@@ -130,59 +84,59 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
 }
 
 
-/* ================= 3. CARDS, PANELS & BUTTONS ================= */
+/* ================= 3. CARDS, PANELS & BUTTONS (MATTE CHARCOAL #121214) ================= */
 
-/* 1. Standalone Cards on #000000 Canvas (Projects & Certifications) */
+/* 1. Standalone Cards (Hero Floating Cards, Projects & Certifications) */
 .glass-card {
-  background: #18181c; 
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: none;
+  background: #121214; 
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
 }
 
 .glass-card:hover {
-  background: #202026;
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #17171a;
+  border-color: rgba(255, 255, 255, 0.16);
   transform: translateY(-3px);
   animation-play-state: paused;
 }
 
-/* 2. Full-Width Alternating Section Bands (About, Skills, Contact) */
+/* 2. Full-Width Section Bands (About & Skills now match the #0b0b0c page background) */
 .glass-card.border-y {
-  background: #141416 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: #0b0b0c !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
   box-shadow: none !important;
   transform: none !important;
 }
 
-/* 3. Cards & Tiles INSIDE Band (About, Skills, Contact) */
+/* 3. Cards & Tiles INSIDE Sections (About tiles & Skills cards use #121214 matte box look) */
 .glass-card.border-y .glass-card,
 .glass-card.border-y [class*="bg-white/[0.02]"] {
-  background-color: #0a0a0d !important;
-  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  background-color: #121214 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
 
 .glass-card.border-y .glass-card:hover,
 .glass-card.border-y [class*="bg-white/[0.02]"]:hover {
-  background-color: #111116 !important;
-  border-color: rgba(255, 255, 255, 0.2) !important;
+  background-color: #17171a !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
   transform: translateY(-3px) !important;
 }
 
-/* Minimalist Glass Buttons */
+/* Minimalist Matte Buttons */
 .glass-btn {
-  background: #101014;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #121214;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #f8fafc;
   transition: all 0.2s ease;
 }
 
 .glass-btn:hover {
-  background: #18181f;
-  border-color: rgba(255, 255, 255, 0.25);
+  background: #1a1a1e;
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
 
@@ -338,8 +292,8 @@ section:not(#home).page-active .glass-card:not(.border-y):nth-child(8) { transit
 /* 4. Instant Hover Response (Kills the scroll delay so cards lift immediately on mouse enter) */
 section.page-active .glass-card:not(.border-y):hover {
   transform: translateY(-4px) !important;
-  background: #111116;
-  border-color: rgba(255, 255, 255, 0.22);
+  background: #17171a;
+  border-color: rgba(255, 255, 255, 0.18);
   transition-delay: 0s !important;
   transition-duration: 0.2s !important;
 }
@@ -630,7 +584,7 @@ section.page-active .photo-tag-reveal {
 /* ================= 11. CONTACT: BUMP, DROP & SYNAPSE PANEL ================= */
 
 :root {
-  --cs-panel: #141416;
+  --cs-panel: #0f0f11;                   /* Matte obsidian panel so bump/drop notch still reads cleanly */
   --cs-top: 72px;                          /* space above the bump (navbar 56 + 16 breathing room) */
   --cs-chat: 88px;                         /* clearance for the chatbot button */
   --cs-dd: 26px;                           /* depth of the center drop / step-up notch */
@@ -671,9 +625,10 @@ section.page-active .photo-tag-reveal {
   .cs-foot-social { position: absolute; right: var(--cs-chat); top: calc((var(--cs-dd) + var(--cs-rim)) / 2 - 2px); transform: translateY(-50%); }
 }
 
-/* Contact cards: same tile look your old .glass-card.border-y rules gave them */
-#contact [class*="bg-white/[0.02]"] { background-color: #0a0a0d; border-color: rgba(255, 255, 255, 0.07); }
-#contact [class*="bg-white/[0.02]"]:hover { background-color: #111116; border-color: rgba(255, 255, 255, 0.2); }
+/* Contact cards match the #121214 matte charcoal palette */
+#contact [class*="bg-white/[0.02]"],
+#contact [class*="bg-white/[0.03]"] { background-color: #121214 !important; border-color: rgba(255, 255, 255, 0.06) !important; }
+#contact [class*="bg-white/[0.02]"]:hover { background-color: #17171a !important; border-color: rgba(255, 255, 255, 0.16) !important; }
 
 /* Hide the scrollbar on the fallback scroll area */
 .cs-scroll { scrollbar-width: none; }
@@ -995,4 +950,114 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   font-family: var(--font-magnify) !important;
   font-weight: 500 !important;
   letter-spacing: -0.01em;
+}
+
+/* ================= 14. ABOUT SECTION: SPINE & DUAL RUNNING BANDS ================= */
+
+/* 1. Vertical "ABOUT ME" Spine Text (Reads bottom-to-top like reference) */
+.about-vertical-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* 2. Soft Left/Right Edge Fade Mask on the Running Bands */
+.about-marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+}
+
+/* 3. Individual Running Band Pill Styling (Matches #121214 Matte Charcoal Palette) */
+.about-Band-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  border-radius: 9999px;
+  background-color: #121214;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+
+.about-Band-pill:hover {
+  background-color: #18181c;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.about-Band-pill > span:first-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.about-Band-pill .about-pill-sep {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 11px;
+}
+
+.about-Band-pill > p {
+  font-family: var(--font-magnify);
+  font-weight: 500;
+  font-size: 12.5px;
+  color: #f8fafc;
+  margin: 0;
+}
+
+/* 4. Infinite Counter-Scrolling Keyframes (Top Row L->R, Bottom Row R->L) */
+.about-marquee-track {
+  width: max-content;
+  will-change: transform;
+}
+
+/* Top Row: Moves Left-to-Right (-50% -> 0%) */
+.about-marquee-track.track-ltr {
+  animation: marqueeLTR 38s linear infinite;
+}
+
+/* Bottom Row: Moves Right-to-Left (0% -> -50%) */
+.about-marquee-track.track-rtl {
+  animation: marqueeRTL 38s linear infinite;
+}
+
+/* Pause smoothly when user hovers over a row to inspect pills */
+.about-marquee-mask:hover .about-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLTR {
+  0%   { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0%, 0, 0); }
+}
+
+@keyframes marqueeRTL {
+  0%   { transform: translate3d(0%, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Bottom-only dissolve for Transparent PNG Portrait (melts torso into #0b0b0c floor) */
+.image-dissolve-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+}
+
+/* Top Color Image Layer: Masked to a soft spotlight circle around (--spot-x, --spot-y) */
+.photo-color-spotlight {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  --spot-r: 0px; /* 0px when mouse is outside; expands to 135px on hover */
+}
+
+.photo-color-layer {
+  -webkit-mask-image: 
+    radial-gradient(circle var(--spot-r) at var(--spot-x) var(--spot-y), rgba(0,0,0,1) 0%, rgba(0,0,0,0.65) 55%, transparent 100%),
+    linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: 
+    radial-gradient(circle var(--spot-r) at var(--spot-x) var(--spot-y), rgba(0,0,0,1) 0%, rgba(0,0,0,0.65) 55%, transparent 100%),
+    linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+  mask-composite: intersect;
+  transition: --spot-r 0.25s ease;
 }
