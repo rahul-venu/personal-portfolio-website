@@ -985,12 +985,12 @@ header .hidden.md\:flex > a:not(.glass-btn) {
 
 /* Top Row: Moves Left-to-Right (-50% -> 0%) */
 .about-marquee-track.track-ltr {
-  animation: marqueeLTR 38s linear infinite;
+  animation: marqueeLTR 60s linear infinite;
 }
 
 /* Bottom Row: Moves Right-to-Left (0% -> -50%) */
 .about-marquee-track.track-rtl {
-  animation: marqueeRTL 38s linear infinite;
+  animation: marqueeRTL 60s linear infinite;
 }
 
 /* Pause smoothly when user hovers over a row to inspect pills */
@@ -1031,4 +1031,100 @@ header .hidden.md\:flex > a:not(.glass-btn) {
     linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
   mask-composite: intersect;
   transition: --spot-r 0.25s ease;
+}
+
+/* ================= 14. ARGON BORDER RING (OUTSIDE GLOW ONLY) ================= */
+
+@property --argon-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+#chatbot-toggle.chat-toggle-btn {
+  position: fixed;
+  background: #17171a !important; /* 100% solid opaque interior */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  isolation: isolate;
+  overflow: visible !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65) !important;
+}
+
+/* 1. Razor-Thin 1px Google 4-Color Spectrum Ring + Opaque Inner Shield (::before) */
+#chatbot-toggle.chat-toggle-btn::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  /* Layer 1 (content-box): Solid #17171a interior blocks 100% of inward bleed!
+     Layer 2 (border-box): 1px Conic Argon Ring */
+  background:
+    linear-gradient(#17171a, #17171a) padding-box,
+    conic-gradient(
+      from var(--argon-angle),
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.08) 28%,
+      #4285f4 44%,
+      #34a853 60%,
+      #fbbc05 76%,
+      #ea4335 90%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) border-box;
+  border: 1px solid transparent;
+  animation: argonSpin 6s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 2. Seamless Soft Atmospheric Dissolve Directly From the 1px Border (::after) */
+#chatbot-toggle.chat-toggle-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--argon-angle),
+    transparent 0%,
+    transparent 26%,
+    #4285f4 44%,
+    #34a853 60%,
+    #fbbc05 76%,
+    #ea4335 90%,
+    transparent 100%
+  );
+  /* High blur + low opacity with NO mask = zero donut gap, pure seamless fade into black */
+  filter: blur(18px);
+  opacity: 0.38;
+  animation: argonSpin 6s linear infinite;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+  pointer-events: none;
+  z-index: -2;
+}
+
+#chatbot-toggle.chat-toggle-btn:hover::after {
+  opacity: 0.6;
+  filter: blur(22px);
+}
+/* Hide the Argon ring & outer glow when the chat window is open */
+#chatbot-toggle.chat-toggle-btn:has(#chat-icon-close:not(.hidden))::before,
+#chatbot-toggle.chat-toggle-btn:has(#chat-icon-close:not(.hidden))::after,
+body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn::before,
+body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn::after {
+  opacity: 0 !important;
+  animation-play-state: paused;
+}
+
+/* Keep a clean subtle 1px dark-grey border on the X button while chat is open */
+#chatbot-toggle.chat-toggle-btn:has(#chat-icon-close:not(.hidden)),
+body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+@keyframes argonSpin {
+  to {
+    --argon-angle: 360deg;
+  }
 }
