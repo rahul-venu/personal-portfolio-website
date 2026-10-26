@@ -459,91 +459,102 @@ export function initLogoAnim() {
 }
 
 // =========================================================================
-  // 3. TOP BUMP CURSIVE SIGNATURE ("Rahul Venu" — Writes Once Per Page Load)
+  // 3. ABOUT PORTRAIT -30° CURSIVE SIGNATURE ("Rahul Venu" — Writes Once Per Refresh)
   // =========================================================================
-  const bumpFill = document.querySelector('#contact .cs-bump .cs-fill');
-  if (bumpFill) {
+  const sigMounts = document.querySelectorAll('#about .about-sig-mount');
+  if (sigMounts.length) {
     const sigStyle = document.createElement('style');
     sigStyle.textContent = `
-      #contact .cs-bump .cs-fill {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      .about-sig-svg {
+        width: 160px;
+        height: auto;
         overflow: visible;
+        transform: rotate(-25deg);
+        transform-origin: center center;
+        filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.85));
       }
 
-      #bump-signature-svg {
-        height: 22px;
-        width: auto;
-        overflow: visible;
-        transform: translateY(3px); /* Visually centers inside the bump tab */
-        filter: drop-shadow(0 0 6px rgba(109, 53, 232, 0.35));
-      }
-
-      .bump-sig-stroke {
+      .about-sig-stroke {
         fill: none;
-        stroke: #6d35e8; /* Exact V-cap purple */
-        stroke-width: 3.6;
+        stroke: #a1a1aa; 
+        stroke-width: 3.8;
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-dasharray: 1;
         stroke-dashoffset: 1;
       }
 
-      /* Stroke 1 ( Rahul ) writes from 0.1s -> 2.25s (Duration: 2.15s) */ 
-      #bump-signature-svg.is-signed .sig-rahul { 
-        animation: drawBumpSig 2.15s cubic-bezier(0.35, 0, 0.25, 1) 0.1s forwards; 
-      } 
-
-      /* Stroke 2 ( Venu ) writes from 2.25s -> 3.40s (Duration: 1.15s) */ 
-      #bump-signature-svg.is-signed .sig-venu { 
-        animation: drawBumpSig 1.15s cubic-bezier(0.25, 0.1, 0.25, 1) 2.25s forwards; 
+      /* Stroke 1 ("Rahul") writes from 0.25s -> 1.4s */
+      .about-sig-svg.is-signed .sig-rahul {
+        animation: drawAboutSig 1.15s cubic-bezier(0.35, 0, 0.25, 1) 0.25s forwards;
       }
 
-      @keyframes drawBumpSig {
+      /* Stroke 2 ("Venu") writes from 1.4s -> 2.3s */
+      .about-sig-svg.is-signed .sig-venu {
+        animation: drawAboutSig 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) 1.4s forwards;
+      }
+
+      @keyframes drawAboutSig {
         0%   { stroke-dashoffset: 1; }
         100% { stroke-dashoffset: 0; }
       }
     `;
     document.head.appendChild(sigStyle);
 
-    // Traced centerline vector paths matching your attached "Rahul Venu" cursive signature
-    bumpFill.innerHTML = `
-      <svg id="bump-signature-svg" viewBox="0 0 430 75" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Rahul Venu Signature">
-        <!-- Stroke 1: "Rahul" (Vertical stem -> Top R loop -> tail -> a -> h -> u -> l) -->
+    const sigMarkup = `
+      <svg class="about-sig-svg" viewBox="0 0 430 75" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Rahul Venu Signature">
         <path 
-          class="bump-sig-stroke sig-rahul" 
+          class="about-sig-stroke sig-rahul" 
           pathLength="1"
           d="M 24 28 L 22 60 C 21 38, 30 14, 46 15 C 60 16, 56 38, 32 48 C 22 52, 16 52, 19 50 C 26 48, 40 58, 54 60 C 64 61, 78 52, 74 44 C 69 39, 57 47, 60 57 C 63 63, 72 56, 76 47 C 76 56, 82 61, 90 59 C 101 56, 107 34, 108 16 C 107 36, 106 54, 107 60 C 109 50, 117 44, 121 53 C 123 60, 134 61, 144 56 C 150 52, 152 46, 152 54 C 152 61, 163 61, 169 53 C 169 60, 178 61, 186 55 C 193 48, 196 28, 194 14 C 193 34, 195 56, 202 59 C 207 61, 214 57, 219 51"
         />
-
-        <!-- Stroke 2: "Venu" (Sweeping V entry -> looped V apex -> e -> n -> u) -->
         <path 
-          class="bump-sig-stroke sig-venu" 
+          class="about-sig-stroke sig-venu" 
           pathLength="1"
           d="M 254 16 C 268 25, 278 44, 282 60 C 287 44, 300 26, 297 18 C 294 12, 284 26, 285 45 C 286 58, 299 60, 310 55 C 319 50, 322 42, 316 41 C 310 40, 308 52, 316 58 C 324 63, 335 56, 340 48 C 342 54, 342 60, 342 58 C 344 50, 353 44, 357 52 C 360 59, 368 60, 376 55 C 381 51, 383 46, 383 54 C 383 60, 393 60, 398 53 C 398 60, 408 60, 421 51"
         />
       </svg>
     `.trim();
 
-    const sigSvg = document.getElementById('bump-signature-svg');
-    const bumpContainer = document.querySelector('#contact .cs-bump');
+    sigMounts.forEach((mount) => {
+      mount.innerHTML = sigMarkup;
+    });
 
-    if (sigSvg && bumpContainer && 'IntersectionObserver' in window) {
+    const aboutSection = document.getElementById('about');
+    if (aboutSection && 'IntersectionObserver' in window) {
       const sigObserver = new IntersectionObserver(
-        (entries, obs) => {
+        (entries) => {
           entries.forEach((entry) => {
+            const svgs = document.querySelectorAll('#about .about-sig-svg');
             if (entry.isIntersecting) {
-              sigSvg.classList.add('is-signed');
-              // Disconnect immediately so it only writes ONCE per refresh!
-              obs.disconnect();
+              // Trigger the signature writing animation every time About enters view
+              svgs.forEach((svg) => svg.classList.add('is-signed'));
+            } else {
+              // Reset back to unwritten when scrolling away so it replays next time
+              svgs.forEach((svg) => svg.classList.remove('is-signed'));
             }
           });
         },
-        { threshold: 0.5 }
+        { threshold: 0.25 }
       );
-      sigObserver.observe(bumpContainer);
-    } else if (sigSvg) {
-      sigSvg.classList.add('is-signed');
+      sigObserver.observe(aboutSection);
     }
   }
+
+// =========================================================================
+// 4. PORTRAIT HOVER COLOR SPOTLIGHT TRACKER
+// =========================================================================
+document.querySelectorAll('.photo-color-spotlight').forEach((box) => {
+  box.addEventListener('pointermove', (e) => {
+    const rect = box.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    box.style.setProperty('--spot-x', `${x}px`);
+    box.style.setProperty('--spot-y', `${y}px`);
+    box.style.setProperty('--spot-r', '165px'); // Spotlight brush radius 
+  });
+
+  box.addEventListener('pointerleave', () => {
+    box.style.setProperty('--spot-r', '0px');
+  });
+});
