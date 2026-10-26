@@ -336,16 +336,24 @@
           </p>
         </div>
 
-        <!-- MOBILE PHOTO -->
-        <div class="block lg:hidden w-full max-w-[260px] mx-auto mt-6 mb-4 aspect-[9/16] relative group">
-          <div class="photo-reveal-mask">
+        <!-- MOBILE & TABLET PHOTO (Explicit height so .photo-reveal-mask never collapses to 0px) -->
+        <div class="block lg:hidden w-[240px] h-[380px] sm:w-[270px] sm:h-[420px] mx-auto mt-6 mb-4 relative group">
+          <div class="photo-reveal-mask photo-color-spotlight w-full h-full relative select-none">
+            <!-- 1. Base B&W Transparent PNG -->
             <img 
-              src="assets/images/profile.jpg" 
+              src="assets/images/profile-bw.png" 
               alt="Rahul V S - AI Engineer" 
-              class="w-full h-full object-cover object-center image-dissolve"
+              class="w-full h-full object-contain object-bottom image-dissolve-bottom pointer-events-none"
+            />
+            <!-- 2. Top Color Transparent PNG (Reveals on touch/drag on mobile too!) -->
+            <img 
+              src="assets/images/profile-color.png" 
+              alt="" 
+              aria-hidden="true"
+              class="photo-color-layer absolute inset-0 w-full h-full object-contain object-bottom image-dissolve-bottom pointer-events-none"
             />
           </div>
-          <div class="about-sig-mount absolute -bottom-3 -right-2 z-20 pointer-events-none select-none"></div>
+          <div class="about-sig-mount absolute -bottom-3 -right-4 z-20 pointer-events-none select-none"></div>
         </div>
 
       </div> 

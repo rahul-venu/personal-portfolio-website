@@ -1,18 +1,22 @@
 /* ================= 1. GLOBAL & MATTE OBSIDIAN CANVAS (HARUN PALETTE) ================= */
-
-/* Ensures anchor links glide smoothly and lock flush below the 3.5rem (56px) navbar */
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
 }
 
-section#home,
-section#about,
-section#projects,
-section#skills,
-section#certifications,
-section#contact {
-  scroll-snap-align: start;
+/* Enable section lock-in ONLY on Desktop (1024px+) — disabled on mobile & tablet */
+@media (min-width: 1024px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  section#home,
+  section#about,
+  section#projects,
+  section#skills,
+  section#certifications,
+  section#contact {
+    scroll-snap-align: start;
+  }
 }
 
 /* Uniform Deep Matte Obsidian Canvas across every section */
