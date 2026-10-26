@@ -862,51 +862,35 @@ section.page-active .photo-tag-reveal {
 
 
 /* =========================================================================
-   2. MAGNIFY PRO LIGHT (300) — Long-Form Body Paragraphs & Descriptions
+   2. BODY PARAGRAPHS & DESCRIPTIONS — UNIFORM MAGNIFY PRO MEDIUM (500)
    ========================================================================= */
 
-/* Hero Intro Paragraph */
-#home .lg\:col-span-7 > p {
+/* Hero, About, Projects, Certifications & Contact Paragraphs: Clean, uniform Medium (500) */
+#home .lg\:col-span-7 > p,
+#about .space-y-3\.5 p,
+#about .space-y-4 p,
+#projects article > p,
+#projects article .mt-auto .text-\[11px\],
+#certifications a p.text-xs,
+#contact p.cs-sub,
+#contact form input,
+#contact form textarea {
   font-family: var(--font-magnify) !important;
-  font-weight: 300 !important;
-  letter-spacing: 0.01em;
+  font-weight: 500 !important;
+  letter-spacing: 0.015em;
 }
 
-/* 01. About Me — Justified Bio Paragraphs */
-#about .space-y-4 p {
+/* Neutralize <strong> tags inside paragraphs so text flows smoothly without bold jumps */
+#about p strong,
+#projects article > p strong {
   font-family: var(--font-magnify) !important;
-  font-weight: 300 !important;
-  letter-spacing: 0.01em;
-}
-
-/* 02. Projects — Card Descriptions */
-#projects article > p {
-  font-family: var(--font-magnify) !important;
-  font-weight: 300 !important;
-  font-size: 16px !important;
-  line-height: 1.65 !important;
-  letter-spacing: 0.01em;
-}
-
-/* 04. Certifications — Skill Summary Paragraphs */
-#certifications a p.text-xs {
-  font-family: var(--font-magnify) !important;
-  font-weight: 300 !important;
-  letter-spacing: 0.01em;
-}
-
-/* 05. Contact — Intro Paragraph */
-#contact p.cs-sub {
-  font-family: var(--font-magnify) !important;
-  font-weight: 300 !important;
-  font-size: 16px !important;
-  line-height: 1.65 !important;
-  letter-spacing: 0.01em;
+  font-weight: 500 !important;
+  color: inherit !important; /* Blends seamlessly into the paragraph color */
 }
 
 
 /* =========================================================================
-   3. MAGNIFY PRO MEDIUM (500) — Nav Links, CTAs, Highlights & Card Values
+   3. UI ELEMENTS, NAV LINKS & CTAs — MAGNIFY PRO MEDIUM (500)
    ========================================================================= */
 
 /* Header Navigation Links (Desktop & Mobile) */
@@ -926,20 +910,6 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   font-family: var(--font-magnify) !important;
   font-weight: 500 !important;
   letter-spacing: 0.01em;
-}
-
-/* Highlighted Keywords (<strong>) inside About & Projects (True Native 500 Weight) */
-#about .space-y-4 p strong,
-#projects article p strong,
-#projects article .mt-auto strong {
-  font-family: var(--font-magnify) !important;
-  font-weight: 500 !important;
-}
-
-/* 01. About Me — 12 Mini-Tile Credential Values */
-#about .grid > div > p {
-  font-family: var(--font-magnify) !important;
-  font-weight: 500 !important;
 }
 
 /* 05. Contact — Location / Email / Website Values & Submit Button */
@@ -990,23 +960,27 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   transform: translateY(-1px);
 }
 
+/* Category Title ("ACADEMICS", "AGENTIC SYSTEMS", etc.) -> JetBrains Mono */
 .about-Band-pill > span:first-child {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono', monospace !important;
   font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .about-Band-pill .about-pill-sep {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.22);
   font-size: 11px;
 }
 
+/* Pill Content ("IITM (Data Science & Applications) • B.E. CSE", etc.) -> Magnify PRO Thin (200) */
 .about-Band-pill > p {
-  font-family: var(--font-magnify);
-  font-weight: 500;
-  font-size: 12.5px;
-  color: #f8fafc;
+  font-family: var(--font-magnify) !important;
+  font-weight: 300 !important; /* Change to 300 if you want Light instead of Thin */
+  font-size: 13.5px;
+  letter-spacing: 0.03em;
+  color: rgba(241, 245, 249, 0.88);
   margin: 0;
 }
 
