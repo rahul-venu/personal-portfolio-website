@@ -3,22 +3,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Enable section lock-in ONLY on Desktop (1024px+) — disabled on mobile & tablet */
-@media (min-width: 1024px) {
-  html {
-    scroll-snap-type: y proximity;
-  }
-
-  section#home,
-  section#about,
-  section#projects,
-  section#skills,
-  section#certifications,
-  section#contact {
-    scroll-snap-align: start;
-  }
-}
-
 /* Uniform Deep Matte Obsidian Canvas across every section */
 body {
   background-color: #0b0b0c;
@@ -583,7 +567,7 @@ section.page-active .photo-tag-reveal {
 
 :root {
   --cs-panel: #0f0f11;                   /* Matte obsidian panel so bump/drop notch still reads cleanly */
-  --cs-top: 72px;                          /* space above the bump (navbar 56 + 16 breathing room) */
+  --cs-top: 72px;                          /* space above the bump */
   --cs-chat: 88px;                         /* clearance for the chatbot button */
   --cs-dd: 26px;                           /* depth of the center drop / step-up notch */
   --cs-rim: 20px;                          /* continuous bottom band thickness below the center drop */
