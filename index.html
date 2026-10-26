@@ -321,7 +321,7 @@
           <div class="w-10 h-[2px] bg-white/85 mr-1.5 shrink-0"></div>
 
           <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase border border-white/10 bg-[#121214] text-zinc-300">
-            IIT Madras • Data Science
+            IIT Madras • Data Science & GenAI
           </span>
           <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase border border-white/10 bg-[#121214] text-zinc-300">
             B.E. Computer Science
@@ -1455,8 +1455,29 @@
     <canvas id="avatar-peek-canvas"></canvas>
   </div>
 
-  <button id="chatbot-toggle" class="chat-toggle-btn" aria-label="Open AI Assistant">
-    <i data-lucide="sparkles" id="chat-icon-open" class="w-5 h-5 text-white"></i>
+  <button id="chatbot-toggle" class="chat-toggle-btn group" aria-label="Open AI Assistant">
+
+    <!-- Custom Interlocked 4-Point Star SVG -->
+    <svg 
+      id="chat-icon-open" 
+      class="w-7 h-7 text-white transition-transform duration-500 ease-out group-hover:rotate-90 group-hover:scale-110" 
+      viewBox="0 0 200 200" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <!-- Top & Left Interlocking Ribbon -->
+      <path 
+        fill="currentColor" 
+        d="M 100 10 L 82 54 C 77 66 68 74 54 78 L 10 92 L 78 112 L 75 101 L 38 90 L 62 83 C 77 78 86 69 91 56 L 100 34 L 107 58 C 112 78 111 96 98 103 L 98 114 C 120 108 124 84 117 56 L 100 10 Z"
+      />
+      <!-- Bottom & Right Interlocking Ribbon -->
+      <path 
+        fill="currentColor" 
+        d="M 100 190 L 118 146 C 123 134 132 126 146 122 L 190 108 L 122 88 L 125 99 L 162 110 L 138 117 C 123 122 114 131 109 144 L 100 166 L 93 142 C 88 122 89 104 102 97 L 102 86 C 80 92 76 116 83 144 L 100 190 Z"
+      />
+    </svg>
+
+    <!-- Close Icon (X) -->
     <i data-lucide="x" id="chat-icon-close" class="w-5 h-5 text-white hidden"></i>
   </button>
 
