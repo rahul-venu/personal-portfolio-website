@@ -149,24 +149,18 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
 /* 
   Enable relative clipping on:
   1. Standard cards (.glass-card)
-  2. The 12 About mini-tiles (including ACADEMICS)
-  3. The top Academic pills (IIT Madras, B.E. CSE)
+  2. The 12 Running Band pills (.about-Band-pill)
+  3. The top Academic pills (section#about .rounded-full)
 */
 .glass-card:not(.border-y),
-section#about .lg\:col-span-8 .grid > div,
+.about-Band-pill,
 section#about .rounded-full {
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
-/* Subtle lift on hover for the About tiles */
-section#about .lg\:col-span-8 .grid > div:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.18) !important;
-}
-
-/* Subtle lift on hover for the Academic pills */
+/* Subtle lift on hover ONLY for the top Academic pills (not the running band pills) */
 section#about .rounded-full:hover {
   transform: translateY(-1px);
   border-color: rgba(255, 255, 255, 0.3) !important;
@@ -174,7 +168,7 @@ section#about .rounded-full:hover {
 
 /* The Horizontal Shimmer Wave Pseudo-Element */
 .glass-card:not(.border-y)::after,
-section#about .lg\:col-span-8 .grid > div::after,
+.about-Band-pill::after,
 section#about .rounded-full::after {
   content: '';
   position: absolute;
@@ -196,7 +190,7 @@ section#about .rounded-full::after {
 
 /* Trigger the sweep on hover */
 .glass-card:not(.border-y):hover::after,
-section#about .lg\:col-span-8 .grid > div:hover::after,
+.about-Band-pill:hover::after,
 section#about .rounded-full:hover::after {
   animation: tokenShimmer 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
@@ -957,7 +951,6 @@ header .hidden.md\:flex > a:not(.glass-btn) {
 .about-Band-pill:hover {
   background-color: #18181c;
   border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
 }
 
 /* Category Title ("ACADEMICS", "AGENTIC SYSTEMS", etc.) -> JetBrains Mono */
