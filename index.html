@@ -434,494 +434,600 @@
 </section>
 
 
-          <!-- ================= PROJECTS SECTION ================= -->
+          <!-- ================= PROJECTS SECTION (SPINE + 4-ROW ARCHITECTURE LEDGER) ================= -->
 
-<section id="projects" class="w-full py-12 relative z-10 scroll-mt-14">
-  <!-- WIDENED: Now matches Hero and About section width exactly -->
-  <div class="w-full px-6 sm:px-10 lg:px-12">
-    
-    <!-- Section Header -->
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-4 border-b border-white/5">
-      <div>
-        <span class="rotary-title text-xs uppercase font-mono tracking-widest text-indigo-400 font-bold block mb-2">
-          02. Project Work
+<section id="projects" class="w-full relative z-10 scroll-mt-14">
+  <div class="w-full lg:h-[calc(100dvh-3.5rem)] flex flex-col justify-between px-6 sm:px-8 lg:pl-4 lg:pr-12 py-8 lg:py-6 overflow-hidden">
+
+    <div class="w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+
+      <!-- 1. LEFT VERTICAL SPINE (Desktop: 2 Columns) -->
+      <div class="hidden lg:flex lg:col-span-2 flex-col items-center justify-center select-none -ml-4">
+        <span class="rotary-title text-6xl xl:text-7xl font-serif font-bold text-zinc-500/80 tracking-tighter leading-none">
+          02
         </span>
-        <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-          Applied AI & Intelligent Systems
-        </h3>
+        <div class="w-px h-14 bg-white/25 my-5"></div>
+        <div class="h-32 flex items-center justify-center">
+          <span class="rotary-title -rotate-90 whitespace-nowrap text-[11px] font-mono uppercase tracking-[0.35em] text-zinc-400">
+            PROJECT WORK
+          </span>
+        </div>
       </div>
-      <p class="text-xs font-mono text-brand-muted mt-2 sm:mt-0">
-        [Hands-on AI, Deep Learning & Predictive Pipelines]
-      </p>
+
+      <!-- 2. MAIN VERTICAL LEDGER STAGE (10 Columns, Fills Full Height) -->
+      <div class="lg:col-span-10 lg:-ml-4 h-full flex flex-col justify-between items-start text-left w-full min-h-0">
+
+        <!-- Header Block -->
+        <div class="w-full shrink-0 mb-3">
+          <span class="lg:hidden rotary-title text-xs uppercase font-mono tracking-widest text-zinc-400 font-bold mb-2 block">
+            02. Project Work
+          </span>
+
+          <div class="w-full flex flex-col xl:flex-row xl:items-end justify-between gap-2">
+            <div>
+              <h3 class="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-none">
+                Works
+              </h3>
+              <div class="w-10 h-[2px] bg-white/85 mt-3"></div>
+            </div>
+
+            <p class="hidden sm:block text-[11px] font-mono text-zinc-500 tracking-wider uppercase">
+              [ Hover row to inspect architecture &amp; stack ]
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= THE 4 VERTICAL CASE-STUDY DRAWERS ================= -->
+        <div class="proj-ledger w-full flex-1 min-h-0 flex flex-col justify-between gap-2.5">
+
+          <!-- ================= ROW 01: ABIA (OPEN BY DEFAULT) ================= -->
+          <article class="proj-row glass-card rounded-2xl px-6 py-4 border border-white/10 flex flex-col justify-center group" style="--proj-accent: #a855f7;">
+            
+            <!-- Collapsed Summary Bar -->
+            <div class="proj-summary-bar flex items-center justify-between gap-4 w-full">
+              <div class="flex items-center gap-4 min-w-0 flex-1">
+                <span class="font-serif text-2xl sm:text-3xl font-bold text-zinc-400 shrink-0">01</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4 text-zinc-400 shrink-0"></i>
+                <div class="min-w-0">
+                  <h4 class="text-base sm:text-lg font-bold text-white tracking-tight truncate">ABIA : Agentic Business Intelligence Assistant</h4>
+                  <p class="text-xs text-zinc-400 truncate hidden sm:block">From data to insights — powered by self-healing AI agents.</p>
+                </div>
+              </div>
+
+              <!-- Middle Metric Pill: Uniform Size + Light Green Top Word & Matching Icon -->
+              <div class="hidden md:flex items-center justify-center gap-2.5 w-[155px] h-[42px] px-3.5 rounded-full bg-white/[0.03] border border-white/10 shrink-0">
+                <i data-lucide="git-commit" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <div class="text-left leading-tight">
+                  <span class="text-xs font-bold text-emerald-400 block">Self-Healing</span>
+                  <span class="text-[10px] font-mono text-zinc-400 block">LangGraph</span>
+                </div>
+              </div>
+
+              <!-- Right Buttons: Old GitHub Icon (Hover Orange) + Colored Demo -->
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="https://github.com/rahul-venu/Agentic-Business-Intelligence-Assistant-ABIA" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+                <a href="https://abia-ai.streamlit.app/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl glass-btn text-xs font-mono text-purple-300 hover:text-white border-purple-500/40 bg-purple-950/25 inline-flex items-center gap-1.5 transition-all">
+                  <span>Demo</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Expanded Full Case-Study Stage -->
+            <div class="proj-drawer">
+              <div class="proj-drawer-inner grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+                
+                <!-- LEFT 5 COLS: Number + Title + Subtitle + Bullet Points -->
+                <div class="lg:col-span-5 flex flex-col justify-start pr-2">
+                  <div class="flex items-start gap-3 mb-3">
+                    <span class="font-serif text-3xl xl:text-4xl font-bold text-white leading-none">01</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-400 mt-1.5 shrink-0"></i>
+                    <div>
+                      <h4 class="text-lg xl:text-xl font-bold text-white tracking-tight leading-snug">
+                        ABIA : Agentic Business Intelligence Assistant
+                      </h4>
+                      <p class="text-xs font-mono text-zinc-400 mt-1">
+                        From data to insights — powered by AI agents.
+                      </p>
+                    </div>
+                  </div>
+
+                  <ul class="proj-desc space-y-2 text-zinc-300 text-xs sm:text-[13.5px] leading-relaxed text-left mt-2">
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0"></span>
+                      <span>Architected an enterprise-grade agentic analytics platform using LangGraph and Groq (Llama-3.3-70B) that eliminates mathematical hallucinations and unsafe dynamic code execution.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0"></span>
+                      <span>Engineered the LLM strictly as a semantic compiler outputting typed Pydantic query plans, delegating 100% of arithmetic and relational joins to a deterministic Pandas engine.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0"></span>
+                      <span>Built a cyclic self-healing state graph with automated retry loops, auto-injecting join guardrails, and full observability traced via LangSmith.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- RIGHT 7 COLS -->
+                <div class="lg:col-span-7 flex flex-col justify-between lg:pl-6 lg:border-l lg:border-white/10 space-y-4">
+                  
+                  <!-- Top Row: Monochrome Pills with Colored Icons + Old GitHub Icon & Colored Demo -->
+                  <div class="flex flex-nowrap items-center justify-between gap-2 w-full">
+                    <div class="flex flex-wrap items-center gap-1.5 min-w-0">
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <i data-lucide="sparkles" class="w-3 h-3 text-purple-400"></i> Agentic AI System
+                      </span>
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <i data-lucide="git-commit" class="w-3 h-3 text-cyan-400"></i> Self-Healing Graph
+                      </span>
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live App
+                      </span>
+                    </div>
+
+                    <div class="flex items-center gap-2 shrink-0">
+                      <a href="https://github.com/rahul-venu/Agentic-Business-Intelligence-Assistant-ABIA" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                      </a>
+                      <a href="https://abia-ai.streamlit.app/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl glass-btn text-xs font-mono text-purple-300 hover:text-white border-purple-500/45 bg-purple-950/30 inline-flex items-center gap-1.5 transition-all">
+                        <span>Demo</span>
+                        <i data-lucide="external-link" class="w-3 h-3 text-purple-400"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Middle: Monochrome Tech Stack Pills with Appropriate Colored Icons -->
+                  <div>
+                    <span class="proj-meta-label">TECH STACK</span>
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <span class="proj-stack-pill"><i data-lucide="git-commit" class="text-purple-400"></i>LangGraph</span>
+                      <span class="proj-stack-pill"><i data-lucide="cpu" class="text-orange-400"></i>Groq LPU</span>
+                      <span class="proj-stack-pill"><i data-lucide="bot" class="text-blue-400"></i>Llama-3.3-70B</span>
+                      <span class="proj-stack-pill"><i data-lucide="shield-check" class="text-emerald-400"></i>Pydantic v2</span>
+                      <span class="proj-stack-pill"><i data-lucide="table" class="text-cyan-400"></i>Pandas</span>
+                      <span class="proj-stack-pill"><i data-lucide="bar-chart-2" class="text-indigo-400"></i>Plotly</span>
+                      <span class="proj-stack-pill"><i data-lucide="eye" class="text-amber-400"></i>LangSmith</span>
+                      <span class="proj-stack-pill"><i data-lucide="layout" class="text-rose-400"></i>Streamlit</span>
+                    </div>
+                  </div>
+
+                  <!-- Bottom: 4-Stage Architecture Diagram (Colored Icons & Colored Arrows) -->
+                  <div>
+                    <span class="proj-meta-label">ARCHITECTURE OVERVIEW</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 items-stretch">
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="message-square"></i></div>
+                        <h5>User Query</h5>
+                        <p>Natural Language</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="box"></i></div>
+                        <h5>Semantic Compiler</h5>
+                        <p>Pydantic Query Plan</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="database"></i></div>
+                        <h5>Pandas Engine</h5>
+                        <p>Deterministic Joins &amp; Math</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="refresh-cw"></i></div>
+                        <h5>Self-Healing</h5>
+                        <p>Guardrails &amp; Insights</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ================= ROW 02: RoBERTa EMOTION CLASSIFICATION ================= -->
+          <article class="proj-row glass-card rounded-2xl px-6 py-4 border border-white/10 flex flex-col justify-center group" style="--proj-accent: #22d3ee;">
+            
+            <div class="proj-summary-bar flex items-center justify-between gap-4 w-full">
+              <div class="flex items-center gap-4 min-w-0 flex-1">
+                <span class="font-serif text-2xl sm:text-3xl font-bold text-zinc-400 shrink-0">02</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4 text-zinc-400 shrink-0"></i>
+                <div class="min-w-0">
+                  <h4 class="text-base sm:text-lg font-bold text-white tracking-tight truncate">Multi-Label Emotion Classification via RoBERTa</h4>
+                  <p class="text-xs text-zinc-400 truncate hidden sm:block">Multi-label emotion detection with fine-tuned RoBERTa-base.</p>
+                </div>
+              </div>
+
+              <!-- Middle Metric Pill: Same Fixed Size + Light Green Top Word & Matching Icon -->
+              <div class="hidden md:flex items-center justify-center gap-2.5 w-[155px] h-[42px] px-3.5 rounded-full bg-white/[0.03] border border-white/10 shrink-0">
+                <i data-lucide="bar-chart-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <div class="text-left leading-tight">
+                  <span class="text-xs font-bold text-emerald-400 block">86% F1</span>
+                  <span class="text-[10px] font-mono text-zinc-400 block">Kaggle</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="https://github.com/rahul-venu/roberta-emotion-detection-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+                <a href="https://text-emotion-finder.streamlit.app/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl glass-btn text-xs font-mono text-cyan-300 hover:text-white border-cyan-500/40 bg-cyan-950/25 inline-flex items-center gap-1.5 transition-all">
+                  <span>Live App</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="proj-drawer">
+              <div class="proj-drawer-inner grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+                
+                <div class="lg:col-span-5 flex flex-col justify-start pr-2">
+                  <div class="flex items-start gap-3 mb-3">
+                    <span class="font-serif text-3xl xl:text-4xl font-bold text-white leading-none">02</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-cyan-400 mt-1.5 shrink-0"></i>
+                    <div>
+                      <h4 class="text-lg xl:text-xl font-bold text-white tracking-tight leading-snug">
+                        Multi-Label Emotion Classification via RoBERTa
+                      </h4>
+                      <p class="text-xs font-mono text-zinc-400 mt-1">
+                        High-precision transformer fine-tuning — 86% Macro F1.
+                      </p>
+                    </div>
+                  </div>
+
+                  <ul class="proj-desc space-y-2 text-zinc-300 text-xs sm:text-[13.5px] leading-relaxed text-left mt-2">
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0"></span>
+                      <span>Fine-tuned a RoBERTa-base transformer with PyTorch &amp; Hugging Face for multi-label emotion classification, securing an 86% macro F1-score on Kaggle.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0"></span>
+                      <span>Neutralized severe minority-class sparsity through targeted paraphrasing data augmentation and regex text normalization, paired with calibrated BCEWithLogitsLoss and threshold logit filtering.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0"></span>
+                      <span>Deployed via a modular Streamlit Cloud application streaming model weights dynamically from the Hugging Face Hub.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="lg:col-span-7 flex flex-col justify-between lg:pl-6 lg:border-l lg:border-white/10 space-y-4">
+                  
+                  <div class="flex flex-nowrap items-center justify-between gap-2 w-full">
+                    <div class="flex flex-wrap items-center gap-1.5 min-w-0">
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <i data-lucide="sparkles" class="w-3 h-3 text-cyan-400"></i> NLP • Transformers
+                      </span>
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <i data-lucide="graduation-cap" class="w-3 h-3 text-purple-400"></i> IITM Project
+                      </span>
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 86% F1 (Kaggle)
+                      </span>
+                    </div>
+
+                    <div class="flex items-center gap-2 shrink-0">
+                      <a href="https://github.com/rahul-venu/roberta-emotion-detection-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                      </a>
+                      <a href="https://text-emotion-finder.streamlit.app/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl glass-btn text-xs font-mono text-cyan-300 hover:text-white border-cyan-500/45 bg-cyan-950/30 inline-flex items-center gap-1.5 transition-all">
+                        <span>Live App</span>
+                        <i data-lucide="external-link" class="w-3 h-3 text-cyan-400"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span class="proj-meta-label">TECH STACK</span>
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <span class="proj-stack-pill"><i data-lucide="flame" class="text-orange-400"></i>PyTorch</span>
+                      <span class="proj-stack-pill"><i data-lucide="smile" class="text-amber-400"></i>Hugging Face Hub</span>
+                      <span class="proj-stack-pill"><i data-lucide="binary" class="text-cyan-400"></i>RoBERTa-base</span>
+                      <span class="proj-stack-pill"><i data-lucide="sliders" class="text-purple-400"></i>BCEWithLogitsLoss</span>
+                      <span class="proj-stack-pill"><i data-lucide="code-2" class="text-indigo-400"></i>Tokenizers</span>
+                      <span class="proj-stack-pill"><i data-lucide="grid" class="text-sky-400"></i>NumPy</span>
+                      <span class="proj-stack-pill"><i data-lucide="layers" class="text-emerald-400"></i>Data Augmentation</span>
+                      <span class="proj-stack-pill"><i data-lucide="terminal" class="text-teal-400"></i>Regex</span>
+                      <span class="proj-stack-pill"><i data-lucide="layout" class="text-rose-400"></i>Streamlit Cloud</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span class="proj-meta-label">ARCHITECTURE OVERVIEW</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 items-stretch">
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="file-text"></i></div>
+                        <h5>Raw Text</h5>
+                        <p>Regex &amp; Paraphrasing</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="cpu"></i></div>
+                        <h5>RoBERTa-base</h5>
+                        <p>Contextual Embeddings</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="sliders"></i></div>
+                        <h5>Logit Calibration</h5>
+                        <p>BCEWithLogitsLoss</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="cloud"></i></div>
+                        <h5>HF Hub Stream</h5>
+                        <p>Multi-Label Output</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ================= ROW 03: PURCHASE VALUE PREDICTION ================= -->
+          <article class="proj-row glass-card rounded-2xl px-6 py-4 border border-white/10 flex flex-col justify-center group" style="--proj-accent: #818cf8;">
+            
+            <div class="proj-summary-bar flex items-center justify-between gap-4 w-full">
+              <div class="flex items-center gap-4 min-w-0 flex-1">
+                <span class="font-serif text-2xl sm:text-3xl font-bold text-zinc-400 shrink-0">03</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4 text-zinc-400 shrink-0"></i>
+                <div class="min-w-0">
+                  <h4 class="text-base sm:text-lg font-bold text-white tracking-tight truncate">Predict Purchase Value from User Telemetry</h4>
+                  <p class="text-xs text-zinc-400 truncate hidden sm:block">Customer purchase value prediction from multi-session telemetry.</p>
+                </div>
+              </div>
+
+              <!-- Middle Metric Pill: Same Fixed Size + Light Green Top Word & Matching Icon -->
+              <div class="hidden md:flex items-center justify-center gap-2.5 w-[155px] h-[42px] px-3.5 rounded-full bg-white/[0.03] border border-white/10 shrink-0">
+                <i data-lucide="trending-up" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <div class="text-left leading-tight">
+                  <span class="text-xs font-bold text-emerald-400 block">R² +12%</span>
+                  <span class="text-[10px] font-mono text-zinc-400 block">Improvement</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="https://github.com/rahul-venu/purchase-value-prediction-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+                <a href="https://www.kaggle.com/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl glass-btn text-xs font-mono text-indigo-300 hover:text-white border-indigo-500/40 bg-indigo-950/25 inline-flex items-center gap-1.5 transition-all">
+                  <span>Kaggle</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="proj-drawer">
+              <div class="proj-drawer-inner grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+                
+                <div class="lg:col-span-5 flex flex-col justify-start pr-2">
+                  <div class="flex items-start gap-3 mb-3">
+                    <span class="font-serif text-3xl xl:text-4xl font-bold text-white leading-none">03</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-indigo-400 mt-1.5 shrink-0"></i>
+                    <div>
+                      <h4 class="text-lg xl:text-xl font-bold text-white tracking-tight leading-snug">
+                        Predict Purchase Value from User Telemetry
+                      </h4>
+                      <p class="text-xs font-mono text-zinc-400 mt-1">
+                        Zero-inflated tabular regression — R² improved by ~12%.
+                      </p>
+                    </div>
+                  </div>
+
+                  <ul class="proj-desc space-y-2 text-zinc-300 text-xs sm:text-[13.5px] leading-relaxed text-left mt-2">
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                      <span>Engineered an end-to-end tabular regression pipeline predicting customer spend from high-dimensional multi-session user telemetry for an IIT Madras Kaggle benchmark.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                      <span>Neutralized severe ≈80% zero-inflation and right-tail skewness via log1p target transformation and inverse exponential inference, boosting validation R² by ~12%.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                      <span>Formulated session-to-user aggregations, target encodings, and PCA dimensionality reduction before benchmarking XGBoost, LightGBM, and Random Forest.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="lg:col-span-7 flex flex-col justify-between lg:pl-6 lg:border-l lg:border-white/10 space-y-4">
+                  
+                  <div class="flex flex-nowrap items-center justify-between gap-2 w-full">
+                    <div class="flex flex-wrap items-center gap-1.5 min-w-0">
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <i data-lucide="cpu" class="w-3 h-3 text-indigo-400"></i> Predictive ML
+                      </span>
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <i data-lucide="graduation-cap" class="w-3 h-3 text-purple-400"></i> IITM Project
+                      </span>
+                      <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <i data-lucide="trending-up" class="w-3 h-3 text-emerald-400"></i> R² Improved ~12% (Kaggle)
+                      </span>
+                    </div>
+
+                    <div class="flex items-center gap-2 shrink-0">
+                      <a href="https://github.com/rahul-venu/purchase-value-prediction-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                      </a>
+                      <a href="https://www.kaggle.com/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl glass-btn text-xs font-mono text-indigo-300 hover:text-white border-indigo-500/45 bg-indigo-950/30 inline-flex items-center gap-1.5 transition-all">
+                        <span>Kaggle</span>
+                        <i data-lucide="external-link" class="w-3 h-3 text-indigo-400"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span class="proj-meta-label">TECH STACK</span>
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <span class="proj-stack-pill"><i data-lucide="activity" class="text-orange-400"></i>Scikit-learn</span>
+                      <span class="proj-stack-pill"><i data-lucide="git-branch" class="text-emerald-400"></i>Random Forest</span>
+                      <span class="proj-stack-pill"><i data-lucide="zap" class="text-amber-400"></i>LightGBM</span>
+                      <span class="proj-stack-pill"><i data-lucide="flame" class="text-rose-400"></i>XGBoost</span>
+                      <span class="proj-stack-pill"><i data-lucide="minimize-2" class="text-purple-400"></i>PCA</span>
+                      <span class="proj-stack-pill"><i data-lucide="table" class="text-cyan-400"></i>Pandas</span>
+                      <span class="proj-stack-pill"><i data-lucide="grid" class="text-sky-400"></i>NumPy</span>
+                      <span class="proj-stack-pill"><i data-lucide="award" class="text-blue-400"></i>Kaggle</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span class="proj-meta-label">ARCHITECTURE OVERVIEW</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 items-stretch">
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="users"></i></div>
+                        <h5>User Telemetry</h5>
+                        <p>Multi-Session Logs</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="layers"></i></div>
+                        <h5>Feature Eng</h5>
+                        <p>Target Encoding &amp; PCA</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="sliders"></i></div>
+                        <h5>Log1p Modeling</h5>
+                        <p>80% Zero-Inflation Fix</p>
+                      </div>
+                      <div class="proj-arch-box">
+                        <div class="proj-arch-icon"><i data-lucide="trending-up"></i></div>
+                        <h5>GBDT Ensemble</h5>
+                        <p>XGBoost &amp; LightGBM</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ================= ROW 04: UPCOMING AI PROJECT ================= -->
+          <article class="proj-row glass-card rounded-2xl px-6 py-4 border border-dashed border-white/15 flex flex-col justify-center group" style="--proj-accent: #f59e0b;">
+            
+            <div class="proj-summary-bar flex items-center justify-between gap-4 w-full">
+              <div class="flex items-center gap-4 min-w-0 flex-1">
+                <span class="font-serif text-2xl sm:text-3xl font-bold text-zinc-400 shrink-0">04</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4 text-zinc-400 shrink-0"></i>
+                <div class="min-w-0">
+                  <h4 class="text-base sm:text-lg font-bold text-white tracking-tight truncate">Upcoming GenAI</h4>
+                  <p class="text-xs text-zinc-400 truncate hidden sm:block">Next generation multi-modal RAG architecture in progress.</p>
+                </div>
+              </div>
+
+              <!-- Middle Metric Pill: Same Fixed Size + Light Green Top Word & Matching Icon -->
+              <div class="hidden md:flex items-center justify-center gap-2.5 w-[155px] h-[42px] px-3.5 rounded-full bg-white/[0.03] border border-white/10 shrink-0">
+                <i data-lucide="loader" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <div class="text-left leading-tight">
+                  <span class="text-xs font-bold text-emerald-400 block">In Progress</span>
+                  <span class="text-[10px] font-mono text-zinc-400 block">Active Build</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                  <i data-lucide="sparkles" class="w-3 h-3 text-purple-400"></i> GenAI Architecture
+                </span>
+                <span class="text-[10px] font-mono text-zinc-300 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Active Build
+                </span>
+              </div>
+            </div>
+
+            <div class="proj-drawer">
+              <div class="proj-drawer-inner grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                <div class="lg:col-span-5">
+                  <div class="flex items-start gap-3 mb-2">
+                    <span class="font-serif text-3xl xl:text-4xl font-bold text-white leading-none">04</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-amber-400 mt-1.5 shrink-0"></i>
+                    <div>
+                      <h4 class="text-lg xl:text-xl font-bold text-white tracking-tight">Upcoming AI Project</h4>
+                      <p class="text-xs font-mono text-zinc-400 mt-1">Next generation AI system in active development.</p>
+                    </div>
+                  </div>
+                  <ul class="proj-desc space-y-2 text-zinc-300 text-xs sm:text-[13.5px] leading-relaxed text-left mt-2">
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+                      <span>Currently architecting a new production GenAI system focused on advanced hybrid RAG pipelines and multi-modal reasoning capabilities.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="lg:col-span-7 lg:pl-6 lg:border-l lg:border-white/10">
+                  <span class="proj-meta-label">PIPELINE ROADMAP</span>
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 items-stretch">
+                    <div class="proj-arch-box"><div class="proj-arch-icon"><i data-lucide="layers"></i></div><h5>Multi-Modal</h5><p>Vision + Text Ingestion</p></div>
+                    <div class="proj-arch-box"><div class="proj-arch-icon"><i data-lucide="search"></i></div><h5>Hybrid RAG</h5><p>Dense + Sparse Vector</p></div>
+                    <div class="proj-arch-box"><div class="proj-arch-icon"><i data-lucide="bot"></i></div><h5>Agentic Router</h5><p>Autonomous Tooling</p></div>
+                    <div class="proj-arch-box"><div class="proj-arch-icon"><i data-lucide="zap"></i></div><h5>Low-Latency</h5><p>Streaming Microservice</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
     </div>
+  </div>
+</section>
 
-    <!-- 2x2 PROJECTS GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+              <!-- ================= SKILLS SECTION ================= -->
 
-      <!-- ================= PROJECT 1: ABIA ================= -->
-      <article class="glass-card p-6 sm:p-10 rounded-3xl border border-white/10 hover:border-purple-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
-        
-        <!-- Top Header: Pills on top + Buttons below pills aligned to the top-right -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-          
-          <!-- Badges (Full width on mobile, no crowding) -->
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[10px] font-mono font-medium text-purple-300 bg-purple-950/60 border border-purple-500/30 px-2.5 py-1 rounded-full">
-              Agentic AI System
-            </span>
-            <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-2.5 py-1 rounded-full">
-              Self-Healing Graph
-            </span>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live App
-            </span>
-          </div>
 
-          <!-- Buttons: Positioned directly below pills on top-right on mobile, side-by-side on desktop -->
-          <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
-            <a href="https://github.com/rahul-venu/Agentic-Business-Intelligence-Assistant-ABIA" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-              </svg>
-            </a>
-            <a href="https://abia-ai.streamlit.app/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-purple-300 hover:text-white border-purple-500/30 inline-flex items-center gap-1.5 transition-all">
-              <span>Demo</span>
-              <i data-lucide="external-link" class="w-3 h-3"></i>
-            </a>
-          </div>
+          <section id="skills" class="w-full relative z-10 scroll-mt-14">
+  <div class="w-full lg:h-[calc(100dvh-3.5rem)] flex flex-col justify-between glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-8 lg:pl-4 lg:pr-12 py-6 lg:py-5 overflow-hidden">
 
+    <div class="w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-center">
+
+      <!-- 1. LEFT VERTICAL SPINE (Desktop: 2 Columns) -->
+      <div class="hidden lg:flex lg:col-span-2 flex-col items-center justify-center select-none -ml-4">
+        <span class="rotary-title text-6xl xl:text-7xl font-serif font-bold text-zinc-500/80 tracking-tighter leading-none">
+          03
+        </span>
+        <div class="w-px h-14 bg-white/25 my-5"></div>
+        <div class="h-36 flex items-center justify-center">
+          <span class="rotary-title -rotate-90 whitespace-nowrap text-[11px] font-mono uppercase tracking-[0.35em] text-zinc-400">
+            TECHNICAL SKILLS
+          </span>
         </div>
+      </div>
 
-        <!-- Full-Width Title -->
-        <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors tracking-tight mb-4 break-words sm:truncate">
-          ABIA : Agentic Business Intelligence Assistant
-        </h4>
+      <!-- 2. MAIN CIRCUIT STAGE (10 Columns, Flex-1 Height) -->
+      <div class="lg:col-span-10 lg:-ml-4 h-full flex flex-col justify-between items-start text-left w-full min-h-0">
 
-        <!-- Description -->
-        <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-grow text-justify">
-          Architected an enterprise-grade agentic analytics platform using <strong class="text-white">LangGraph</strong> and <strong class="text-white">Groq (Llama-3.3-70B)</strong> that eliminates mathematical hallucinations and unsafe dynamic code execution. The LLM acts strictly as a semantic compiler outputting typed <strong class="text-white">Pydantic</strong> query plans, delegating 100% of arithmetic and relational joins to a deterministic <strong class="text-white">Pandas</strong> engine. Features a cyclic self-healing state graph with automated retry loops, auto-injecting join guardrails, and full observability traced via <strong class="text-white">LangSmith</strong>.
-        </p>
-
-        <!-- Tech Stack & Architecture -->
-        <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
-          <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">LangGraph</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Groq LPU</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Llama-3.3-70B</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pydantic v2</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pandas</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Plotly</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">LangSmith</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Streamlit</span>
-          </div>
-          <div class="text-[11px] text-brand-muted leading-relaxed">
-            <strong class="text-slate-300 font-mono">Architecture:</strong> Semantic plan compilation, deterministic execution safety, cyclic self-healing loops, auto-join injection.
-          </div>
-        </div>
-
-      </article>
-
-      <!-- ================= PROJECT 2: RoBERTa EMOTION ================= -->
-      <article class="glass-card p-6 sm:p-10 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
-        
-        <!-- Top Row: Badges + Lifted Buttons -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[10px] font-mono font-medium text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-2.5 py-1 rounded-full">
-              NLP • Transformers
-            </span>
-            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/40 border border-purple-500/20 px-2.5 py-1 rounded-full">
-              IITM Project
-            </span>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 86% F1 (Kaggle)
-            </span>
-          </div>
-
-          <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
-            <a href="https://github.com/rahul-venu/roberta-emotion-detection-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-              </svg>
-            </a>
-            <a href="https://text-emotion-finder.streamlit.app/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-cyan-300 hover:text-white border-cyan-500/30 inline-flex items-center gap-1.5 transition-all">
-              <span>Live App</span>
-              <i data-lucide="external-link" class="w-3 h-3"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Single Line Title -->
-        <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors tracking-tight mb-4 break-words sm:truncate">
-          Multi-Label Emotion Classification via RoBERTa
-        </h4>
-
-        <!-- Curated Description -->
-        <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow text-justify">
-          Fine-tuned a <strong class="text-white">RoBERTa-base</strong> transformer with <strong class="text-white">PyTorch & Hugging Face</strong> for multi-label emotion classification, securing an <strong class="text-white">86% macro F1-score on Kaggle</strong>. Neutralized severe minority-class sparsity through <strong class="text-white">targeted paraphrasing data augmentation</strong> and <strong class="text-white">regex text normalization</strong>, paired with calibrated <strong class="text-white">BCEWithLogitsLoss</strong> and threshold-based logit filtering. Deployed via a modular <strong class="text-white">Streamlit Cloud</strong> app streaming weights dynamically from the <strong class="text-white">Hugging Face Hub</strong>.
-        </p>
-
-        <!-- Tech Stack & Architecture -->
-        <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
-          <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">PyTorch</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Hugging Face Hub</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">RoBERTa-base</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">BCEWithLogitsLoss</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Tokenizers</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">NumPy</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Data Augmentation</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Regex</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Streamlit Cloud</span>
-          </div>
-          <div class="text-[11px] text-brand-muted leading-relaxed">
-            <strong class="text-slate-300 font-mono">Architecture:</strong> Minority paraphrasing augmentation, regex text cleaning, threshold logit calibration, decoupled HF Hub weight streaming.
-          </div>
-        </div>
-      </article>
-
-      <!-- ================= PROJECT 3: PURCHASE VALUE ================= -->
-      <article class="glass-card p-6 sm:p-10 rounded-3xl border border-white/10 hover:border-indigo-500/40 transition-all group relative overflow-hidden flex flex-col h-full">
-        
-        <!-- Top Row: Badges + Lifted Buttons -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[10px] font-mono font-medium text-indigo-300 bg-indigo-950/60 border border-indigo-500/30 px-2.5 py-1 rounded-full">
-              Predictive ML
-            </span>
-            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/40 border border-purple-500/20 px-2.5 py-1 rounded-full">
-              IITM Project
-            </span>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-full">
-              R² Improved ~12% (Kaggle)
-            </span>
-          </div>
-
-          <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
-            <a href="https://github.com/rahul-venu/purchase-value-prediction-iitm" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl glass-btn text-white hover:text-[#F1502F] transition-colors" aria-label="GitHub">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-              </svg>
-            </a>
-            <a href="https://www.kaggle.com/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl glass-btn text-xs font-medium text-indigo-300 hover:text-white border-indigo-500/30 inline-flex items-center gap-1.5 transition-all">
-              <span>Kaggle</span>
-              <i data-lucide="external-link" class="w-3 h-3"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Single Line Title -->
-        <h4 class="text-xl sm:text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors tracking-tight mb-4 break-words sm:truncate">
-          Predict Purchase Value from User Telemetry
-        </h4>
-
-        <!-- Curated Description -->
-        <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow text-justify">
-          Engineered an end-to-end tabular regression pipeline predicting customer spend from high-dimensional multi-session user telemetry for an <strong class="text-white">IIT Madras Kaggle benchmark</strong>. Neutralized severe <strong class="text-white">≈80% zero-inflation</strong> and right-tail skewness via log1p target transformation and inverse exponential inference, boosting validation <strong class="text-white">R² by ~12%</strong>. Formulated session-to-user aggregations, target encodings, and <strong class="text-white">PCA</strong> dimensionality reduction before benchmarking <strong class="text-white">XGBoost, LightGBM, and Random Forest</strong>.
-        </p>
-
-        <!-- Tech Stack & Architecture -->
-        <div class="mt-auto pt-5 border-t border-white/5 space-y-3">
-          <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Scikit-learn</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Random Forest</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">LightGBM</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">XGBoost</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">PCA</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Pandas</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">NumPy</span>
-            <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5 text-slate-300">Kaggle</span>
-          </div>
-          <div class="text-[11px] text-brand-muted leading-relaxed">
-            <strong class="text-slate-300 font-mono">Architecture:</strong> Zero-inflated log1p target modeling, multi-session feature aggregation, PCA variance compression.
-          </div>
-        </div>
-      </article>
-
-      <!-- ================= PROJECT 4: UPCOMING ================= -->
-      <article class="glass-card p-6 sm:p-10 rounded-3xl border border-dashed border-white/20 hover:border-purple-500/40 transition-all group relative overflow-hidden flex flex-col h-full min-h-[360px]">
-        
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[10px] font-mono font-medium text-purple-300 bg-purple-950/60 border border-purple-500/30 px-2.5 py-1 rounded-full">
-              GenAI Architecture
-            </span>
-            <span class="text-[10px] font-mono text-amber-400 bg-amber-950/40 border border-amber-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Active Build
-            </span>
-          </div>
-
-          <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-muted group-hover:text-purple-400 group-hover:scale-110 transition-all shrink-0 -translate-y-1">
-            <i data-lucide="sparkles" class="w-4 h-4"></i>
-          </div>
-        </div>
-
-        <h4 class="text-xl sm:text-2xl font-bold text-white mb-4 tracking-tight break-words sm:truncate">
-          Upcoming AI Project
-        </h4>
-        
-        <p class="text-brand-muted text-sm leading-relaxed mb-8 flex-grow text-justify">
-          Currently architecting a new system. Stay tuned for updates on advanced RAG pipelines and multi-modal capabilities.
-        </p>
-
-        <div class="flex items-center gap-2.5 mt-auto">
-          <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" style="animation-delay: 0s;"></span>
-          <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse" style="animation-delay: 0.2s;"></span>
-          <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" style="animation-delay: 0.4s;"></span>
-        </div>
-
-      </article>
-
-    </div> 
-  </div>   
-</section> 
-
-          <!-- ================= SKILLS SECTION ================= -->
-
-
-<section id="skills" class="w-full relative z-10 scroll-mt-14">
-  <!-- Full-Width Stretched Glass Panel -->
-<div class="w-full glass-card border-x-0 border-y border-white/10 rounded-none px-6 sm:px-10 lg:px-12 pt-12 pb-16 sm:pb-24 reveal">    
-    <!-- REMOVED max-w-6xl to match the exact width of Hero and Projects -->
-    <div class="w-full">
-      
-      <!-- Section Header -->
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-4 border-b border-white/5">
-        <div>
-          <span class="rotary-title text-xs uppercase font-mono tracking-widest text-indigo-400 font-bold block mb-2">
+        <!-- Header Block (Lowered from top with larger gap before Domain Tabs) -->
+        <div class="w-full shrink-0 pt-3 lg:pt-5">
+          <span class="lg:hidden rotary-title text-xs uppercase font-mono tracking-widest text-zinc-400 font-bold mb-2 block">
             03. Technical Skills
           </span>
-          <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Core Competencies & Stack
-          </h3>
-        </div>
-        <p class="text-xs font-mono text-brand-muted mt-2 sm:mt-0">
-          [8 Dedicated Technical Domains]
-        </p>
-      </div>
 
-      <!-- Symmetrical 4x2 Grid (Added items-stretch for uniform heights) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
-
-        <!-- ================= 1. AGENTIC AI & LLM SYSTEMS ================= -->
-      <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all flex flex-col h-full group shadow-lg">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-purple-950/40 border border-purple-500/30 flex items-center justify-center text-purple-400">
-              <i data-lucide="bot" class="w-5 h-5"></i>
+          <!-- Increased bottom margin to widen gap between Expertise and Pills -->
+          <div class="w-full flex flex-col xl:flex-row xl:items-end justify-between gap-2 mb-6 lg:mb-7">
+            <div>
+              <h3 class="text-4xl sm:text-5xl xl:text-6xl font-bold text-white tracking-tight leading-none">
+                Expertise
+              </h3>
+              <div class="w-10 h-[2px] bg-white/85 mt-4"></div>
             </div>
-            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/60 border border-purple-500/20 px-2 py-0.5 rounded-full">
-              Specialty
-            </span>
+
+            <p class="hidden sm:block text-[11px] font-mono text-zinc-500 tracking-wider uppercase">
+              [ Hover or click domain to ignite neural circuit ]
+            </p>
           </div>
-          <h4 class="text-base font-bold text-white mb-4 group-hover:text-purple-300 transition-colors">
-            Agentic AI & LLM Systems
-          </h4>
+
+          <!-- 8 Domain Filter Tabs (Added mb-4 for clean separation above the circuit board) -->
+          <div id="skills-domain-tabs" class="w-full flex flex-wrap items-center gap-2 mb-4 z-20"></div>
         </div>
 
-        <!-- Tightly Packed Tag Container -->
-        <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangChain</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangGraph</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">AI Agents</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Google ADK</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Autonomous Workflows</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LLM Orchestration</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Context & Memory</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Multi-Step Reasoning</span>
-          <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Tool Calling</span>
-        </div>
-      </div>
-
-        <!-- ================= 2. NLP & GENAI ================= -->
-        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-cyan-500/50 transition-all flex flex-col h-full group shadow-lg">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                <i data-lucide="sparkles" class="w-5 h-5"></i>
-              </div>
-              <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-500/20 px-2 py-0.5 rounded-full">
-                Production
-              </span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-4 group-hover:text-cyan-300 transition-colors">
-              NLP & GenAI
-            </h4>
-          </div>
-
-          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">RAG</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">spaCy</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">NLTK</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regex</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LLMs</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Vector Embeddings</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Semantic Search</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">HuggingFace</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Prompt Engineering</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">BERT</span>
-          </div>
-        </div>
-
-        <!-- ================= 3. DEEP LEARNING ================= -->
-        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-indigo-500/50 transition-all flex flex-col h-full group shadow-lg">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
-                <i data-lucide="brain-circuit" class="w-5 h-5"></i>
-              </div>
-              <span class="text-[10px] font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-500/20 px-2 py-0.5 rounded-full">
-                Modeling
-              </span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors">
-              Deep Learning
-            </h4>
-          </div>
-
-          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">PyTorch</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">TensorFlow</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Quantization</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Transformers [HuggingFace]</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Neural Networks</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Fine-Tuning</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Attention Mechanisms</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LoRA / QLoRA</span>
-          </div>
-        </div>
-
-        <!-- ================= 4. MACHINE LEARNING ================= -->
-        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all flex flex-col h-full group shadow-lg">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                <i data-lucide="binary" class="w-5 h-5"></i>
-              </div>
-              <span class="text-[10px] font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-                Analytics
-              </span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-4 group-hover:text-emerald-300 transition-colors">
-              Machine Learning
-            </h4>
-          </div>
-
-          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Scikit-learn</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">XGBoost / LightGBM</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Feature Engineering</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Regression</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Evaluation</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Classification</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Hyper Para. Tuning</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Cross-Validation</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Supervised / Unsupervised Learning</span>
-          </div>
-        </div>
-
-        <!-- ================= 5. PROGRAMMING ================= -->
-        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all flex flex-col h-full group shadow-lg">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                <i data-lucide="terminal" class="w-5 h-5"></i>
-              </div>
-              <span class="text-[10px] font-mono text-blue-300 bg-blue-950/60 border border-blue-500/20 px-2 py-0.5 rounded-full">
-                Languages
-              </span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-4 group-hover:text-blue-300 transition-colors">
-              Programming
-            </h4>
-          </div>
-
-          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Python</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Relational SQL</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">HTML [Basic] </span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">CSS [Basic] </span>
-          </div>
-        </div>
-
-        <!-- ================= 6. DATA & TOOLS ================= -->
-        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/50 transition-all flex flex-col h-full group shadow-lg">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                <i data-lucide="database" class="w-5 h-5"></i>
-              </div>
-              <span class="text-[10px] font-mono text-amber-300 bg-amber-950/60 border border-amber-500/20 px-2 py-0.5 rounded-full">
-                Data Core
-              </span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-4 group-hover:text-amber-300 transition-colors">
-              Data & Tools
-            </h4>
-          </div>
-
-          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">PySpark</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Pandas</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">NumPy</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Jupyter</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Git | GitHub</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">VS Code | PyCharm</span>
-          </div>
-        </div>
-
-        <!-- ================= 7. APPLICATION & VISUALIZATION ================= -->
-        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-fuchsia-500/50 transition-all flex flex-col h-full group shadow-lg">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-fuchsia-950/40 border border-fuchsia-500/30 flex items-center justify-center text-fuchsia-400">
-                <i data-lucide="layout" class="w-5 h-5"></i>
-              </div>
-              <span class="text-[10px] font-mono text-fuchsia-300 bg-fuchsia-950/60 border border-fuchsia-500/20 px-2 py-0.5 rounded-full">
-                UI & Apps
-              </span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-4 group-hover:text-fuchsia-300 transition-colors">
-              Application & Visualization
-            </h4>
-          </div>
-
-          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Streamlit</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Gradio</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Matplotlib</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Seaborn</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Interactive Dashboards</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Plotly</span>
-          </div>
-        </div>
-        
-        <!-- ================= 8. MLOPS & DEPLOYMENT ================= -->
-        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-sky-500/50 transition-all flex flex-col h-full group shadow-lg">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-sky-950/40 border border-sky-500/30 flex items-center justify-center text-sky-400">
-                <i data-lucide="server" class="w-5 h-5"></i>
-              </div>
-              <span class="text-[10px] font-mono text-sky-300 bg-sky-950/60 border border-sky-500/20 px-2 py-0.5 rounded-full">
-                Pipelines
-              </span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-4 group-hover:text-sky-300 transition-colors">
-              MLOps & Deployment
-            </h4>
-          </div>
-
-          <div class="flex flex-wrap content-start gap-1.5 pt-4 border-t border-white/5 font-mono text-[11px] mt-auto">
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">FastAPI</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Docker</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">MLflow</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">LangSmith</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Azure Cloud</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">ZenML</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">GitHub Actions</span>
-            <span class="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-slate-300">Model Versioning</span>
-          </div>
+        <!-- Interactive Neural PCB Board (Auto-scales to remaining viewport height!) -->
+        <div id="skills-circuit-board" class="relative w-full flex-1 min-h-0 rounded-2xl flex items-center justify-center py-1">
+          <svg id="skills-circuit-svg" class="hidden lg:block absolute inset-0 w-full h-full pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div id="skills-nodes-mount" class="relative z-10 w-full h-full"></div>
         </div>
 
       </div>
@@ -1360,7 +1466,7 @@
       <div class="cs-scroll relative z-10 h-full px-6 sm:px-8 lg:pl-4 lg:pr-12 py-8 lg:py-5 lg:overflow-y-auto">
         <div class="w-full lg:min-h-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
 
-          <!-- 1. MOROZOV LEFT VERTICAL SPINE (Desktop: 2 Columns) -->
+          <!-- 1. LEFT VERTICAL SPINE (Desktop: 2 Columns) -->
           <div class="hidden lg:flex lg:col-span-2 flex-col items-center justify-center select-none -ml-4">
             <span class="rotary-title text-6xl xl:text-7xl font-serif font-bold text-zinc-500/80 tracking-tighter leading-none">
               05
@@ -1386,7 +1492,7 @@
               Contact
             </h3>
 
-            <!-- Clean Morozov Horizontal White Bar (Pills Removed) -->
+            <!-- Clean Horizontal White Bar (Pills Removed) -->
             <div class="w-10 h-[2px] bg-white/85 my-5"></div>
 
             <p class="cs-sub text-zinc-400 text-sm sm:text-base leading-relaxed mb-5 max-w-xl text-left">
