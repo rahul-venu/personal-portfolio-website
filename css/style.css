@@ -1260,14 +1260,15 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     color: #ffffff;
   }
 
-  /* Reveal the large background watermark icon on the right */
+  /* Reveal & Color the large inside watermark icon using each card's brand accent */
   .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-bg-watermark,
   .cert-accordion .cert-blade:hover .cert-bg-watermark,
   .cert-accordion .cert-blade:focus-visible .cert-bg-watermark {
-    opacity: 1;
+    color: var(--cert-accent, #ffffff) !important;
+    opacity: 0.14; /* Subtle glowing brand-tinted watermark (increase to 0.22 for stronger color) */
     max-height: none;
     transform: translateY(-50%) scale(1);
-    transition: opacity 0.45s ease 0.15s;
+    transition: opacity 0.45s ease 0.15s, color 0.3s ease;
   }
 
   /* Hide the vertical spine label when expanded */
@@ -1286,5 +1287,166 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     pointer-events: auto;
     transform: translateY(0);
     transition-delay: 0.12s;
+  }
+}
+
+/* ================= 17. PROJECTS: 4-ROW CASE-STUDY LEDGER + ARCHITECTURE DIAGRAM ================= */
+
+.proj-desc {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.015em;
+}
+
+.proj-meta-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #a1a1aa;
+  margin-bottom: 8px;
+}
+
+/* Tech Stack Pill with Mini Icon */
+.proj-stack-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: #111114;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-magnify), sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #e4e4e7;
+}
+
+/* Allow individual Tailwind text-* colors on Tech Stack icons */
+.proj-stack-pill svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* 4-Stage Architecture Diagram Boxes + Connecting Arrows */
+.proj-arch-box {
+  position: relative;
+  background: #0e0e12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: border-color 0.25s ease;
+}
+
+.proj-arch-box:hover {
+  border-color: var(--proj-accent, #a855f7);
+}
+
+/* Colored '→' arrows between Architecture Overview boxes */
+@media (min-width: 640px) {
+  .proj-arch-box:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -9px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--proj-accent, #a855f7);
+    z-index: 5;
+    pointer-events: none;
+  }
+}
+
+/* Colored icons inside Architecture Overview boxes */
+.proj-arch-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  color: var(--proj-accent, #a855f7);
+}
+
+.proj-arch-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.proj-arch-box h5 {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.proj-arch-box p {
+  font-family: var(--font-magnify), sans-serif;
+  font-size: 9.5px;
+  color: #a1a1aa;
+  line-height: 1.25;
+}
+
+@media (min-width: 1024px) {
+  /* Default Collapsed Row */
+  .proj-ledger .proj-row {
+    background: #121214;
+    border-color: rgba(255, 255, 255, 0.06);
+    transform: none !important;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      padding 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  .proj-ledger .proj-row .proj-drawer {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.25s ease;
+  }
+
+  .proj-ledger .proj-row .proj-drawer-inner {
+    overflow: hidden;
+  }
+
+  /* Active / Expanded Row (Row 01 by default, or Hovered Row) */
+  .proj-ledger:not(:hover) .proj-row:first-child,
+  .proj-ledger .proj-row:hover,
+  .proj-ledger .proj-row:focus-within {
+    background: #151519;
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: inset 3px 0 0 0 var(--proj-accent, #8b5cf6);
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  /* Hide the compact summary bar when the full 2-column case study is open */
+  .proj-ledger:not(:hover) .proj-row:first-child .proj-summary-bar,
+  .proj-ledger .proj-row:hover .proj-summary-bar,
+  .proj-ledger .proj-row:focus-within .proj-summary-bar {
+    display: none !important;
+  }
+
+  /* Expand the full 2-column stage + 4-box architecture diagram */
+  .proj-ledger:not(:hover) .proj-row:first-child .proj-drawer,
+  .proj-ledger .proj-row:hover .proj-drawer,
+  .proj-ledger .proj-row:focus-within .proj-drawer {
+    grid-template-rows: 1fr;
+    opacity: 1;
   }
 }
