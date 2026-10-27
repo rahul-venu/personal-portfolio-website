@@ -9,6 +9,7 @@ import { initAvatar } from './avatar.js';
 import { initSynapse } from './synapse.js';
 import { initScrollbar } from './scrollbar.js';
 import { initLogoAnim } from './logo-anim.js';
+import { initPreloader } from './preloader.js';
 
 // ================= NAME MORPH =================
 function initBrandMorph() {
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSynapse();
   initScrollbar();
   initLogoAnim();
-
+  initPreloader();
 
   // ================= CLICK-TO-COPY EMAIL =================
   const emailCard = document.querySelector('a[href^="mailto:"]');
