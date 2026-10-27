@@ -4,6 +4,20 @@ export function initPreloader() {
   const preloader = document.getElementById('site-preloader');
   if (!preloader) return;
 
+  // 1. Disable browser scroll-position memory on refresh
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  // 2. Clear any section #hash (e.g. #about, #projects) from URL so refresh always starts on Home
+  if (window.location.hash) {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+
+  // 3. Instantly jump to top (Home) behind the preloader screen
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  document.documentElement.style.overflow = 'hidden';
+
   document.documentElement.style.overflow = 'hidden';
 
   const style = document.createElement('style');
@@ -162,6 +176,7 @@ export function initPreloader() {
 
   // After signature finishes writing (~2.25s), fly & zoom out directly into #brand-identity in the navbar!
   setTimeout(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); // <-- Ensures we are 100% on Home before measuring navbar!
     const sigWrap = preloader.querySelector('.pre-sig-wrap');
     const navLogo = document.getElementById('brand-identity');
 
