@@ -326,8 +326,14 @@ export function initLogoAnim() {
     let hdrTimers = [];
     let hdrRafs = [];
 
-    // Run the 2.0s ribbon write on page load
-    runWritingFlow('hdr', hChars, hdrTimers, hdrRafs, 400);
+    // Wait for preloader to finish before running the 2.0s navbar ribbon animation
+    if (document.getElementById('site-preloader')) {
+      window.addEventListener('preloader:done', () => {
+        runWritingFlow('hdr', hChars, hdrTimers, hdrRafs, 0);
+      }, { once: true });
+    } else {
+      runWritingFlow('hdr', hChars, hdrTimers, hdrRafs, 400);
+    }
 
     // Bonus: Re-snake the ribbon on hover 
     brandIdentity.addEventListener('mouseenter', () => {
