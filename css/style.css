@@ -1169,6 +1169,22 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   white-space: nowrap;
 }
 
+/* Keep background watermark icons lifted in the upper-middle zone so tall icons
+   (cpu, layers, database, smartphone) never cross the SKILLS VALIDATED line! */
+.cert-blade .cert-bg-watermark {
+  top: 46% !important;
+  width: 120px !important;
+  height: 120px !important;
+}
+
+@media (min-width: 1024px) {
+  .cert-blade .cert-bg-watermark {
+    top: 50% !important;
+    width: 136px !important;
+    height: 136px !important;
+  }
+}
+
 @media (min-width: 1024px) {
   /* Default Collapsed Blade State on Desktop */
   .cert-accordion .cert-blade {
