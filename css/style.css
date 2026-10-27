@@ -954,7 +954,7 @@ header .hidden.md\:flex > a:not(.glass-btn) {
 /* Pill Content ("IITM (Data Science & Applications) • B.E. CSE", etc.) -> Magnify PRO Thin (200) */
 .about-Band-pill > p {
   font-family: var(--font-magnify) !important;
-  font-weight: 300 !important; /* Change to 300 if you want Light instead of Thin */
+  font-weight: 300 !important; /* Change to 300 for Light instead of Thin */
   font-size: 13.5px;
   letter-spacing: 0.03em;
   color: rgba(241, 245, 249, 0.88);
@@ -992,10 +992,16 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   100% { transform: translate3d(-50%, 0, 0); }
 }
 
-/* Bottom-only dissolve for Transparent PNG Portrait (melts torso into #0b0b0c floor) */
+/* Soft Left/Right Elbow Feather + Bottom Dissolve (Melts cutout edges without touching center) */
 .image-dissolve-bottom {
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+  -webkit-mask-image: 
+    linear-gradient(to bottom, black 0%, black 68%, transparent 98%),
+    linear-gradient(to right, transparent 0%, black 11%, black 89%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: 
+    linear-gradient(to bottom, black 0%, black 68%, transparent 98%),
+    linear-gradient(to right, transparent 0%, black 11%, black 89%, transparent 100%);
+  mask-composite: intersect;
 }
 
 /* Top Color Image Layer: Masked to a soft spotlight circle around (--spot-x, --spot-y) */
@@ -1005,19 +1011,22 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   --spot-r: 0px; /* 0px when mouse is outside; expands to 135px on hover */
 }
 
+/* Top Color Image Layer: Spotlight Circle + Same Soft Edge Dissolve */
 .photo-color-layer {
   -webkit-mask-image: 
     radial-gradient(circle var(--spot-r) at var(--spot-x) var(--spot-y), rgba(0,0,0,1) 0%, rgba(0,0,0,0.65) 55%, transparent 100%),
-    linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+    linear-gradient(to bottom, black 0%, black 68%, transparent 98%),
+    linear-gradient(to right, transparent 0%, black 11%, black 89%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image: 
     radial-gradient(circle var(--spot-r) at var(--spot-x) var(--spot-y), rgba(0,0,0,1) 0%, rgba(0,0,0,0.65) 55%, transparent 100%),
-    linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+    linear-gradient(to bottom, black 0%, black 68%, transparent 98%),
+    linear-gradient(to right, transparent 0%, black 11%, black 89%, transparent 100%);
   mask-composite: intersect;
   transition: --spot-r 0.25s ease;
 }
 
-/* ================= 14. ARGON BORDER RING (OUTSIDE GLOW ONLY) ================= */
+/* ================= 15. ARGON BORDER RING (OUTSIDE GLOW ONLY) ================= */
 
 @property --argon-angle {
   syntax: '<angle>';
@@ -1110,5 +1119,176 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
 @keyframes argonSpin {
   to {
     --argon-angle: 360deg;
+  }
+}
+
+/* ================= 16. CERTIFICATIONS: 7 HORIZONTAL ACCORDION BLADES (CENTER 04 OPEN) ================= */
+
+/* Short description stays calm muted zinc so the stack below pops */
+.cert-desc-text {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+  color: #a1a1aa !important;
+  letter-spacing: 0.015em;
+}
+
+/* 1. Make Tech Stack POP: Larger (13.5px) + Crisp Bright White (#f1f5f9) */
+.cert-stack-text {
+  font-family: var(--font-magnify) !important;
+  font-weight: 500 !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  color: #f1f5f9 !important;
+  letter-spacing: 0.02em;
+  position: relative;
+}
+
+/* 3. Auto-Inject "SKILLS VALIDATED" + Short White Line Above Stack (Matches About 'Hello' Bar!) */
+.cert-stack-text::before {
+  content: 'SKILLS VALIDATED'; /* Or change to 'CORE COMPETENCIES' or 'SKILLSET' */
+  display: block;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #a1a1aa;
+  padding-bottom: 7px;
+  margin-bottom: 10px;
+  /* Creates the short 32px white horizontal line right below the label! */
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.85) 32px, rgba(255, 255, 255, 0.08) 32px);
+  background-size: 100% 1.5px;
+  background-repeat: no-repeat;
+  background-position: bottom left;
+}
+
+/* Vertical text orientation inside collapsed blades */
+.cert-vert-text,
+.cert-vert-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  /* Default Collapsed Blade State on Desktop */
+  .cert-accordion .cert-blade {
+    flex: 0.72 1 0%;
+    min-width: 64px;
+    padding: 20px 14px;
+    background: #121214;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition:
+      flex 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      padding 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.3s ease,
+      border-color 0.3s ease !important;
+    transform: none !important;
+  }
+
+  /* 2. Center the 01-07 number inside collapsed blades (no more touching left border!) */
+  .cert-accordion .cert-blade > div:first-of-type {
+    justify-content: center;
+  }
+
+  .cert-accordion .cert-blade .cert-idx {
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: font-size 0.3s ease, color 0.3s ease;
+  }
+
+  /* Collapse width & height of Verified pill when blade is narrow so 01-07 centers cleanly */
+  .cert-accordion .cert-blade .cert-expanded-item {
+    opacity: 0;
+    max-width: 0;
+    max-height: 0;
+    padding: 0 !important;
+    border-width: 0 !important;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, max-width 0.3s ease;
+  }
+
+  /* Hide watermark & expanded body when collapsed */
+  .cert-accordion .cert-blade .cert-bg-watermark,
+  .cert-accordion .cert-blade .cert-expanded-body {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition:
+      opacity 0.25s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cert-accordion .cert-blade .cert-collapsed-spine {
+    opacity: 1;
+    transition: opacity 0.25s ease 0.1s;
+  }
+
+  /* Active / Expanded State (Card 04 Default + Hover) */
+  .cert-accordion:not(:hover) .cert-blade:nth-child(4),
+  .cert-accordion .cert-blade:hover,
+  .cert-accordion .cert-blade:focus-visible {
+    flex: 3.8 1 0%;
+    padding: 24px 28px;
+    background: #16161a;
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  .cert-accordion:not(:hover) .cert-blade:nth-child(4) > div:first-of-type,
+  .cert-accordion .cert-blade:hover > div:first-of-type,
+  .cert-accordion .cert-blade:focus-visible > div:first-of-type {
+    justify-content: space-between;
+  }
+
+  /* Restore Verified pill when expanded */
+  .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-expanded-item,
+  .cert-accordion .cert-blade:hover .cert-expanded-item,
+  .cert-accordion .cert-blade:focus-visible .cert-expanded-item {
+    opacity: 1;
+    max-width: 140px;
+    max-height: 40px;
+    padding: 2px 10px !important;
+    border-width: 1px !important;
+    pointer-events: auto;
+    transition-delay: 0.12s;
+  }
+
+  /* Enlarge editorial number when expanded */
+  .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-idx,
+  .cert-accordion .cert-blade:hover .cert-idx,
+  .cert-accordion .cert-blade:focus-visible .cert-idx {
+    font-size: 28px;
+    font-family: Georgia, serif;
+    color: #ffffff;
+  }
+
+  /* Reveal the large background watermark icon on the right */
+  .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-bg-watermark,
+  .cert-accordion .cert-blade:hover .cert-bg-watermark,
+  .cert-accordion .cert-blade:focus-visible .cert-bg-watermark {
+    opacity: 1;
+    max-height: none;
+    transform: translateY(-50%) scale(1);
+    transition: opacity 0.45s ease 0.15s;
+  }
+
+  /* Hide the vertical spine label when expanded */
+  .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-collapsed-spine,
+  .cert-accordion .cert-blade:hover .cert-collapsed-spine,
+  .cert-accordion .cert-blade:focus-visible .cert-collapsed-spine {
+    display: none !important;
+  }
+
+  /* Reveal the full stack body smoothly when expanded */
+  .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-expanded-body,
+  .cert-accordion .cert-blade:hover .cert-expanded-body,
+  .cert-accordion .cert-blade:focus-visible .cert-expanded-body {
+    opacity: 1;
+    max-height: 500px;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition-delay: 0.12s;
   }
 }
