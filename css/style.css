@@ -1157,6 +1157,16 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   height: 120px !important;
 }
 
+/* Color the inside watermark icon & Verify arrow on ALL screens (Mobile, Tablet & Desktop) */
+.cert-blade .cert-bg-watermark {
+  color: var(--cert-accent, #ffffff) !important;
+  opacity: 0.14;
+}
+
+.cert-blade .cert-expanded-body svg {
+  color: var(--cert-accent, #ffffff) !important;
+}
+
 @media (min-width: 1024px) {
   .cert-blade .cert-bg-watermark {
     top: 50% !important;
