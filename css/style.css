@@ -1398,6 +1398,13 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   line-height: 1.25;
 }
 
+/* Hide the collapsed summary bar on Mobile & Tablet since the full drawer is already open */
+@media (max-width: 1023px) {
+  .proj-ledger .proj-row .proj-summary-bar {
+    display: none !important;
+  }
+}
+
 @media (min-width: 1024px) {
   /* Default Collapsed Row */
   .proj-ledger .proj-row {
