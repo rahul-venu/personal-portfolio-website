@@ -1,13 +1,24 @@
+/* ================= ASYMMETRIC 3D FLUID VOXEL WAVE (js/neural.js) =================
+   - Renders 3,200 depth-sorted voxels in an asymmetric parametric fluid wave.
+   - Suspends calculation and rendering automatically via IntersectionObserver when scrolled past #home.
+   - Halts animation when switching browser tabs, resuming with clamped delta time to eliminate stutters.
+   - Confines mouse physics and synaptic connection arcs to hero section boundaries.
+*/
+
+import { rafThrottle } from './config.js';
+
 export function initNeuralCanvas() {
   const canvas = document.getElementById('neural-canvas');
-  if (!canvas) return;
+  const homeSection = document.getElementById('home');
+  if (!canvas || !homeSection) return;
 
   const ctx = canvas.getContext('2d');
-  let width, height;
+  let width = 0;
+  let height = 0;
   let dpr = 1;
   let particles = [];
 
-  // Mouse tracking
+  // Mouse interaction state
   const mouse = {
     x: null,
     y: null,
@@ -16,15 +27,23 @@ export function initNeuralCanvas() {
     active: false,
   };
 
-  // 3D Camera & Perspective
+  // 3D Camera & Perspective Parameters
   const fov = 540;
   const cameraZ = 680;
   let rotX = 0.26;
   let rotY = -0.38;
 
+  // Viewport and tab visibility controllers
+  let isVisible = true;
+  let isTabActive = !document.hidden;
+  let lastTimestamp = 0;
+  let rafId = null;
+
   function resize() {
     const parent = canvas.parentElement;
-    dpr = window.devicePixelRatio || 1;
+    if (!parent) return;
+
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
     width = parent.offsetWidth;
     height = parent.offsetHeight;
 
@@ -33,32 +52,11 @@ export function initNeuralCanvas() {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    ctx.scale(dpr, dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     buildAbstractManifold();
   }
 
-  window.addEventListener('resize', resize);
-
-  window.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const curX = e.clientX - rect.left;
-    const curY = e.clientY - rect.top;
-
-    if (mouse.x !== null && mouse.y !== null) {
-      mouse.speed = Math.hypot(curX - mouse.x, curY - mouse.y);
-    }
-
-    mouse.x = curX;
-    mouse.y = curY;
-    mouse.active = true;
-  });
-
-  window.addEventListener('mouseleave', () => {
-    mouse.active = false;
-    mouse.speed = 0;
-  });
-
-  // Generates the Asymmetric 3D Fluid Wave
+  // Generates the Asymmetric 3D Fluid Wave geometry
   function buildAbstractManifold() {
     particles = [];
     const scale = Math.min(width, height) * 0.32;
@@ -113,27 +111,71 @@ export function initNeuralCanvas() {
           x: x0,
           y: y0,
           z: z0,
-          vx: 0, vy: 0, vz: 0,
-          projX: 0, projY: 0,
+          vx: 0,
+          vy: 0,
+          vz: 0,
+          projX: 0,
+          projY: 0,
           scale: 1,
           rgb: `${r}, ${g}, ${b}`,
           isSpark: isSpark,
           disturbed: 0,
           part: (i + j) % 4,
-          size: isSpark ? 2.4 : Math.random() * 0.8 + 1.4
+          size: isSpark ? 2.4 : Math.random() * 0.8 + 1.4,
         });
       }
     }
   }
 
-  // Animation Loop
-  let time = 0;
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-    time += 0.014;
+  // Confine mouse tracking strictly to the hero boundary
+  homeSection.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const curX = e.clientX - rect.left;
+    const curY = e.clientY - rect.top;
 
-    // Fluid 3D drift
-    rotY += 0.0024;
+    if (curX < 0 || curX > width || curY < 0 || curY > height) {
+      mouse.active = false;
+      mouse.speed = 0;
+      return;
+    }
+
+    if (mouse.x !== null && mouse.y !== null) {
+      mouse.speed = Math.hypot(curX - mouse.x, curY - mouse.y);
+    }
+
+    mouse.x = curX;
+    mouse.y = curY;
+    mouse.active = true;
+  });
+
+  homeSection.addEventListener('mouseleave', () => {
+    mouse.active = false;
+    mouse.speed = 0;
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  // Animation Loop with dynamic frame delta clamping
+  let time = 0;
+
+  function animate(timestamp) {
+    if (!isVisible || !isTabActive) {
+      rafId = null;
+      return;
+    }
+    rafId = requestAnimationFrame(animate);
+
+    if (!lastTimestamp) lastTimestamp = timestamp;
+    const elapsed = timestamp - lastTimestamp;
+    lastTimestamp = timestamp;
+
+    // Clamps delta time so resuming tabs never causes physics bursts or jumps
+    const dt = Math.min(Math.max(elapsed / 16.667, 0.4), 1.8);
+
+    ctx.clearRect(0, 0, width, height);
+    time += 0.014 * dt;
+
+    rotY += 0.0024 * dt;
     rotX = 0.24 + Math.sin(time * 0.3) * 0.05;
 
     const cosY = Math.cos(rotY);
@@ -176,59 +218,52 @@ export function initNeuralCanvas() {
           const energy = Math.pow(proximity, 1.2) * (18 + Math.min(mouse.speed * 0.7, 40));
           const angle = Math.atan2(dy, dx);
 
-          p.vx += Math.cos(angle) * energy * 0.95 + (Math.random() - 0.5) * 8;
-          p.vy += Math.sin(angle) * energy * 0.95 + (Math.random() - 0.5) * 8;
-          p.vz += (Math.random() - 0.5) * energy * 2.5;
+          p.vx += (Math.cos(angle) * energy * 0.95 + (Math.random() - 0.5) * 8) * dt;
+          p.vy += (Math.sin(angle) * energy * 0.95 + (Math.random() - 0.5) * 8) * dt;
+          p.vz += ((Math.random() - 0.5) * energy * 2.5) * dt;
 
           p.disturbed = Math.min(1.0, p.disturbed + energy * 0.05);
         }
       }
 
       // 3. FREE 3D FLOATING PHYSICS & 4-PART STAGGERED RECOVERY
-  if (p.disturbed > 0.04) {
-    const freeDrag = 0.948;
-    p.vx *= freeDrag;
-    p.vy *= freeDrag;
-    p.vz *= freeDrag;
+      if (p.disturbed > 0.04) {
+        const freeDrag = Math.pow(0.948, dt);
+        p.vx *= freeDrag;
+        p.vy *= freeDrag;
+        p.vz *= freeDrag;
 
-    p.x += p.vx;
-    p.y += p.vy;
-    p.z += p.vz;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.z += p.vz * dt;
 
-    // 4 STAGGERED HANG-TIMES:
-    // Part 0 calms down fast (0.955) -> Part 3 floats the longest (0.992)
-    const partDecays = [0.975, 0.980, 0.985, 0.992];
-    p.disturbed *= partDecays[p.part];
+        const partDecays = [0.975, 0.980, 0.985, 0.992];
+        p.disturbed *= Math.pow(partDecays[p.part], dt);
 
-    disturbedList.push(p);
+        disturbedList.push(p);
+      } else {
+        p.disturbed = 0;
 
-  } else {
-    p.disturbed = 0;
+        const springSpeeds = [0.040, 0.032, 0.024, 0.016];
+        const gentleSpring = springSpeeds[p.part] * dt;
+        const smoothDamping = Math.pow(0.86, dt);
 
-    // 4 STAGGERED PULL SPEEDS:
-    // Part 0 snaps home firmly -> Part 3 drifts back gently
-    const springSpeeds = [0.040, 0.032, 0.024, 0.016];
-    const gentleSpring = springSpeeds[p.part];
-    const smoothDamping = 0.86;
+        p.vx = (p.vx + (x1 - p.x) * gentleSpring) * smoothDamping;
+        p.vy = (p.vy + (y1 - p.y) * gentleSpring) * smoothDamping;
+        p.vz = (p.vz + (z2 - p.z) * gentleSpring) * smoothDamping;
 
-    p.vx = (p.vx + (x1 - p.x) * gentleSpring) * smoothDamping;
-    p.vy = (p.vy + (y1 - p.y) * gentleSpring) * smoothDamping;
-    p.vz = (p.vz + (z2 - p.z) * gentleSpring) * smoothDamping;
-
-    p.x += p.vx;
-    p.y += p.vy;
-    p.z += p.vz;
-  }
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.z += p.vz * dt;
+      }
     }
 
-    // ================= 4. SYNAPTIC CONNECTION PULSES =================
-
-    // A. ELECTRIC ARCS DIRECTLY TO MOUSE CURSOR 
+    // 4. SYNAPTIC CONNECTION ARCS
+    // A. Electric arcs to mouse cursor
     if (mouse.active && mouse.x !== null) {
-      const mouseReach = mouse.radius + 75; 
+      const mouseReach = mouse.radius + 75;
       let mouseArcs = 0;
 
-      // Sample evenly across particles surrounding the cursor
       for (let i = 0; i < particles.length; i += 3) {
         if (mouseArcs >= 35) break;
         const p = particles[i];
@@ -236,7 +271,6 @@ export function initNeuralCanvas() {
         const dy = p.projY - mouse.y;
         const dist = Math.hypot(dx, dy);
 
-        // Fires lightning lines from surrounding particles into the mouse
         if (dist < mouseReach && dist > 25) {
           const arcAlpha = Math.max(0.2, (1 - dist / mouseReach) * 0.85 * pulseIntensity);
           ctx.strokeStyle = `rgba(56, 189, 248, ${arcAlpha})`;
@@ -246,7 +280,6 @@ export function initNeuralCanvas() {
           ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
 
-          // Spark dot at connection node
           ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
           ctx.fillRect(p.projX - 1.5, p.projY - 1.5, 3, 3);
           mouseArcs++;
@@ -254,12 +287,11 @@ export function initNeuralCanvas() {
       }
     }
 
-    // B. INTER-PARTICLE SYNAPTIC WEB 
+    // B. Inter-particle synaptic network
     if (disturbedList.length > 0) {
-      const maxDist = 105; 
+      const maxDist = 105;
       const maxDistSq = maxDist * maxDist;
 
-      // Sample evenly from all directions of the cloud
       const stride = Math.max(1, Math.floor(disturbedList.length / 160));
       const sampled = [];
       for (let k = 0; k < disturbedList.length; k += stride) {
@@ -276,7 +308,6 @@ export function initNeuralCanvas() {
 
           if (distSq < maxDistSq) {
             const dist = Math.sqrt(distSq);
-            // High-contrast, bright electric lines 
             const alpha = Math.max(0.2, (1 - dist / maxDist) * 0.8 * pulseIntensity);
 
             ctx.strokeStyle = `rgba(${p1.rgb}, ${alpha})`;
@@ -307,10 +338,63 @@ export function initNeuralCanvas() {
         ctx.fillRect(p.projX - dotSize * 0.25, p.projY - dotSize * 0.25, dotSize * 0.5, dotSize * 0.5);
       }
     }
-
-    requestAnimationFrame(animate);
   }
 
+  let isBeyondOpen = false;
+
+  function startLoop() {
+    if (!rafId && isVisible && isTabActive && !isBeyondOpen) {
+      lastTimestamp = performance.now();
+      mouse.speed = 0;
+      rafId = requestAnimationFrame(animate);
+    }
+  }
+
+  function stopLoop() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  // Observes #home section visibility to suspend computation off-screen
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible && isTabActive && !isBeyondOpen) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(homeSection);
+  }
+
+  // Suspends execution when user switches browser tabs
+  document.addEventListener('visibilitychange', () => {
+    isTabActive = !document.hidden;
+    if (isTabActive && isVisible && !isBeyondOpen) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
+  });
+
+  // Suspends execution when Beyond World fullscreen overlay is active
+  window.addEventListener('beyond:statechange', (e) => {
+    isBeyondOpen = Boolean(e.detail?.open);
+    if (isBeyondOpen) {
+      stopLoop();
+    } else {
+      startLoop();
+    }
+  });
+
+  window.addEventListener('resize', rafThrottle(resize), { passive: true });
+
   resize();
-  animate();
+  startLoop();
 }
