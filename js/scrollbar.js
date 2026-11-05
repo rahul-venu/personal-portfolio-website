@@ -1,12 +1,18 @@
+/* ================= TRANSLUCENT PILL SCROLLBAR (js/scrollbar.js) =================
+   - Desktop custom floating scroll thumb.
+   - GPU-composited translate3d updates synchronized with requestAnimationFrame.
+   - Integrated floating thumb for the Zoe chatbot message container.
+*/
+
+import { rafThrottle } from './config.js';
+
 export function initScrollbar() {
-  // Only on desktop with a mouse. Phones/tablets keep their own overlay scrollbar.
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
   const de = document.documentElement;
 
   const style = document.createElement('style');
   style.textContent = `
-    /* 1. Completely kill the native scrollbar and its background box/gutter */
     html.custom-scroll,
     html.custom-scroll body {
       scrollbar-width: none !important;
@@ -22,7 +28,6 @@ export function initScrollbar() {
       background: transparent !important;
     }
 
-    /* 2. Floating translucent pill thumb (GPU-composited, zero blur-repaint lag) */
     #page-scrollthumb {
       position: fixed;
       top: 0;
@@ -43,7 +48,6 @@ export function initScrollbar() {
       -webkit-backface-visibility: hidden;
     }
 
-    /* 3. Hide native scrollbar inside Chatbot messages */
     #chat-messages {
       scrollbar-width: none !important;
       -ms-overflow-style: none !important;
@@ -55,7 +59,6 @@ export function initScrollbar() {
       background: transparent !important;
     }
 
-    /* 4. Floating translucent pill thumb inside Chatbot window */
     #chat-scrollthumb {
       position: absolute;
       right: 2px;
@@ -95,6 +98,7 @@ export function initScrollbar() {
   let thumbH = 70;
   let maxScroll = 1;
   let trackTravel = 1;
+  let scrollRafPending = false;
 
   function measure() {
     vh = window.innerHeight;
@@ -105,28 +109,38 @@ export function initScrollbar() {
     }
     thumb.style.display = 'block';
 
-    // Dynamic height capped between 44px and 90px
     thumbH = Math.min(90, Math.max(44, Math.round((vh * vh) / total)));
-    thumb.style.height = thumbH + 'px';
+    thumb.style.height = `${thumbH}px`;
 
     maxScroll = Math.max(1, total - vh);
     trackTravel = Math.max(1, vh - thumbH - PAD * 2);
-    renderPosition();
+    requestRenderPosition();
   }
 
   function renderPosition() {
     const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
     const y = progress * trackTravel + PAD;
     thumb.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+    scrollRafPending = false;
   }
 
-  window.addEventListener('scroll', renderPosition, { passive: true });
-  window.addEventListener('resize', measure, { passive: true });
-  if ('ResizeObserver' in window) new ResizeObserver(measure).observe(document.body);
+  function requestRenderPosition() {
+    if (!scrollRafPending) {
+      scrollRafPending = true;
+      requestAnimationFrame(renderPosition);
+    }
+  }
+
+  window.addEventListener('scroll', requestRenderPosition, { passive: true });
+  window.addEventListener('resize', rafThrottle(measure), { passive: true });
+  if ('ResizeObserver' in window) new ResizeObserver(rafThrottle(measure)).observe(document.body);
   measure();
 
-  // Drag the thumb to scroll
-  let dragging = false, startY = 0, startScroll = 0;
+  // Desktop thumb drag controller
+  let dragging = false;
+  let startY = 0;
+  let startScroll = 0;
+
   thumb.addEventListener('pointerdown', (e) => {
     dragging = true;
     startY = e.clientY;
@@ -135,19 +149,21 @@ export function initScrollbar() {
     thumb.classList.add('dragging');
     e.preventDefault();
   });
+
   thumb.addEventListener('pointermove', (e) => {
     if (!dragging) return;
     const ratio = maxScroll / trackTravel;
     window.scrollTo({ top: startScroll + (e.clientY - startY) * ratio, behavior: 'instant' });
   });
-  function stop() {
+
+  const stopDrag = () => {
     dragging = false;
     thumb.classList.remove('dragging');
-  }
-  thumb.addEventListener('pointerup', stop);
-  thumb.addEventListener('pointercancel', stop);
+  };
+  thumb.addEventListener('pointerup', stopDrag);
+  thumb.addEventListener('pointercancel', stopDrag);
 
-  // ================= CHATBOT BOX FLOATING PILL SCROLLBAR =================
+  // ================= CHATBOT WINDOW FLOATING PILL SCROLLBAR =================
   const chatWindow = document.getElementById('chatbot-window');
   const chatMsgs = document.getElementById('chat-messages');
 
@@ -159,24 +175,25 @@ export function initScrollbar() {
     const CHAT_PAD = 6;
     let cMaxScroll = 1;
     let cTrackTravel = 1;
+    let chatRafPending = false;
 
-    function updateChatScrollbar() {
+    function renderChatScrollbar() {
+      chatRafPending = false;
       const ch = chatMsgs.clientHeight;
-      const total = chatMsgs.scrollHeight;
+      const totalChat = chatMsgs.scrollHeight;
 
-      // Hide pill if chat is closed or content fits without scrolling
-      if (total <= ch + 2 || chatWindow.classList.contains('hidden')) {
+      if (totalChat <= ch + 2 || chatWindow.classList.contains('hidden')) {
         chatThumb.style.display = 'none';
         return;
       }
       chatThumb.style.display = 'block';
 
       const topOffset = chatMsgs.offsetTop;
-      const h = Math.min(75, Math.max(30, Math.round((ch * ch) / total)));
-      chatThumb.style.height = h + 'px';
-      chatThumb.style.top = topOffset + 'px';
+      const h = Math.min(75, Math.max(30, Math.round((ch * ch) / totalChat)));
+      chatThumb.style.height = `${h}px`;
+      chatThumb.style.top = `${topOffset}px`;
 
-      cMaxScroll = Math.max(1, total - ch);
+      cMaxScroll = Math.max(1, totalChat - ch);
       cTrackTravel = Math.max(1, ch - h - CHAT_PAD * 2);
 
       const progress = Math.min(1, Math.max(0, chatMsgs.scrollTop / cMaxScroll));
@@ -184,14 +201,25 @@ export function initScrollbar() {
       chatThumb.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
     }
 
-    chatMsgs.addEventListener('scroll', updateChatScrollbar, { passive: true });
-    if ('ResizeObserver' in window) new ResizeObserver(updateChatScrollbar).observe(chatMsgs);
-    // Also watch for new chat bubbles being added or chat window opening
-    new MutationObserver(updateChatScrollbar).observe(chatMsgs, { childList: true, subtree: true });
-    new MutationObserver(updateChatScrollbar).observe(chatWindow, { attributes: true, attributeFilter: ['class'] });
+    function queueChatScrollbarUpdate() {
+      if (!chatRafPending) {
+        chatRafPending = true;
+        requestAnimationFrame(renderChatScrollbar);
+      }
+    }
 
-    // Drag support for chat thumb
-    let cDragging = false, cStartY = 0, cStartScroll = 0;
+    chatMsgs.addEventListener('scroll', queueChatScrollbarUpdate, { passive: true });
+    if ('ResizeObserver' in window) new ResizeObserver(queueChatScrollbarUpdate).observe(chatMsgs);
+
+    // Consolidated DOM mutation observer for chat messages and open/close state
+    const chatObserver = new MutationObserver(queueChatScrollbarUpdate);
+    chatObserver.observe(chatMsgs, { childList: true, subtree: true });
+    chatObserver.observe(chatWindow, { attributes: true, attributeFilter: ['class'] });
+
+    let cDragging = false;
+    let cStartY = 0;
+    let cStartScroll = 0;
+
     chatThumb.addEventListener('pointerdown', (e) => {
       cDragging = true;
       cStartY = e.clientY;
@@ -200,11 +228,13 @@ export function initScrollbar() {
       chatThumb.classList.add('dragging');
       e.preventDefault();
     });
+
     chatThumb.addEventListener('pointermove', (e) => {
       if (!cDragging) return;
       const ratio = cMaxScroll / cTrackTravel;
       chatMsgs.scrollTop = cStartScroll + (e.clientY - cStartY) * ratio;
     });
+
     const stopChatDrag = () => {
       cDragging = false;
       chatThumb.classList.remove('dragging');
