@@ -1,4 +1,9 @@
-// ================= MECHANICAL ROTARY / ODOMETER COUNTER =================
+/* ================= MECHANICAL ROTARY / ODOMETER COUNTER (js/rotary.js) =================
+   - Generates mechanical vertical odometer reels for numerals and spine titles.
+   - Smooth mechanical deceleration using cubic-bezier easing and fill: forwards.
+   - Preserves uniform character slot metrics so column widths and letter spacing never shift.
+*/
+
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 function setupRotaryElement(el) {
@@ -29,13 +34,12 @@ function setupRotaryElement(el) {
     const strip = document.createElement('span');
     strip.className = 'inline-flex flex-col';
 
-    // Increased to 22-30 spins so it travels more distance during the extra second
-    const rollsCount = 22 + Math.floor(Math.random() * 8); 
+    const rollsCount = 22 + Math.floor(Math.random() * 8);
     const items = [];
     for (let r = 0; r < rollsCount; r++) {
       items.push(CHARS[Math.floor(Math.random() * CHARS.length)]);
     }
-    items.push(char); // Target character is the last one in the reel
+    items.push(char); // Target character is the final item in the reel
 
     items.forEach((c) => {
       const span = document.createElement('span');
@@ -48,7 +52,7 @@ function setupRotaryElement(el) {
     el.appendChild(col);
 
     columns.push({
-      strip: strip,
+      strip,
       totalItems: items.length
     });
   }
@@ -61,19 +65,22 @@ function spinColumns(columns) {
     const { strip, totalItems } = colObj;
     const targetY = -((totalItems - 1) * (100 / totalItems));
 
-    // Staggered cascade 
+    // Staggered cascade
     const delay = index * 50;
     const duration = 2000 + (index * 40);
 
-    strip.animate([
-      { transform: 'translateY(0%)' },
-      { transform: `translateY(${targetY}%)` }
-    ], {
-      duration: duration,
-      delay: delay,
-      easing: 'cubic-bezier(0.12, 0.8, 0.22, 1)', // Smooth mechanical deceleration
-      fill: 'forwards'
-    });
+    strip.animate(
+      [
+        { transform: 'translateY(0%)' },
+        { transform: `translateY(${targetY}%)` }
+      ],
+      {
+        duration,
+        delay,
+        easing: 'cubic-bezier(0.12, 0.8, 0.22, 1)', // Smooth mechanical deceleration
+        fill: 'forwards'
+      }
+    );
   });
 }
 
@@ -87,21 +94,23 @@ export function initRotaryCounter() {
     elementsData.push({ el, columns, played: false });
   });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
         const data = elementsData.find((d) => d.el === entry.target);
         if (data && !data.played) {
           data.played = true;
           spinColumns(data.columns);
           observer.unobserve(entry.target);
         }
-      }
-    });
-  }, {
-    threshold: 0.2,
-    rootMargin: '0px 0px -40px 0px'
-  });
+      });
+    },
+    {
+      threshold: 0.2,
+      rootMargin: '0px 0px -40px 0px'
+    }
+  );
 
   elementsData.forEach((d) => observer.observe(d.el));
 }
