@@ -1,9 +1,11 @@
 /* ================= NEURAL PCB CIRCUIT CONSTELLATION (js/skills-circuit.js) =================
-   - Renders the 8 Domain Tabs and all 62 Skill Nodes organized into 8 PCB cluster zones.
-   - Draws 45-degree angled SVG circuit traces, junction nodes, and glowing pulse packets
-     between active skills (and cross-domain bridge traces).
-   - Supports both Hover and Click (locking) with 8 distinct electric cyber-neon colors.
+   - Renders 8 Domain Tabs and all 62 Skill Nodes across 8 PCB cluster zones.
+   - Draws 45-degree angled SVG circuit traces, junction vias, and traveling pulse packets.
+   - Caches node coordinates to prevent synchronous layout reflows during hover/activation.
+   - Supports hover and lock selection with 8 distinct cyber-neon color palettes.
 */
+
+import { rafThrottle } from './config.js';
 
 export function initSkillsCircuit() {
   const tabsMount = document.getElementById('skills-domain-tabs');
@@ -13,7 +15,7 @@ export function initSkillsCircuit() {
 
   if (!tabsMount || !nodesMount || !svgLayer || !board) return;
 
-  // All 8 Domains + All 62 Exact Skills + Electric Cyber-Neon Palette
+  // Complete domain definitions and skill cluster mapping
   const DOMAINS = [
     {
       id: 'agentic',
@@ -23,7 +25,7 @@ export function initSkillsCircuit() {
       glow: 'rgba(168, 85, 247, 0.55)',
       gridArea: 'lg:col-start-2 lg:col-end-4 lg:row-start-2 lg:row-end-3',
       skills: [
-        { name: 'LangGraph', icon: 'git-Commit', hub: true },
+        { name: 'LangGraph', icon: 'git-commit', hub: true },
         { name: 'Tool Calling', icon: 'wrench', hub: true },
         { name: 'AI Agents', icon: 'bot', hub: true },
         { name: 'LangChain', icon: 'link' },
@@ -82,11 +84,11 @@ export function initSkillsCircuit() {
       skills: [
         { name: 'Scikit-learn', icon: 'activity', hub: true },
         { name: 'XGBoost / LightGBM', icon: 'zap', hub: true },
-        { name: 'Feature Engineering', icon: 'Wand-2' },
+        { name: 'Feature Engineering', icon: 'wand-2' },
         { name: 'Regression', icon: 'trending-up' },
         { name: 'Classification', icon: 'git-branch' },
         { name: 'Model Evaluation', icon: 'check-circle-2' },
-        { name: 'Hyper Para. Tuning', icon: 'Sliders-horizontal' },
+        { name: 'Hyper Para. Tuning', icon: 'sliders-horizontal' },
         { name: 'Cross-Validation', icon: 'repeat' },
         { name: 'Supervised / Unsupervised', icon: 'layers' }
       ]
@@ -157,7 +159,7 @@ export function initSkillsCircuit() {
     }
   ];
 
-  // Inject Scoped Cyber-PCB Styles
+  // Scoped styling for circuit nodes, trace lines, and animated pulse packets
   const style = document.createElement('style');
   style.textContent = `
     #skills-circuit-board {
@@ -165,7 +167,6 @@ export function initSkillsCircuit() {
       --circuit-glow: rgba(168, 85, 247, 0.55);
     }
 
-    /* Top 8 Domain Filter Tabs */
     .sk-tab {
       display: inline-flex;
       align-items: center;
@@ -203,20 +204,20 @@ export function initSkillsCircuit() {
       font-weight: 700;
     }
 
-    /* 8-Zone Constellation Grid Layout (Fits 100% inside viewport height) */
     #skills-nodes-mount {
       display: grid;
       grid-template-columns: repeat(1, minmax(0, 1fr));
-      gap: 10px;
+      gap: 12px;
     }
 
     @media (min-width: 1024px) {
       #skills-nodes-mount {
-        grid-template-columns: 1.3fr 1fr 1fr 1.3fr;
-        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.85fr);
-        gap: 6px 12px;
+        grid-template-columns: 1.25fr 1fr 1fr 1.25fr;
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.95fr);
+        gap: 14px 22px;
         align-items: center;
         height: 100%;
+        padding: 4px 2px;
       }
     }
 
@@ -225,26 +226,25 @@ export function initSkillsCircuit() {
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 4.5px 6px;
-      padding: 2px 4px;
+      gap: 10px 12px;
+      padding: 4px 6px;
       border-radius: 14px;
       transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    /* Compact Skill Node Pill (Scaled so all 62 pills fit inside 100dvh) */
     .sk-pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 3.5px 9px;
+      gap: 6px;
+      padding: 5px 12px;
       border-radius: 9999px;
       background: #111114;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       font-family: var(--font-magnify), sans-serif;
       font-weight: 500;
-      font-size: 11px;
+      font-size: 11.5px;
       line-height: 1.2;
-      color: rgba(161, 161, 170, 0.45);
+      color: rgba(161, 161, 170, 0.55);
       white-space: nowrap;
       cursor: pointer;
       transition:
@@ -264,7 +264,6 @@ export function initSkillsCircuit() {
       transition: opacity 0.3s ease, color 0.3s ease;
     }
 
-    /* Active Cluster Pills: Lit up in Electric Cyber-Neon! */
     .sk-cluster.is-active .sk-pill {
       color: #ffffff;
       background: #16161d;
@@ -295,7 +294,6 @@ export function initSkillsCircuit() {
       transform: translateY(-1px) scale(1.04) !important;
     }
 
-    /* SVG PCB Traces & Travelling Energy Packets */
     .pcb-trace-bg {
       fill: none;
       stroke: rgba(255, 255, 255, 0.05);
@@ -340,7 +338,7 @@ export function initSkillsCircuit() {
   `;
   document.head.appendChild(style);
 
-  // 1. Render Top 8 Domain Filter Tabs
+  // 1. Mount Domain Filter Tabs
   tabsMount.innerHTML = DOMAINS.map(
     (d, i) => `
       <button 
@@ -355,17 +353,16 @@ export function initSkillsCircuit() {
     `
   ).join('');
 
-  // 2. Render 8 Cluster Zones with all 62 Skills
-  // Place MLOps & App/Visuals in bottom corners nicely
+  // 2. Mount Cluster Zones and Skill Pills
   const areaOverrides = {
-    dl:      'lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-2',
+    mlops:   'lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-2',
     nlp:     'lg:col-start-2 lg:col-end-4 lg:row-start-1 lg:row-end-2',
-    ml:      'lg:col-start-4 lg:col-end-5 lg:row-start-1 lg:row-end-2',
+    data:    'lg:col-start-4 lg:col-end-5 lg:row-start-1 lg:row-end-2',
     prog:    'lg:col-start-1 lg:col-end-2 lg:row-start-2 lg:row-end-3',
     agentic: 'lg:col-start-2 lg:col-end-4 lg:row-start-2 lg:row-end-3',
     app:     'lg:col-start-4 lg:col-end-5 lg:row-start-2 lg:row-end-3',
-    mlops:   'lg:col-start-1 lg:col-end-3 lg:row-start-3 lg:row-end-4',
-    data:    'lg:col-start-3 lg:col-end-5 lg:row-start-3 lg:row-end-4'
+    dl:      'lg:col-start-1 lg:col-end-3 lg:row-start-3 lg:row-end-4',
+    ml:      'lg:col-start-3 lg:col-end-5 lg:row-start-3 lg:row-end-4'
   };
 
   nodesMount.innerHTML = DOMAINS.map(
@@ -391,7 +388,7 @@ export function initSkillsCircuit() {
 
   let activeDomainId = 'agentic';
 
-  // Helper: Build a 45-degree angled PCB trace path between (x1, y1) and (x2, y2)
+  // 45-degree chamfered PCB routing geometry generator
   function createPcbPath(x1, y1, x2, y2) {
     const dx = x2 - x1;
     const dy = y2 - y1;
@@ -409,40 +406,63 @@ export function initSkillsCircuit() {
     return `M ${x1.toFixed(1)} ${y1.toFixed(1)} L ${midX1.toFixed(1)} ${midY1.toFixed(1)} L ${midX2.toFixed(1)} ${midY2.toFixed(1)} L ${x2.toFixed(1)} ${midY2.toFixed(1)} L ${x2.toFixed(1)} ${y2.toFixed(1)}`;
   }
 
-  // Draw Background PCB Traces + Active Glowing Traces & Pulse Packets
-  function renderCircuitLines() {
+  // Pre-cached coordinates storage to eliminate synchronous layout reflows on hover
+  let cachedBoardWidth = 0;
+  let cachedBoardHeight = 0;
+  let cachedPillPoints = {};
+  let cachedClusterCenters = {};
+
+  function measureNodeCoordinates() {
     if (window.innerWidth < 1024) return;
     const boardRect = board.getBoundingClientRect();
     if (!boardRect.width || !boardRect.height) return;
 
-    svgLayer.setAttribute('viewBox', `0 0 ${boardRect.width} ${boardRect.height}`);
+    cachedBoardWidth = boardRect.width;
+    cachedBoardHeight = boardRect.height;
+    cachedPillPoints = {};
+    cachedClusterCenters = {};
 
-    const getCenter = (el) => {
-      const r = el.getBoundingClientRect();
-      return {
-        x: r.left - boardRect.left + r.width / 2,
-        y: r.top - boardRect.top + r.height / 2
-      };
-    };
-
-    let bgPaths = '';
-    let activePaths = '';
-    let dots = '';
-
-    // 1. Faint background PCB traces inside every cluster + between cluster centers
-    const clusterCenters = {};
     DOMAINS.forEach((d) => {
       const clusterEl = nodesMount.querySelector(`.sk-cluster[data-cluster="${d.id}"]`);
       if (!clusterEl) return;
       const pills = Array.from(clusterEl.querySelectorAll('.sk-pill'));
       if (!pills.length) return;
 
-      const hubPoint = getCenter(pills[0]);
-      clusterCenters[d.id] = hubPoint;
+      const points = pills.map((p) => {
+        const r = p.getBoundingClientRect();
+        return {
+          x: r.left - boardRect.left + r.width / 2,
+          y: r.top - boardRect.top + r.height / 2
+        };
+      });
 
-      for (let i = 1; i < pills.length; i++) {
-        const pt = getCenter(pills[i]);
-        const prev = getCenter(pills[Math.floor((i - 1) / 2)]);
+      cachedPillPoints[d.id] = points;
+      cachedClusterCenters[d.id] = points[0];
+    });
+  }
+
+  // Renders circuit paths directly from cached points
+  function renderCircuitLines() {
+    if (window.innerWidth < 1024) return;
+    if (!cachedBoardWidth || !cachedBoardHeight) {
+      measureNodeCoordinates();
+    }
+    if (!cachedBoardWidth || !cachedBoardHeight) return;
+
+    svgLayer.setAttribute('viewBox', `0 0 ${cachedBoardWidth} ${cachedBoardHeight}`);
+
+    let bgPaths = '';
+    let activePaths = '';
+    let dots = '';
+
+    // Intracluster PCB traces
+    DOMAINS.forEach((d) => {
+      const points = cachedPillPoints[d.id];
+      if (!points || !points.length) return;
+
+      for (let i = 1; i < points.length; i++) {
+        const pt = points[i];
+        const prev = points[Math.floor((i - 1) / 2)];
         const dPath = createPcbPath(prev.x, prev.y, pt.x, pt.y);
 
         if (d.id === activeDomainId) {
@@ -458,15 +478,15 @@ export function initSkillsCircuit() {
       }
     });
 
-    // 2. Cross-cluster neural bridge lines from the Active Cluster to neighboring hubs (like RAG, Python, Data in reference!)
-    const activeCenter = clusterCenters[activeDomainId];
+    // Cross-cluster bridge lines from active domain hub to neighbors
+    const activeCenter = cachedClusterCenters[activeDomainId];
     if (activeCenter) {
-      Object.keys(clusterCenters).forEach((otherId, idx) => {
+      Object.keys(cachedClusterCenters).forEach((otherId, idx) => {
         if (otherId === activeDomainId) return;
-        const target = clusterCenters[otherId];
+        const target = cachedClusterCenters[otherId];
         const bridgePath = createPcbPath(activeCenter.x, activeCenter.y, target.x, target.y);
         bgPaths += `<path class="pcb-trace-bg" d="${bridgePath}" />`;
-        // Illuminate 3 primary cross-domain bridges with live energy packets
+
         if (idx % 2 === 0) {
           activePaths += `
             <path class="pcb-trace-active" style="stroke-opacity: 0.32;" d="${bridgePath}" />
@@ -479,8 +499,9 @@ export function initSkillsCircuit() {
     svgLayer.innerHTML = bgPaths + activePaths + dots;
   }
 
-  // Activate a domain (updates colors, active classes, and redraws glowing PCB traces)
+  // Switches active domain colors and updates circuit rendering
   function activateDomain(domainId) {
+    if (activeDomainId === domainId && tabsMount.querySelector('.sk-tab.is-active')) return;
     const domain = DOMAINS.find((d) => d.id === domainId);
     if (!domain) return;
     activeDomainId = domainId;
@@ -496,17 +517,17 @@ export function initSkillsCircuit() {
       cluster.classList.toggle('is-active', cluster.dataset.cluster === domainId);
     });
 
-    requestAnimationFrame(renderCircuitLines);
+    renderCircuitLines();
   }
 
-  // Bind Hover & Click on Top 8 Domain Tabs
+  // Domain tab triggers
   tabsMount.querySelectorAll('.sk-tab').forEach((tab) => {
     const id = tab.dataset.domain;
     tab.addEventListener('mouseenter', () => activateDomain(id));
     tab.addEventListener('click', () => activateDomain(id));
   });
 
-  // Also allow hovering or clicking directly on any skill pill on the board to ignite its cluster!
+  // Direct pill triggers
   nodesMount.querySelectorAll('.sk-pill').forEach((pill) => {
     const id = pill.dataset.domain;
     pill.addEventListener('mouseenter', () => {
@@ -515,10 +536,19 @@ export function initSkillsCircuit() {
     pill.addEventListener('click', () => activateDomain(id));
   });
 
-  // Initial draw & resize observer
-  setTimeout(renderCircuitLines, 120);
-  window.addEventListener('resize', renderCircuitLines, { passive: true });
+  // Throttled recalculation on layout resize
+  const handleBoardResize = rafThrottle(() => {
+    measureNodeCoordinates();
+    renderCircuitLines();
+  });
+
+  setTimeout(() => {
+    measureNodeCoordinates();
+    renderCircuitLines();
+  }, 120);
+
+  window.addEventListener('resize', handleBoardResize, { passive: true });
   if ('ResizeObserver' in window) {
-    new ResizeObserver(renderCircuitLines).observe(board);
+    new ResizeObserver(handleBoardResize).observe(board);
   }
 }
