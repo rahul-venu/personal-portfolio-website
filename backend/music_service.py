@@ -1,3 +1,11 @@
+"""
+Live Poweramp Music Sync Service (backend/music_service.py)
+- Receives inbound playback state webhooks from MacroDroid on Android.
+- Tracks live playback status (Currently Playing vs. Last Played).
+- Synchronizes in-memory state with the disk cache for multi-process safety.
+- Exposes GET /api/music/status for live verification in a browser.
+"""
+
 import json
 import logging
 import os
@@ -11,13 +19,10 @@ from pydantic import BaseModel
 logger = logging.getLogger("uvicorn")
 
 MUSIC_SYNC_TOKEN = os.getenv("MUSIC_SYNC_TOKEN")
-
-# Store in the OS Temp folder (OUTSIDE the project directory)
 MUSIC_CACHE_FILE = os.path.join(tempfile.gettempdir(), "poweramp_live_music.json")
 
 music_router = APIRouter(prefix="/api/music", tags=["Music Sync"])
 
-# Fast In-Memory State Cache
 LIVE_MUSIC_STATE = {
     "title": "Unknown Track",
     "artist": "Unknown Artist",
@@ -25,13 +30,27 @@ LIVE_MUSIC_STATE = {
     "is_playing": False,
 }
 
-# Pre-load existing cache on server startup if available
-if os.path.exists(MUSIC_CACHE_FILE):
+_last_cache_mtime = 0.0
+
+
+def sync_state_from_disk():
+    """Hot-reloads state from disk if updated by another worker or process."""
+    global _last_cache_mtime
+    if not os.path.exists(MUSIC_CACHE_FILE):
+        return
     try:
-        with open(MUSIC_CACHE_FILE, "r", encoding="utf-8") as f:
-            LIVE_MUSIC_STATE.update(json.load(f))
-    except Exception:
-        pass
+        mtime = os.path.getmtime(MUSIC_CACHE_FILE)
+        if mtime > _last_cache_mtime:
+            with open(MUSIC_CACHE_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                LIVE_MUSIC_STATE.update(data)
+                _last_cache_mtime = mtime
+    except Exception as e:
+        logger.warning(f"Failed to sync music cache from disk: {e}")
+
+
+# Pre-load existing cache on boot
+sync_state_from_disk()
 
 
 class MusicUpdateRequest(BaseModel):
@@ -44,7 +63,6 @@ class MusicUpdateRequest(BaseModel):
 
 
 def clean_album_name(album_val: Optional[str]) -> str:
-    """Removes dummy/fallback album names like 'Unknown Album'."""
     if not album_val:
         return ""
     cleaned = album_val.strip()
@@ -54,7 +72,8 @@ def clean_album_name(album_val: Optional[str]) -> str:
 
 
 def get_live_music_context() -> str:
-    """Reads the live music state directly from memory (instantaneous, zero disk lag)."""
+    sync_state_from_disk()
+
     title = LIVE_MUSIC_STATE.get("title", "Unknown Track")
     artist = LIVE_MUSIC_STATE.get("artist", "Unknown Artist")
 
@@ -69,6 +88,17 @@ def get_live_music_context() -> str:
         return f"Currently Playing on Poweramp: '{title}' by {artist}{album_str}."
     else:
         return f"Not Playing right now. Last Played on Poweramp: '{title}' by {artist}{album_str}."
+
+
+@music_router.get("/status")
+def get_music_status():
+    """Public inspector to verify live MacroDroid sync in a browser."""
+    sync_state_from_disk()
+    return {
+        "status": "online",
+        "live_state": LIVE_MUSIC_STATE,
+        "formatted_prompt_context": get_live_music_context(),
+    }
 
 
 @music_router.post("/update")
@@ -87,11 +117,8 @@ async def update_music(
         logger.warning("Unauthorized attempt to update music status.")
         raise HTTPException(status_code=401, detail="Unauthorized: Invalid sync token")
 
-    logger.info(
-        f"📥 MacroDroid Inbound: title='{data.title}', artist='{data.artist}', album='{data.album}', state='{data.state}'"
-    )
+    sync_state_from_disk()
 
-    # 1. Playback State: 0/1 = Playing, 2/3 = Paused/Stopped
     is_playing = False
     if data.state is not None:
         try:
@@ -111,11 +138,10 @@ async def update_music(
     artist = data.artist.strip() if data.artist else ""
     album = clean_album_name(data.album)
 
-    # Fallback to 'track' if title was empty
     if (not title or title == "Unknown Track") and data.track:
         title = data.track.strip()
 
-    # 2. Retain previously known track if a pause event arrives with empty metadata
+    # Retain existing track details if pause webhook sends empty strings
     if not title or title == "Unknown Track":
         title = LIVE_MUSIC_STATE.get("title", "Unknown Track")
         artist = LIVE_MUSIC_STATE.get("artist", artist or "Unknown Artist")
@@ -129,13 +155,16 @@ async def update_music(
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
 
-    # Update in-memory state instantly
     LIVE_MUSIC_STATE.update(payload)
 
-    # Persist to OS Temp directory (silent write, no reloads)
+    # Atomic write to OS temp directory
     try:
-        with open(MUSIC_CACHE_FILE, "w", encoding="utf-8") as f:
+        temp_file = f"{MUSIC_CACHE_FILE}.tmp.{os.getpid()}"
+        with open(temp_file, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2)
+        os.replace(temp_file, MUSIC_CACHE_FILE)
+        global _last_cache_mtime
+        _last_cache_mtime = os.path.getmtime(MUSIC_CACHE_FILE)
     except Exception as e:
         logger.warning(f"Could not persist temp music state: {e}")
 
