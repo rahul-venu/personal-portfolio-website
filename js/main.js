@@ -1,7 +1,11 @@
+/* ================= MAIN APPLICATION ENTRY POINT (js/main.js) =================
+   - Bootstraps global UI modules, custom cursor, preloader, and canvas systems.
+   - Automatically duplicates About running band pills to ensure seamless infinite looping.
+*/
+
 import { initCursor } from './cursor.js';
 import { initScrollAnimations } from './animations.js';
 import { initChatbot } from './chatbot.js';
-import { initBikeRun } from './bike-anim.js';
 import { initNeuralCanvas } from './neural.js';
 import { initLossVerification } from './verification.js';
 import { initRotaryCounter } from './rotary.js'; 
@@ -11,27 +15,19 @@ import { initScrollbar } from './scrollbar.js';
 import { initLogoAnim } from './logo-anim.js';
 import { initPreloader } from './preloader.js';
 import { initSkillsCircuit } from './skills-circuit.js';
-
-// ================= NAME MORPH =================
-function initBrandMorph() {
-  const brandIdentity = document.getElementById('brand-identity');
-  if (!brandIdentity) return;
-
-  let isScrolled = false;
-  const handleBrandScroll = () => {
-    // Triggers packing into RV logo once scrolled past 50px
-    const shouldScroll = window.scrollY > 50;
-    if (shouldScroll !== isScrolled) {
-      isScrolled = shouldScroll;
-      brandIdentity.classList.toggle('is-scrolled', isScrolled);
-    }
-  };
-
-  window.addEventListener('scroll', handleBrandScroll, { passive: true });
-  handleBrandScroll(); // Initial check on load/refresh
-}
+import { initBeyondWorld } from './beyond-world.js';
+import { initBeyondMobile } from './beyond-mobile.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Clones About marquee pills for seamless CSS loop
+  document.querySelectorAll('.about-marquee-track').forEach((track) => {
+    Array.from(track.children).forEach((pill) => {
+      const clone = pill.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+  });
+
   if (window.lucide) {
     window.lucide.createIcons();
   }
@@ -43,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initChatbot();
   initNeuralCanvas();
-  initBikeRun();
   initLossVerification();
   initRotaryCounter(); 
   initAvatar();
@@ -52,8 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initLogoAnim();
   initPreloader();
   initSkillsCircuit();
+  initBeyondWorld();
+  initBeyondMobile();
 
-  // ================= CLICK-TO-COPY EMAIL =================
+  // Click-to-copy email helper
   const emailCard = document.querySelector('a[href^="mailto:"]');
   emailCard?.addEventListener('click', (e) => {
     e.preventDefault();
