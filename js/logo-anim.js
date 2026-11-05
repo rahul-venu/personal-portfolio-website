@@ -1,16 +1,16 @@
 /* ================= UNIFIED LOGO ANIMATIONS (RIBBON STYLE) =================
    - Zero blur, zero drop-shadow, zero gradient overspill.
-   - Uses true SVG <clipPath> + centerline <path pathLength="1"> stroke-dashoffset
-     so a 100% solid, razor-sharp #6d35e8 purple ribbon snakes through the exact
-     centerline geometry of R and V (and hard-stop wipes through A-H-U-L),
-     finishing by filling the top-right slash of V!
+   - Uses true SVG <clipPath> + centerline stroke-dashoffset so a 100% solid
+     #6d35e8 purple ribbon snakes through R and V geometry and wipes through A-H-U-L.
+   - Consolidates signature and RV vector paths from central config.
 */
+
+import { SIGNATURE_PATHS, BRAND_RV_PATHS, clearTimerList } from './config.js';
 
 export function initLogoAnim() {
   const style = document.createElement('style');
   style.textContent = `
-    /* ================= HARD-EDGE SOLID RIBBON FOR TEXT (A, H, U, L) ================= */
-    /* Zero feathering, zero drop-shadow: 100% hard-stop solid #6d35e8 ribbon */
+    /* Hard-edge solid ribbon for text characters (A, H, U, L) */
     .lp-ink-char {
       display: inline-block;
       color: #ffffff;
@@ -40,7 +40,7 @@ export function initLogoAnim() {
       100% { background-position: 0% 0%; }
     }
 
-    /* ================= SVG CENTERLINE RIBBON STROKE (R, V & V-CAP) ================= */
+    /* SVG centerline ribbon stroke */
     .lp-ribbon-stroke {
       fill: none;
       stroke: #6d35e8;
@@ -50,7 +50,6 @@ export function initLogoAnim() {
       stroke-dashoffset: 1;
     }
 
-    /* Permanent V-cap fill once the ribbon writes into it */
     .lp-v-slash-base {
       fill: #ffffff;
       transition: fill 0.15s linear;
@@ -59,7 +58,6 @@ export function initLogoAnim() {
       fill: #6d35e8 !important;
     }
 
-    /* Kill any old purple drop-shadow bleed on scrolled RV */
     #brand-identity.is-scrolled .brand-svg-v,
     #brand-identity.is-scrolled:hover .brand-svg-v,
     .footer-svg-v,
@@ -67,7 +65,7 @@ export function initLogoAnim() {
       filter: none !important;
     }
 
-    /* ================= FOOTER TYPEWRITER & BUTTER-SMOOTH COLLAPSE ================= */
+    /* Footer logo typewriter and collapse styles */
     #footer-brand-logo .fb-char {
       opacity: 0;
       transform: translateY(6px);
@@ -157,57 +155,47 @@ export function initLogoAnim() {
   `;
   document.head.appendChild(style);
 
-  // =========================================================================
-  // TRUE VECTOR CLIP-PATH + CENTERLINE STROKE-DASHOFFSET BUILDERS (R & V)
-  // =========================================================================
+  // Vector clip-path and centerline stroke injection for letter R
   function injectLandoStyleSvgR(container, prefix) {
-    // Clips a thick centerline stroke strictly inside R's exact vector silhouette (0 overspill!)
     container.innerHTML = `
       <svg class="h-[0.85em] w-auto block" viewBox="0 300 485 445" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="${prefix}-r-clip">
-            <path d="M8 312 H385 V392 H8 Z"/>
-            <path d="M68 508 H392 A35 35 0 0 1 392 578 H348 L483 733 H382 L250 578 H145 V733 H68 Z"/>
+            <path d="${BRAND_RV_PATHS.rTop}"/>
+            <path d="${BRAND_RV_PATHS.rBody}"/>
           </clipPath>
         </defs>
-        <!-- Crisp Pure White Base -->
         <g fill="#ffffff">
-          <path d="M8 312 H385 V392 H8 Z"/>
-          <path d="M68 508 H392 A35 35 0 0 1 392 578 H348 L483 733 H382 L250 578 H145 V733 H68 Z"/>
+          <path d="${BRAND_RV_PATHS.rTop}"/>
+          <path d="${BRAND_RV_PATHS.rBody}"/>
         </g>
-        <!-- Solid Purple Ribbon Clipped Strictly Inside R -->
         <g clip-path="url(#${prefix}-r-clip)">
-          <!-- Stroke 1: Top horizontal bar (Left -> Right) -->
           <path id="${prefix}-r-stroke-1" class="lp-ribbon-stroke" stroke-width="110" pathLength="1" d="M 0 352 L 395 352" />
-          <!-- Stroke 2: Stem up, across loop, and down diagonal leg -->
           <path id="${prefix}-r-stroke-2" class="lp-ribbon-stroke" stroke-width="130" pathLength="1" d="M 106 740 L 106 543 L 415 543 L 290 560 L 450 740" />
         </g>
       </svg>
     `.trim();
   }
 
+  // Vector clip-path and centerline stroke injection for letter V
   function injectLandoStyleSvgV(container, prefix) {
-    // Clips a thick centerline stroke strictly inside V's exact vector silhouette (0 overspill!)
     container.innerHTML = `
       <svg class="h-[0.85em] w-auto block" viewBox="380 300 555 445" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="${prefix}-v-body-clip">
-            <path d="M385 312 C415 312 436 326 452 350 L630 585 L718 458 H812 L630 720 L405 413 C397 402 388 392 368 392 L385 312 Z"/>
+            <path d="${BRAND_RV_PATHS.vBody}"/>
           </clipPath>
           <clipPath id="${prefix}-v-slash-clip">
-            <polygon points="805,312 928,312 840,420 718,420"/>
+            <polygon points="${BRAND_RV_PATHS.vSlashPoints}"/>
           </clipPath>
         </defs>
-        <!-- Crisp Pure White Base -->
-        <path fill="#ffffff" d="M385 312 C415 312 436 326 452 350 L630 585 L718 458 H812 L630 720 L405 413 C397 402 388 392 368 392 L385 312 Z"/>
-        <polygon id="${prefix}-v-slash-base" class="lp-v-slash-base" points="805,312 928,312 840,420 718,420"/>
+        <path fill="#ffffff" d="${BRAND_RV_PATHS.vBody}"/>
+        <polygon id="${prefix}-v-slash-base" class="lp-v-slash-base" points="${BRAND_RV_PATHS.vSlashPoints}"/>
 
-        <!-- Solid Purple Ribbon Clipped Strictly Inside V Body (Down left leg -> Up right leg) -->
         <g clip-path="url(#${prefix}-v-body-clip)">
           <path id="${prefix}-v-stroke" class="lp-ribbon-stroke" stroke-width="140" pathLength="1" d="M 385 310 L 630 665 L 780 445" />
         </g>
 
-        <!-- Solid Purple Ribbon Drawing Up Into the V Cap/Slash (and staying filled!) -->
         <g clip-path="url(#${prefix}-v-slash-clip)">
           <path id="${prefix}-v-cap-stroke" class="lp-ribbon-stroke" stroke-width="160" pathLength="1" d="M 750 430 L 885 300" />
         </g>
@@ -215,15 +203,13 @@ export function initLogoAnim() {
     `.trim();
   }
 
-  // Animates a stroke-dashoffset from +1 -> 0 (draws in) -> -1
+  // Smooth cubic ease stroke-dashoffset transition
   function animateRibbonPass(pathEl, durationMs, rafList) {
     if (!pathEl) return;
     const start = performance.now();
     function frame(now) {
       const t = Math.min(1, (now - start) / durationMs);
-      // Smooth cubic ease-in-out
       const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-      // +1 (hidden before start) -> 0 (fully drawn) -> -1 (exited at end)
       const offset = 1 - 2 * ease;
       pathEl.style.strokeDashoffset = offset.toFixed(4);
       if (t < 1) {
@@ -235,7 +221,7 @@ export function initLogoAnim() {
     rafList.push(requestAnimationFrame(frame));
   }
 
-  // Animates the V-cap stroke from +1 -> 0 (draws in and STAYS filled!)
+  // Completes ribbon path and maintains solid fill on the V slash
   function animateRibbonFillIn(pathEl, slashBaseEl, durationMs, rafList) {
     if (!pathEl) return;
     const start = performance.now();
@@ -253,7 +239,7 @@ export function initLogoAnim() {
     rafList.push(requestAnimationFrame(frame));
   }
 
-  // Master 2.0-second Ribbon Sequence: R -> A -> H -> U -> L -> V -> V-Cap
+  // Master sequence: R -> A -> H -> U -> L -> V -> V-Cap
   function runWritingFlow(prefix, charNodes, timerList, rafList, startDelay = 0) {
     const rStroke1 = document.getElementById(`${prefix}-r-stroke-1`);
     const rStroke2 = document.getElementById(`${prefix}-r-stroke-2`);
@@ -261,13 +247,11 @@ export function initLogoAnim() {
     const vCapStroke = document.getElementById(`${prefix}-v-cap-stroke`);
     const vSlashBase = document.getElementById(`${prefix}-v-slash-base`);
 
-    // Reset all strokes to hidden (+1)
     [rStroke1, rStroke2, vStroke, vCapStroke].forEach((el) => {
       if (el) el.style.strokeDashoffset = '1';
     });
     if (vSlashBase) vSlashBase.classList.remove('is-ignited');
 
-    // 1. Draw R: Top bar first (0ms -> 380ms), then stem/loop/leg (180ms -> 680ms)
     timerList.push(setTimeout(() => {
       animateRibbonPass(rStroke1, 380, rafList);
     }, startDelay));
@@ -276,7 +260,6 @@ export function initLogoAnim() {
       animateRibbonPass(rStroke2, 500, rafList);
     }, startDelay + 180));
 
-    // 2. Draw A -> H -> U -> L sequentially (520ms -> 1360ms)
     const CHAR_START = startDelay + 520;
     const CHAR_STEP = 190;
     charNodes.forEach((charEl, idx) => {
@@ -288,13 +271,11 @@ export function initLogoAnim() {
       }, CHAR_START + idx * CHAR_STEP));
     });
 
-    // 3. Draw V body: snakes down left leg & up right leg (1320ms -> 1870ms)
     const vStart = startDelay + 1320;
     timerList.push(setTimeout(() => {
       animateRibbonPass(vStroke, 550, rafList);
     }, vStart));
 
-    // 4. As ribbon reaches top of V's right leg, it draws straight into the V Cap and stays! (1720ms -> 2000ms)
     const vCapStart = startDelay + 1720;
     timerList.push(setTimeout(() => {
       animateRibbonFillIn(vCapStroke, vSlashBase, 280, rafList);
@@ -303,9 +284,7 @@ export function initLogoAnim() {
     return startDelay + 2000;
   }
 
-  // =========================================================================
-  // 1. HEADER NAVBAR LOGO (#brand-identity)
-  // =========================================================================
+  // ================= 1. HEADER NAVBAR LOGO =================
   const brandIdentity = document.getElementById('brand-identity');
   if (brandIdentity) {
     const rWrap = brandIdentity.querySelector('.brand-svg-r');
@@ -326,7 +305,12 @@ export function initLogoAnim() {
     let hdrTimers = [];
     let hdrRafs = [];
 
-    // Wait for preloader to finish before running the 2.0s navbar ribbon animation
+    const clearHdrAnims = () => {
+      clearTimerList(hdrTimers);
+      hdrRafs.forEach((r) => cancelAnimationFrame(r));
+      hdrRafs = [];
+    };
+
     if (document.getElementById('site-preloader')) {
       window.addEventListener('preloader:done', () => {
         runWritingFlow('hdr', hChars, hdrTimers, hdrRafs, 0);
@@ -335,17 +319,12 @@ export function initLogoAnim() {
       runWritingFlow('hdr', hChars, hdrTimers, hdrRafs, 400);
     }
 
-    // Bonus: Re-snake the ribbon on hover 
     brandIdentity.addEventListener('mouseenter', () => {
-      hdrTimers.forEach((t) => clearTimeout(t));
-      hdrRafs.forEach((r) => cancelAnimationFrame(r));
-      hdrTimers = [];
-      hdrRafs = [];
+      clearHdrAnims();
       const activeChars = brandIdentity.classList.contains('is-scrolled') ? [] : hChars;
       runWritingFlow('hdr', activeChars, hdrTimers, hdrRafs, 0);
     });
 
-    // Scroll collapse into RV past 50px
     let isScrolled = false;
     const handleBrandScroll = () => {
       const shouldScroll = window.scrollY > 50;
@@ -359,9 +338,7 @@ export function initLogoAnim() {
     handleBrandScroll();
   }
 
-  // =========================================================================
-  // 2. FOOTER LOGO (.cs-foot-logo / #footer-brand-logo)
-  // =========================================================================
+  // ================= 2. FOOTER LOGO =================
   const footerLogo = document.querySelector('.cs-foot-logo') || document.getElementById('footer-brand-logo');
   const footerEl = document.querySelector('.cs-foot') || document.getElementById('contact');
 
@@ -403,9 +380,8 @@ export function initLogoAnim() {
     let isPlaying = false;
 
     const clearFooterAnims = () => {
-      fTimers.forEach((t) => clearTimeout(t));
+      clearTimerList(fTimers);
       fRafs.forEach((r) => cancelAnimationFrame(r));
-      fTimers = [];
       fRafs = [];
     };
 
@@ -425,7 +401,6 @@ export function initLogoAnim() {
       isPlaying = true;
       clearFooterAnims();
 
-      // 1. Type out R-A-H-U-L V-E-N-U one by one in pure white
       const TYPE_STEP = 100;
       allChars.forEach((charEl, i) => {
         fTimers.push(
@@ -435,11 +410,9 @@ export function initLogoAnim() {
         );
       });
 
-      // 2. Run the 2.0-second solid purple ribbon write
       const writeStart = allChars.length * TYPE_STEP + 200;
       const vCapDoneTime = runWritingFlow('ftr', fAhulChars, fTimers, fRafs, writeStart);
 
-      // 3. Hold for 850ms after V cap fills, then smoothly collapse into compact RV
       fTimers.push(
         setTimeout(() => {
           footerLogo.classList.add('is-collapsed');
@@ -462,11 +435,8 @@ export function initLogoAnim() {
     window.addEventListener('resize', checkFooterVisibility, { passive: true });
     checkFooterVisibility();
   }
-}
 
-// =========================================================================
-  // 3. ABOUT PORTRAIT -30° CURSIVE SIGNATURE ("Rahul Venu" — Writes Once Per Refresh)
-  // =========================================================================
+  // ================= 3. ABOUT PORTRAIT CURSIVE SIGNATURE =================
   const sigMounts = document.querySelectorAll('#about .about-sig-mount');
   if (sigMounts.length) {
     const sigStyle = document.createElement('style');
@@ -490,12 +460,10 @@ export function initLogoAnim() {
         stroke-dashoffset: 1;
       }
 
-      /* Stroke 1 ("Rahul") writes from 0.25s -> 1.4s */
       .about-sig-svg.is-signed .sig-rahul {
         animation: drawAboutSig 1.15s cubic-bezier(0.35, 0, 0.25, 1) 0.25s forwards;
       }
 
-      /* Stroke 2 ("Venu") writes from 1.4s -> 2.3s */
       .about-sig-svg.is-signed .sig-venu {
         animation: drawAboutSig 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) 1.4s forwards;
       }
@@ -509,16 +477,8 @@ export function initLogoAnim() {
 
     const sigMarkup = `
       <svg class="about-sig-svg" viewBox="0 0 430 75" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Rahul Venu Signature">
-        <path 
-          class="about-sig-stroke sig-rahul" 
-          pathLength="1"
-          d="M 24 28 L 22 60 C 21 38, 30 14, 46 15 C 60 16, 56 38, 32 48 C 22 52, 16 52, 19 50 C 26 48, 40 58, 54 60 C 64 61, 78 52, 74 44 C 69 39, 57 47, 60 57 C 63 63, 72 56, 76 47 C 76 56, 82 61, 90 59 C 101 56, 107 34, 108 16 C 107 36, 106 54, 107 60 C 109 50, 117 44, 121 53 C 123 60, 134 61, 144 56 C 150 52, 152 46, 152 54 C 152 61, 163 61, 169 53 C 169 60, 178 61, 186 55 C 193 48, 196 28, 194 14 C 193 34, 195 56, 202 59 C 207 61, 214 57, 219 51"
-        />
-        <path 
-          class="about-sig-stroke sig-venu" 
-          pathLength="1"
-          d="M 254 16 C 268 25, 278 44, 282 60 C 287 44, 300 26, 297 18 C 294 12, 284 26, 285 45 C 286 58, 299 60, 310 55 C 319 50, 322 42, 316 41 C 310 40, 308 52, 316 58 C 324 63, 335 56, 340 48 C 342 54, 342 60, 342 58 C 344 50, 353 44, 357 52 C 360 59, 368 60, 376 55 C 381 51, 383 46, 383 54 C 383 60, 393 60, 398 53 C 398 60, 408 60, 421 51"
-        />
+        <path class="about-sig-stroke sig-rahul" pathLength="1" d="${SIGNATURE_PATHS.rahul}" />
+        <path class="about-sig-stroke sig-venu" pathLength="1" d="${SIGNATURE_PATHS.venu}" />
       </svg>
     `.trim();
 
@@ -533,10 +493,8 @@ export function initLogoAnim() {
           entries.forEach((entry) => {
             const svgs = document.querySelectorAll('#about .about-sig-svg');
             if (entry.isIntersecting) {
-              // Trigger the signature writing animation every time About enters view
               svgs.forEach((svg) => svg.classList.add('is-signed'));
             } else {
-              // Reset back to unwritten when scrolling away so it replays next time
               svgs.forEach((svg) => svg.classList.remove('is-signed'));
             }
           });
@@ -547,20 +505,17 @@ export function initLogoAnim() {
     }
   }
 
-// =========================================================================
-// 4. PORTRAIT HOVER COLOR SPOTLIGHT TRACKER
-// =========================================================================
-document.querySelectorAll('.photo-color-spotlight').forEach((box) => {
-  box.addEventListener('pointermove', (e) => {
-    const rect = box.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    box.style.setProperty('--spot-x', `${x}px`);
-    box.style.setProperty('--spot-y', `${y}px`);
-    box.style.setProperty('--spot-r', '165px'); // Spotlight brush radius 
-  });
+  // ================= 4. PORTRAIT HOVER COLOR SPOTLIGHT TRACKER =================
+  document.querySelectorAll('.photo-color-spotlight').forEach((box) => {
+    box.addEventListener('pointermove', (e) => {
+      const rect = box.getBoundingClientRect();
+      box.style.setProperty('--spot-x', `${(e.clientX - rect.left).toFixed(1)}px`);
+      box.style.setProperty('--spot-y', `${(e.clientY - rect.top).toFixed(1)}px`);
+      box.style.setProperty('--spot-r', '165px');
+    });
 
-  box.addEventListener('pointerleave', () => {
-    box.style.setProperty('--spot-r', '0px');
+    box.addEventListener('pointerleave', () => {
+      box.style.setProperty('--spot-r', '0px');
+    });
   });
-});
+}
