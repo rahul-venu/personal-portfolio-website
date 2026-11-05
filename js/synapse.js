@@ -1,8 +1,10 @@
-/* ================= SYNAPSE NETWORK BACKGROUND =================
-   Draws drifting nodes, faint links and travelling light pulses
-   on <canvas id="synapse-canvas"> inside <div id="synapse-wrap">.
-   Safe to load anywhere: if the contact section is added to the page
-   later (loaded separately), this waits for it. */
+/* ================= SYNAPSE NEURAL NETWORK BACKGROUND (js/synapse.js) =================
+   - Renders drifting nodes, low-opacity links, and traveling cyan pulses on canvas.
+   - Throttles resize events to eliminate unnecessary canvas re-allocations.
+   - Pauses rendering automatically when off-screen or when Beyond World is open.
+*/
+
+import { rafThrottle } from './config.js';
 
 export function initSynapse() {
   let started = false;
@@ -18,21 +20,22 @@ export function initSynapse() {
   }
 
   function init(wrap, cv) {
-    const ctx = cv.getContext('2d');
+    const ctx = cv.getContext('2d', { alpha: true });
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const LINK = 140;
-    let w = 0, h = 0, nodes = [], pulses = [], raf = null, visible = true;
+    let w = 0, h = 0, nodes = [], pulses = [], raf = null, visible = true, beyondOpen = false;
 
-    // Size the canvas to the panel and (re)create the nodes
     function resize() {
       const r = wrap.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = r.width;
       h = r.height;
       if (!w || !h) return;
+
       cv.width = w * dpr;
       cv.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
       const cap = w < 640 ? 34 : 70;
       const count = Math.max(18, Math.min(cap, Math.round((w * h) / 20000)));
       nodes = [];
@@ -49,7 +52,6 @@ export function initSynapse() {
       if (reduce) draw();
     }
 
-    // Occasionally fire a pulse along a link between two nearby nodes
     function spawnPulse() {
       if (pulses.length >= 14 || Math.random() > 0.08) return;
       const a = Math.floor(Math.random() * nodes.length);
@@ -68,7 +70,6 @@ export function initSynapse() {
       }
     }
 
-    // Draw links, nodes, then travelling pulses
     function draw() {
       ctx.clearRect(0, 0, w, h);
       let i, j, n, d;
@@ -78,7 +79,7 @@ export function initSynapse() {
         for (j = i + 1; j < nodes.length; j++) {
           d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
           if (d < LINK) {
-            ctx.strokeStyle = 'rgba(167,139,250,' + ((1 - d / LINK) * 0.22).toFixed(3) + ')';
+            ctx.strokeStyle = `rgba(167,139,250,${((1 - d / LINK) * 0.22).toFixed(3)})`;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -93,6 +94,7 @@ export function initSynapse() {
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r * 3.2, 0, 6.2832);
         ctx.fill();
+
         ctx.fillStyle = 'rgba(196,181,253,0.6)';
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, 6.2832);
@@ -100,27 +102,37 @@ export function initSynapse() {
       }
 
       for (i = pulses.length - 1; i >= 0; i--) {
-        const p = pulses[i], A = nodes[p.a], B = nodes[p.b];
+        const p = pulses[i];
+        const A = nodes[p.a];
+        const B = nodes[p.b];
+
         if (p.t >= 1 || Math.hypot(A.x - B.x, A.y - B.y) > LINK * 1.15) {
           pulses.splice(i, 1);
           continue;
         }
+
         const x = A.x + (B.x - A.x) * p.t;
         const y = A.y + (B.y - A.y) * p.t;
+
         ctx.fillStyle = 'rgba(103,232,249,0.16)';
         ctx.beginPath();
         ctx.arc(x, y, 6, 0, 6.2832);
         ctx.fill();
+
         ctx.fillStyle = 'rgba(165,243,252,0.95)';
         ctx.beginPath();
         ctx.arc(x, y, 2, 0, 6.2832);
         ctx.fill();
+
         p.t += p.s;
       }
     }
 
-    // Animation loop: move nodes, maybe spawn a pulse, redraw
     function tick() {
+      if (!visible || beyondOpen) {
+        raf = null;
+        return;
+      }
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         n.x += n.vx;
@@ -130,26 +142,36 @@ export function initSynapse() {
       }
       spawnPulse();
       draw();
-      raf = visible ? requestAnimationFrame(tick) : null;
+      raf = requestAnimationFrame(tick);
     }
 
     resize();
-    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(wrap);
-    else window.addEventListener('resize', resize);
+    const handleResize = rafThrottle(resize);
+    if ('ResizeObserver' in window) new ResizeObserver(handleResize).observe(wrap);
+    else window.addEventListener('resize', handleResize, { passive: true });
 
-    if (reduce) return; // visitors who prefer reduced motion get one still frame
+    if (reduce) return;
 
-    // Pause when the panel is off-screen
     if ('IntersectionObserver' in window) {
       new IntersectionObserver((entries) => {
         visible = entries[0].isIntersecting;
-        if (visible && !raf) raf = requestAnimationFrame(tick);
+        if (visible && !beyondOpen && !raf) raf = requestAnimationFrame(tick);
       }).observe(wrap);
     }
+
+    window.addEventListener('beyond:statechange', (e) => {
+      beyondOpen = Boolean(e.detail?.open);
+      if (beyondOpen && raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      } else if (!beyondOpen && visible && !raf) {
+        raf = requestAnimationFrame(tick);
+      }
+    });
+
     raf = requestAnimationFrame(tick);
   }
 
-  // Try now; if the contact section isn't on the page yet, keep watching until it appears
   if (!start()) {
     const watcher = new MutationObserver(() => {
       if (start()) watcher.disconnect();
