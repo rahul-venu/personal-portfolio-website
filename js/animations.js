@@ -49,12 +49,13 @@ export function initScrollAnimations() {
           sections.forEach((sec) => {
             if (sec.id === 'home') return;
             const rect = sec.getBoundingClientRect();
-            const distFromNav = rect.top - NAV_HEIGHT;
+            // #contact is 100dvh tall (already includes navbar padding), so it docks at 0px!
+            const targetTop = sec.id === 'contact' ? 0 : NAV_HEIGHT;
+            const distFromTarget = rect.top - targetTop;
 
-            // If section top stopped super close to the navbar (-35px to +45px), dock flush
-            if (Math.abs(distFromNav) > 2 && Math.abs(distFromNav) <= SNAP_THRESHOLD) {
+            if (Math.abs(distFromTarget) > 2 && Math.abs(distFromTarget) <= SNAP_THRESHOLD) {
               window.scrollTo({
-                top: window.scrollY + distFromNav,
+                top: window.scrollY + distFromTarget,
                 behavior: 'smooth',
               });
             }
