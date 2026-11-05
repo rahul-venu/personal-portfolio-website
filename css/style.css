@@ -3,7 +3,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Uniform Deep Matte Obsidian Canvas across every section */
 body {
   background-color: #0b0b0c;
   background-image: none;
@@ -17,7 +16,6 @@ body {
   transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
 }
 
-/* Glass activates only when user scrolls down */
 header.is-scrolled .glass-panel,
 body:has(#brand-identity.is-scrolled) .glass-panel {
   background: rgba(11, 11, 12, 0.85);
@@ -33,13 +31,6 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
   background: #0b0b0c;
 }
 
-/* Muted overhead studio glow so the canvas stays clean matte black */
-.studio-nav-highlight,
-.hero-depth-sphere {
-  display: none;
-}
-
-/* Subtle grounded floor shadow below the 3D sculpture */
 .hero-floor-shadow {
   position: absolute;
   bottom: 14%;
@@ -74,7 +65,6 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
 
 /* ================= 3. CARDS, PANELS & BUTTONS (MATTE CHARCOAL #121214) ================= */
 
-/* 1. Standalone Cards (Hero Floating Cards, Projects & Certifications) */
 .glass-card {
   background: #121214; 
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -91,7 +81,6 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
   animation-play-state: paused;
 }
 
-/* 2. Full-Width Section Bands (About & Skills now match the #0b0b0c page background) */
 .glass-card.border-y {
   background: #0b0b0c !important;
   border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
@@ -100,7 +89,6 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
   transform: none !important;
 }
 
-/* 3. Cards & Tiles INSIDE Sections (About tiles & Skills cards use #121214 matte box look) */
 .glass-card.border-y .glass-card,
 .glass-card.border-y [class*="bg-white/[0.02]"] {
   background-color: #121214 !important;
@@ -114,7 +102,6 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
   transform: translateY(-3px) !important;
 }
 
-/* Minimalist Matte Buttons */
 .glass-btn {
   background: #121214;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -130,12 +117,6 @@ body:has(#brand-identity.is-scrolled) .glass-panel {
 
 /* ================= 4. HOVER SHIMMER SWEEP ================= */
 
-/* 
-  Enable relative clipping on:
-  1. Standard cards (.glass-card)
-  2. The 12 Running Band pills (.about-Band-pill)
-  3. The top Academic pills (section#about .rounded-full)
-*/
 .glass-card:not(.border-y),
 .about-Band-pill,
 section#about .rounded-full {
@@ -144,13 +125,11 @@ section#about .rounded-full {
   transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
-/* Subtle lift on hover ONLY for the top Academic pills (not the running band pills) */
 section#about .rounded-full:hover {
   transform: translateY(-1px);
   border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
-/* The Horizontal Shimmer Wave Pseudo-Element */
 .glass-card:not(.border-y)::after,
 .about-Band-pill::after,
 section#about .rounded-full::after {
@@ -172,7 +151,6 @@ section#about .rounded-full::after {
   pointer-events: none;
 }
 
-/* Trigger the sweep on hover */
 .glass-card:not(.border-y):hover::after,
 .about-Band-pill:hover::after,
 section#about .rounded-full:hover::after {
@@ -180,70 +158,25 @@ section#about .rounded-full:hover::after {
 }
 
 @keyframes tokenShimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 
-/* ================= 5. HERO DRIFT ANIMATIONS & IMAGE MASK ================= */
+/* ================= 5. HERO DRIFT ANIMATIONS ================= */
 
 @keyframes floatSmooth {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
 }
 
-.animate-float-1 {
-  animation: floatSmooth 5s ease-in-out infinite;
-}
-
-.animate-float-2 {
-  animation: floatSmooth 6.5s ease-in-out 1.2s infinite;
-}
-
-.animate-float-3 {
-  animation: floatSmooth 5.8s ease-in-out 2.2s infinite;
-}
-
-/* True 4-Sided Border Dissolve for Profile Photo */
-.image-dissolve {
-  -webkit-mask-image: 
-    linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: 
-    linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%);
-  mask-composite: intersect;
-}
+.animate-float-1 { animation: floatSmooth 5s ease-in-out infinite; }
+.animate-float-2 { animation: floatSmooth 6.5s ease-in-out 1.2s infinite; }
+.animate-float-3 { animation: floatSmooth 5.8s ease-in-out 2.2s infinite; }
 
 
 /* ================= 6. STAGGERED REVEALS (ARTLEBOSS / VERCEL STYLE) ================= */
 
-/* 1. Section Headers (Tag + Main Headline Glide in First) */
-section:not(#home) .border-b {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: 
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-section:not(#home).page-active .border-b {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 2. Inner Cards Initial State (Projects, Certifications, Skills) */
-/* Anchored at zero Y on the section, while cards sit shifted down and hidden */
 section:not(#home) .glass-card:not(.border-y) {
   opacity: 0;
   transform: translateY(32px);
@@ -255,13 +188,11 @@ section:not(#home) .glass-card:not(.border-y) {
   will-change: opacity, transform;
 }
 
-/* Active State: Cards rise to their resting position */
 section:not(#home).page-active .glass-card:not(.border-y) {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* 3. The Staggered Cascade Wave (Cards roll in sequentially) */
 section:not(#home).page-active .glass-card:not(.border-y):nth-child(1) { transition-delay: 0.08s; }
 section:not(#home).page-active .glass-card:not(.border-y):nth-child(2) { transition-delay: 0.16s; }
 section:not(#home).page-active .glass-card:not(.border-y):nth-child(3) { transition-delay: 0.24s; }
@@ -269,9 +200,7 @@ section:not(#home).page-active .glass-card:not(.border-y):nth-child(4) { transit
 section:not(#home).page-active .glass-card:not(.border-y):nth-child(5) { transition-delay: 0.40s; }
 section:not(#home).page-active .glass-card:not(.border-y):nth-child(6) { transition-delay: 0.48s; }
 section:not(#home).page-active .glass-card:not(.border-y):nth-child(7) { transition-delay: 0.56s; }
-section:not(#home).page-active .glass-card:not(.border-y):nth-child(8) { transition-delay: 0.64s; }
 
-/* 4. Instant Hover Response (Kills the scroll delay so cards lift immediately on mouse enter) */
 section.page-active .glass-card:not(.border-y):hover {
   transform: translateY(-4px) !important;
   background: #17171a;
@@ -280,7 +209,6 @@ section.page-active .glass-card:not(.border-y):hover {
   transition-duration: 0.2s !important;
 }
 
-/* 5. Soft Right-to-Left Photo Unmask (Preserved) */
 .photo-reveal-mask {
   width: 100%;
   height: 100%;
@@ -309,35 +237,14 @@ section.page-active .photo-reveal-mask {
   opacity: 1;
 }
 
-/* Photo Tag Blur-Reveal from Bottom */
-.photo-tag-reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  filter: blur(10px);
-  transition: 
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 0.35s; 
-  will-change: opacity, transform, filter;
-}
-
-section.page-active .photo-tag-reveal {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0px);
-}
-
 
 /* ================= 7. SEAMLESS VECTOR MORPH (THE NAME) ================= */
 
-/* Initial Unscrolled State */
 .brand-morph-unit {
   display: inline-flex;
   align-items: center;
 }
 
-/* 1. R is permanently anchored: stays 100% still */
 .brand-svg-r {
   display: inline-flex;
   align-items: center;
@@ -346,7 +253,6 @@ section.page-active .photo-tag-reveal {
   margin: 0 !important;
 }
 
-/* 2. V glides leftward as in-between characters collapse */
 .brand-svg-v {
   display: inline-flex;
   align-items: center;
@@ -354,7 +260,6 @@ section.page-active .photo-tag-reveal {
   transition: margin 0.42s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
 }
 
-/* Collapsible characters (AHUL and S) */
 .brand-collapsible-char {
   max-width: 140px;
   opacity: 1;
@@ -372,9 +277,9 @@ section.page-active .photo-tag-reveal {
   transition: max-width 0.42s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+
 /* ================= 8. SCROLLED STATE ================= */
 
-/* 1. ONLY AHUL, space, and S collapse to 0 width */
 #brand-identity.is-scrolled .brand-collapsible-char,
 #brand-identity.is-scrolled .brand-collapsible-space {
   max-width: 0px !important;
@@ -384,20 +289,13 @@ section.page-active .photo-tag-reveal {
   padding: 0 !important;
 }
 
-/* 2. V joins R seamlessly (Used in both Navbar on scroll & Footer at rest) */
-#brand-identity.is-scrolled .brand-svg-v,
-.footer-svg-v {
-  margin-left: -0.30em;
+/* Pulls V leftward to tuck seamlessly into R when scrolled */
+#brand-identity.is-scrolled .brand-svg-v {
+  margin-left: -0.30em !important;
   filter: drop-shadow(0 0 8px rgba(109, 53, 232, 0.5));
 }
 
-/* Reset margin on hover in the footer so RAHUL expands cleanly */
-.group\/footer-logo:hover .footer-svg-v {
-  margin-left: 0 !important;
-}
-
-#brand-identity.is-scrolled:hover .brand-svg-v,
-.group\/footer-logo:hover .footer-svg-v {
+#brand-identity.is-scrolled:hover .brand-svg-v {
   filter: drop-shadow(0 0 12px rgba(109, 53, 232, 0.8));
 }
 
@@ -407,11 +305,9 @@ section.page-active .photo-tag-reveal {
 #avatar-peek-wrapper {
   position: fixed;
   width: 180px;
-  height: 140px; /* Fixed height container */
+  height: 140px;
   pointer-events: none;
-  z-index: 49;   /* Sits safely behind the chat button (z-50) */
-
-  /* Spawns directly from the center of the circle */
+  z-index: 49;
   transform-origin: center bottom;
   transform: scale(0) translateY(45px);
   opacity: 0;
@@ -432,25 +328,17 @@ section.page-active .photo-tag-reveal {
   width: 180px !important;
   height: 130px !important;
   display: block;
-
-  /* 1. BENDS THE CUT: Curves the bottom into a round arc matching the circle */
   clip-path: ellipse(85% 72% at 50% 28%);
-
-  /* 2. SOFTENS THE EDGE: Dissolves the curved edge into the pitch-black background */
   -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
 }
 
-/* THOUGHT CLOUD: Pushed to HIS right (viewer's left into the open screen) */
 .avatar-thought-cloud {
   position: absolute !important;
-  bottom: 78px !important;  /* Height beside his head */
+  bottom: 78px !important;
   left: auto !important;
-  right: 105px !important;  /* PUSHED TO HIS RIGHT SIDE (no screen clipping) */
-  
-  /* Slight natural tilt angled toward his head */
+  right: 105px !important;
   transform: scale(0.8) rotate(-6deg) !important;
-  
   background: #ffffff !important;
   padding: 5px 13px !important;
   border-radius: 20px !important;
@@ -462,11 +350,9 @@ section.page-active .photo-tag-reveal {
   width: max-content !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
   z-index: 35 !important;
-  
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s !important;
 }
 
-/* Active pop-up state */
 #avatar-peek-wrapper.is-peeking .avatar-thought-cloud {
   transform: scale(1) rotate(-6deg) !important;
 }
@@ -491,7 +377,6 @@ section.page-active .photo-tag-reveal {
   display: block !important;
 }
 
-/* Comic Thought Trailing Dots: Angled toward his head on the right */
 .cloud-dot-1, .cloud-dot-2 {
   position: absolute;
   background: #ffffff;
@@ -499,41 +384,26 @@ section.page-active .photo-tag-reveal {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* Upper thought dot on the bottom-right of cloud */
 .cloud-dot-1 {
   bottom: -5px;
   left: auto;
-  right: 20%; /* Points toward his hair on the right */
+  right: 20%;
   width: 6.5px;
   height: 6.5px;
 }
 
-/* Lower small thought dot */
 .cloud-dot-2 {
   bottom: -11px;
   left: auto;
-  right: 10%; /* Closer to his head */
+  right: 10%;
   width: 4px;
   height: 4px;
 }
 
+
 /* ================= 10. MOBILE RESPONSIVE GUARDS ================= */
 
 @media (max-width: 768px) {
-  /* Prevent background glowing spheres from bleeding off mobile screens */
-  .hero-depth-sphere {
-    width: 320px;
-    height: 320px;
-    left: 50%;
-    top: 45%;
-  }
-
-  .studio-nav-highlight {
-    width: 100vw;
-    height: 300px;
-  }
-
-  /* Compact the chat window for mobile phone screens */
   .chat-window {
     width: calc(100vw - 32px) !important;
     right: 16px !important;
@@ -543,209 +413,57 @@ section.page-active .photo-tag-reveal {
   }
 }
 
+
 /* ================= 11. CONTACT: BUMP, DROP & SYNAPSE PANEL ================= */
 
 :root {
-  --cs-panel: #0f0f11;                   /* Matte obsidian panel so bump/drop notch still reads cleanly */
-  --cs-top: 72px;                          /* space above the bump */
-  --cs-chat: 88px;                         /* clearance for the chatbot button */
-  --cs-dd: 26px;                           /* depth of the center drop / step-up notch */
-  --cs-rim: 20px;                          /* continuous bottom band thickness below the center drop */
-  --cs-notch: clamp(240px, 19vw, 340px);   /* width of the left/right notches */
-  --cs-bump-w: 300px;                      /* bump width */
+  --cs-panel: #0f0f11;
+  --cs-top: 72px;
+  --cs-chat: 88px;
+  --cs-dd: 26px;
+  --cs-rim: 20px;
+  --cs-notch: clamp(240px, 19vw, 340px);
+  --cs-bump-w: 300px;
 }
+
 #contact { padding-top: var(--cs-top); }
 
 @media (min-width: 1024px) {
   #contact { padding-bottom: var(--cs-rim) !important; }
 }
 
-/* Bump (top) + drop (bottom) shapes */
 .cs-bump, .cs-drop { position: absolute; display: flex; z-index: 5; pointer-events: none; }
 .cs-bump { left: 50%; transform: translateX(-50%); width: var(--cs-bump-w); height: 32px; bottom: calc(100% - 1px); }
 .cs-drop { left: var(--cs-notch); right: var(--cs-notch); top: -1px; height: calc(100% + 1px); }
 .cs-sh   { flex: none; width: 56px; height: 100%; display: block; fill: var(--cs-panel); }
-
-.cs-drop .cs-sh { width: 68px; }   /* smooth S-curve slope matching the deeper 36px drop */
+.cs-drop .cs-sh { width: 68px; }
 .cs-fill { flex: 1; margin: 0 -.5px; background: var(--cs-panel); }
+
 @media (max-width: 1023px) { .cs-drop { display: none; } }
-
-/* Footer band: copyright | RV logo (inside drop) | socials */
-.cs-foot { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px 12px 64px; }
-.cs-foot-logo { position: relative; z-index: 6; display: inline-flex; align-items: center; height: 24px; }
-
-.cs-foot-copy { position: relative; z-index: 6; font-size: 11.5px; line-height: 1; color: rgba(255, 255, 255, 0.9); white-space: nowrap; }
-
-.cs-foot-social { position: relative; z-index: 6; display: flex; align-items: center; gap: 20px; }
+.cs-foot { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 12px 14px; }
+.cs-foot-logo { position: relative; z-index: 6; display: inline-flex; align-items: center; height: 20px; }
+.cs-foot-copy { position: relative; z-index: 6; font-size: 11px; line-height: 1; color: rgba(255, 255, 255, 0.9); white-space: nowrap; }
+.cs-foot-social { position: relative; z-index: 6; display: flex; align-items: center; gap: 16px; }
 
 @media (min-width: 1024px) {
   .cs-foot { display: block; height: var(--cs-dd); padding: 0; }
-  /* RV logo sits centered inside the gray drop */
   .cs-foot-logo   { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-  /* Copyright & socials sit vertically centered inside the full notch + bottom rim space */
   .cs-foot-copy   { position: absolute; left: 12px; top: calc((var(--cs-dd) + var(--cs-rim)) / 2 - 2px); transform: translateY(-50%); }
   .cs-foot-social { position: absolute; right: var(--cs-chat); top: calc((var(--cs-dd) + var(--cs-rim)) / 2 - 2px); transform: translateY(-50%); }
 }
 
-/* Contact cards match the #121214 matte charcoal palette */
 #contact [class*="bg-white/[0.02]"],
 #contact [class*="bg-white/[0.03]"] { background-color: #121214 !important; border-color: rgba(255, 255, 255, 0.06) !important; }
 #contact [class*="bg-white/[0.02]"]:hover { background-color: #17171a !important; border-color: rgba(255, 255, 255, 0.16) !important; }
 
-/* Hide the scrollbar on the fallback scroll area */
 .cs-scroll { scrollbar-width: none; }
 .cs-scroll::-webkit-scrollbar { display: none; }
 
-/* Short laptop screens: drop the subtext so nothing is cropped */
 @media (min-width: 1024px) and (max-height: 700px) { .cs-sub { display: none; } }
 
 
-/* ================= 12. FOOTER LOGO CHOREOGRAPHY (TYPE -> PURPLE SWEEP -> RV) ================= */
+/* ================= 12. TYPOGRAPHY & MAGNIFY PRO FONT SYSTEM ================= */
 
-/* Base state before scroll trigger: characters hidden, slash is pure white */
-#footer-brand-logo .fb-char {
-  opacity: 0;
-  transform: translateY(7px);
-  color: #ffffff;
-  transition:
-    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-    color 0.25s ease;
-}
-
-/* The top-right slash of V starts pure white (#ffffff) */
-#footer-brand-logo .fb-v-slash {
-  fill: #ffffff;
-  transition: fill 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
-}
-
-/* Collapsible wrappers start expanded so RAHUL VENU can type out in full */
-#footer-brand-logo .fb-collapse {
-  transition:
-    max-width 1.05s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-    margin 1.05s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
-  transform-origin: left center;
-}
-
-#footer-brand-logo .fb-collapse-ahul {
-  max-width: 80px;
-  margin-left: 3px;
-  opacity: 1;
-}
-
-#footer-brand-logo .fb-collapse-space {
-  width: 7px;
-  max-width: 7px;
-  opacity: 1;
-}
-
-#footer-brand-logo .fb-collapse-enu {
-  max-width: 65px;
-  margin-left: 2px;
-  opacity: 1;
-}
-
-#footer-brand-logo .fb-svg-v {
-  margin-left: 0;
-  transition:
-    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-    margin-left 1.05s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.5s ease;
-}
-
-/* STAGE 1: Type/Reveal One by One in Pure White */
-#footer-brand-logo.is-typing .fb-char {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: calc(var(--char-idx) * 0.085s);
-}
-
-/* STAGE 2: Purple Energy Wave Running Inside R -> A -> H -> U -> L -> V */
-@keyframes purpleLetterPulse {
-  0% {
-    color: #ffffff;
-    filter: drop-shadow(0 0 0px rgba(109, 53, 232, 0));
-  }
-  45% {
-    color: #8b5cf6; /* Vivid purple core inside the letter */
-    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.85));
-  }
-  100% {
-    color: #ffffff;
-    filter: drop-shadow(0 0 0px rgba(109, 53, 232, 0));
-  }
-}
-
-#footer-brand-logo.is-sweeping .fb-char {
-  transition-delay: 0s !important;
-}
-
-/* Only R (0) through V (5) get the purple wave traveling inside them */
-#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 0"] { animation: purpleLetterPulse 0.55s ease-in-out 0.00s forwards; }
-#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 1"] { animation: purpleLetterPulse 0.55s ease-in-out 0.11s forwards; }
-#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 2"] { animation: purpleLetterPulse 0.55s ease-in-out 0.22s forwards; }
-#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 3"] { animation: purpleLetterPulse 0.55s ease-in-out 0.33s forwards; }
-#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 4"] { animation: purpleLetterPulse 0.55s ease-in-out 0.44s forwards; }
-#footer-brand-logo.is-sweeping .fb-char[style*="--char-idx: 5"] .fb-v-body {
-  animation: purpleVBodyPulse 0.55s ease-in-out 0.55s forwards;
-}
-
-@keyframes purpleVBodyPulse {
-  0%, 100% { fill: #ffffff; }
-  45% { fill: #8b5cf6; }
-}
-
-/* When the purple wave hits V, the top-right slash permanently ignites to #6d35e8 */
-#footer-brand-logo.slash-ignited .fb-v-slash {
-  fill: #6d35e8;
-  filter: drop-shadow(0 0 6px rgba(109, 53, 232, 0.75));
-}
-
-/* STAGE 3: Butter-Smooth Collapse into Compact RV */
-#footer-brand-logo.is-collapsed .fb-collapse {
-  max-width: 0px !important;
-  opacity: 0 !important;
-  margin-left: 0px !important;
-  transform: scaleX(0.75);
-}
-
-#footer-brand-logo.is-collapsed .fb-svg-v {
-  margin-left: -0.30em;
-  filter: drop-shadow(0 0 8px rgba(109, 53, 232, 0.5));
-}
-
-/* Hovering after collapse smoothly expands RAHUL VENU back out */
-#footer-brand-logo.is-collapsed:hover .fb-collapse-ahul {
-  max-width: 80px !important;
-  opacity: 1 !important;
-  margin-left: 3px !important;
-  transform: scaleX(1);
-}
-
-#footer-brand-logo.is-collapsed:hover .fb-collapse-space {
-  max-width: 7px !important;
-  opacity: 1 !important;
-  transform: scaleX(1);
-}
-
-#footer-brand-logo.is-collapsed:hover .fb-collapse-enu {
-  max-width: 65px !important;
-  opacity: 1 !important;
-  margin-left: 2px !important;
-  transform: scaleX(1);
-}
-
-#footer-brand-logo.is-collapsed:hover .fb-svg-v {
-  margin-left: 0 !important;
-  filter: drop-shadow(0 0 12px rgba(109, 53, 232, 0.8));
-}
-
-/* ================= 13. TYPOGRAPHY & MAGNIFY PRO FONT SYSTEM ================= */
-
-/* 1. Register the 3 Magnify PRO Weights (.ttf) */
 @font-face {
   font-family: 'Magnify PRO';
   src: local('Magnify PRO Thin'), local('MagnifyPRO-Thin'),
@@ -773,29 +491,20 @@ section.page-active .photo-tag-reveal {
   font-display: swap;
 }
 
-/* Fallback Stack Variable: Automatically switches to Plus Jakarta Sans -> System UI if .ttf fails */
 :root {
   --font-magnify: 'Magnify PRO', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Utility Classes */
 .font-magnify-thin   { font-family: var(--font-magnify) !important; font-weight: 200 !important; }
 .font-magnify-light  { font-family: var(--font-magnify) !important; font-weight: 300 !important; }
 .font-magnify-medium { font-family: var(--font-magnify) !important; font-weight: 500 !important; }
 
-
-/* =========================================================================
-   1. MAGNIFY PRO THIN (200) — Delicate Accents & Secondary Labels
-   ========================================================================= */
-
-/* Navbar "| Portfolio" suffix */
 #brand-identity .brand-morph-unit > span:last-child {
   font-family: var(--font-magnify) !important;
   font-weight: 200 !important;
   letter-spacing: 0.03em;
 }
 
-/* Hero Floating Cards — Subtitles ("Autonomous & grounded", "High-precision modeling", etc.) */
 #home .animate-float-1 p,
 #home .animate-float-2 p,
 #home .animate-float-3 p {
@@ -804,32 +513,20 @@ section.page-active .photo-tag-reveal {
   letter-spacing: 0.02em;
 }
 
-/* Contact Secondary Metadata Labels ("Location", "Email", "Website") */
 #contact .space-y-2\.5 span.text-brand-muted {
   font-family: var(--font-magnify) !important;
   font-weight: 200 !important;
   letter-spacing: 0.03em;
 }
 
-/* Footer Copyright: "All rights reserved" in Thin (200) */
 .cs-foot-copy {
   font-family: var(--font-magnify) !important;
   font-weight: 200 !important;
   letter-spacing: 0.01em;
 }
 
-
-/* =========================================================================
-   2. BODY PARAGRAPHS & DESCRIPTIONS — UNIFORM MAGNIFY PRO MEDIUM (500)
-   ========================================================================= */
-
-/* Hero, About, Projects, Certifications & Contact Paragraphs: Clean, uniform Medium (500) */
 #home .lg\:col-span-7 > p,
-#about .space-y-3\.5 p,
 #about .space-y-4 p,
-#projects article > p,
-#projects article .mt-auto .text-\[11px\],
-#certifications a p.text-xs,
 #contact p.cs-sub,
 #contact form input,
 #contact form textarea {
@@ -838,20 +535,12 @@ section.page-active .photo-tag-reveal {
   letter-spacing: 0.015em;
 }
 
-/* Neutralize <strong> tags inside paragraphs so text flows smoothly without bold jumps */
-#about p strong,
-#projects article > p strong {
+#about p strong {
   font-family: var(--font-magnify) !important;
   font-weight: 500 !important;
-  color: inherit !important; /* Blends seamlessly into the paragraph color */
+  color: inherit !important;
 }
 
-
-/* =========================================================================
-   3. UI ELEMENTS, NAV LINKS & CTAs — MAGNIFY PRO MEDIUM (500)
-   ========================================================================= */
-
-/* Header Navigation Links (Desktop & Mobile) */
 header nav a,
 header .hidden.md\:flex > a:not(.glass-btn) {
   font-family: var(--font-magnify) !important;
@@ -859,7 +548,6 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   letter-spacing: 0.02em;
 }
 
-/* Hero Action Buttons ("Ask Me Somethin'", "Get In Touch") & Floating Card Titles */
 #home #clone-btn,
 #home a[href="#contact"],
 #home .animate-float-1 h4,
@@ -870,35 +558,26 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   letter-spacing: 0.01em;
 }
 
-/* 05. Contact — Location / Email / Website Values & Submit Button */
 #contact .space-y-2\.5 p,
 #contact #contact-submit-btn {
   font-family: var(--font-magnify) !important;
   font-weight: 500 !important;
 }
 
-/* Footer Copyright Name: "2026 Rahul V S." in Medium (500) */
 .cs-foot-copy > span:first-child {
   font-family: var(--font-magnify) !important;
   font-weight: 500 !important;
   letter-spacing: -0.01em;
 }
 
-/* ================= 14. ABOUT SECTION: SPINE & DUAL RUNNING BANDS ================= */
 
-/* 1. Vertical "ABOUT ME" Spine Text (Reads bottom-to-top like reference) */
-.about-vertical-label {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
+/* ================= 13. ABOUT SECTION: SPINE & DUAL RUNNING BANDS ================= */
 
-/* 2. Soft Left/Right Edge Fade Mask on the Running Bands */
 .about-marquee-mask {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
 }
 
-/* 3. Individual Running Band Pill Styling (Matches #121214 Matte Charcoal Palette) */
 .about-Band-pill {
   display: inline-flex;
   align-items: center;
@@ -917,7 +596,6 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Category Title ("ACADEMICS", "AGENTIC SYSTEMS", etc.) -> JetBrains Mono */
 .about-Band-pill > span:first-child {
   font-family: 'JetBrains Mono', monospace !important;
   font-size: 10.5px;
@@ -931,33 +609,28 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   font-size: 11px;
 }
 
-/* Pill Content ("IITM (Data Science & Applications) • B.E. CSE", etc.) -> Magnify PRO Thin (200) */
 .about-Band-pill > p {
   font-family: var(--font-magnify) !important;
-  font-weight: 300 !important; /* Change to 300 for Light instead of Thin */
+  font-weight: 300 !important;
   font-size: 13.5px;
   letter-spacing: 0.03em;
   color: rgba(241, 245, 249, 0.88);
   margin: 0;
 }
 
-/* 4. Infinite Counter-Scrolling Keyframes (Top Row L->R, Bottom Row R->L) */
 .about-marquee-track {
   width: max-content;
   will-change: transform;
 }
 
-/* Top Row: Moves Left-to-Right (-50% -> 0%) */
 .about-marquee-track.track-ltr {
   animation: marqueeLTR 60s linear infinite;
 }
 
-/* Bottom Row: Moves Right-to-Left (0% -> -50%) */
 .about-marquee-track.track-rtl {
   animation: marqueeRTL 60s linear infinite;
 }
 
-/* Pause smoothly when user hovers over a row to inspect pills */
 .about-marquee-mask:hover .about-marquee-track {
   animation-play-state: paused;
 }
@@ -972,7 +645,6 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   100% { transform: translate3d(-50%, 0, 0); }
 }
 
-/* Soft Left/Right Elbow Feather + Bottom Dissolve (Melts cutout edges without touching center) */
 .image-dissolve-bottom {
   -webkit-mask-image: 
     linear-gradient(to bottom, black 0%, black 68%, transparent 98%),
@@ -984,14 +656,12 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   mask-composite: intersect;
 }
 
-/* Top Color Image Layer: Masked to a soft spotlight circle around (--spot-x, --spot-y) */
 .photo-color-spotlight {
   --spot-x: 50%;
   --spot-y: 50%;
-  --spot-r: 0px; /* 0px when mouse is outside; expands to 135px on hover */
+  --spot-r: 0px;
 }
 
-/* Top Color Image Layer: Spotlight Circle + Same Soft Edge Dissolve */
 .photo-color-layer {
   -webkit-mask-image: 
     radial-gradient(circle var(--spot-r) at var(--spot-x) var(--spot-y), rgba(0,0,0,1) 0%, rgba(0,0,0,0.65) 55%, transparent 100%),
@@ -1006,7 +676,8 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   transition: --spot-r 0.25s ease;
 }
 
-/* ================= 15. ARGON BORDER RING (OUTSIDE GLOW ONLY) ================= */
+
+/* ================= 14. ARGON BORDER RING (OUTSIDE GLOW ONLY) ================= */
 
 @property --argon-angle {
   syntax: '<angle>';
@@ -1016,7 +687,7 @@ header .hidden.md\:flex > a:not(.glass-btn) {
 
 #chatbot-toggle.chat-toggle-btn {
   position: fixed;
-  background: #17171a !important; /* 100% solid opaque interior */
+  background: #17171a !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   border: none !important;
@@ -1026,14 +697,11 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65) !important;
 }
 
-/* 1. Razor-Thin 1px Google 4-Color Spectrum Ring + Opaque Inner Shield (::before) */
 #chatbot-toggle.chat-toggle-btn::before {
   content: '';
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  /* Layer 1 (content-box): Solid #17171a interior blocks 100% of inward bleed!
-     Layer 2 (border-box): 1px Conic Argon Ring */
   background:
     linear-gradient(#17171a, #17171a) padding-box,
     conic-gradient(
@@ -1052,7 +720,6 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   z-index: -1;
 }
 
-/* 2. Seamless Soft Atmospheric Dissolve Directly From the 1px Border (::after) */
 #chatbot-toggle.chat-toggle-btn::after {
   content: '';
   position: absolute;
@@ -1068,7 +735,6 @@ header .hidden.md\:flex > a:not(.glass-btn) {
     #ea4335 90%,
     transparent 100%
   );
-  /* High blur + low opacity with NO mask = zero donut gap, pure seamless fade into black */
   filter: blur(18px);
   opacity: 0.38;
   animation: argonSpin 6s linear infinite;
@@ -1081,7 +747,7 @@ header .hidden.md\:flex > a:not(.glass-btn) {
   opacity: 0.6;
   filter: blur(22px);
 }
-/* Hide the Argon ring & outer glow when the chat window is open */
+
 #chatbot-toggle.chat-toggle-btn:has(#chat-icon-close:not(.hidden))::before,
 #chatbot-toggle.chat-toggle-btn:has(#chat-icon-close:not(.hidden))::after,
 body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn::before,
@@ -1090,21 +756,18 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn::after {
   animation-play-state: paused;
 }
 
-/* Keep a clean subtle 1px dark-grey border on the X button while chat is open */
 #chatbot-toggle.chat-toggle-btn:has(#chat-icon-close:not(.hidden)),
 body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 @keyframes argonSpin {
-  to {
-    --argon-angle: 360deg;
-  }
+  to { --argon-angle: 360deg; }
 }
 
-/* ================= 16. CERTIFICATIONS: 7 HORIZONTAL ACCORDION BLADES (CENTER 04 OPEN) ================= */
 
-/* Short description stays calm muted zinc so the stack below pops */
+/* ================= 15. CERTIFICATIONS: 7 HORIZONTAL ACCORDION BLADES (CENTER 04 OPEN) ================= */
+
 .cert-desc-text {
   font-family: var(--font-magnify) !important;
   font-weight: 500 !important;
@@ -1112,7 +775,6 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   letter-spacing: 0.015em;
 }
 
-/* 1. Make Tech Stack POP: Larger (13.5px) + Crisp Bright White (#f1f5f9) */
 .cert-stack-text {
   font-family: var(--font-magnify) !important;
   font-weight: 500 !important;
@@ -1123,9 +785,8 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   position: relative;
 }
 
-/* 3. Auto-Inject "SKILLS VALIDATED" + Short White Line Above Stack (Matches About 'Hello' Bar!) */
 .cert-stack-text::before {
-  content: 'SKILLS VALIDATED'; /* Or change to 'CORE COMPETENCIES' or 'SKILLSET' */
+  content: 'SKILLS VALIDATED';
   display: block;
   font-family: 'JetBrains Mono', monospace !important;
   font-size: 10px;
@@ -1134,14 +795,12 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   color: #a1a1aa;
   padding-bottom: 7px;
   margin-bottom: 10px;
-  /* Creates the short 32px white horizontal line right below the label! */
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.85) 32px, rgba(255, 255, 255, 0.08) 32px);
   background-size: 100% 1.5px;
   background-repeat: no-repeat;
   background-position: bottom left;
 }
 
-/* Vertical text orientation inside collapsed blades */
 .cert-vert-text,
 .cert-vert-title {
   writing-mode: vertical-rl;
@@ -1149,16 +808,10 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   white-space: nowrap;
 }
 
-/* Keep background watermark icons lifted in the upper-middle zone so tall icons
-   (cpu, layers, database, smartphone) never cross the SKILLS VALIDATED line! */
 .cert-blade .cert-bg-watermark {
   top: 46% !important;
   width: 120px !important;
   height: 120px !important;
-}
-
-/* Color the inside watermark icon & Verify arrow on ALL screens (Mobile, Tablet & Desktop) */
-.cert-blade .cert-bg-watermark {
   color: var(--cert-accent, #ffffff) !important;
   opacity: 0.14;
 }
@@ -1173,10 +826,7 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     width: 136px !important;
     height: 136px !important;
   }
-}
 
-@media (min-width: 1024px) {
-  /* Default Collapsed Blade State on Desktop */
   .cert-accordion .cert-blade {
     flex: 0.72 1 0%;
     min-width: 64px;
@@ -1191,30 +841,22 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     transform: none !important;
   }
 
-  /* 2. Center the 01-07 number inside collapsed blades (no more touching left border!) */
   .cert-accordion .cert-blade > div:first-of-type {
     justify-content: center;
+    gap: 0 !important;
   }
 
   .cert-accordion .cert-blade .cert-idx {
     font-size: 13px;
     font-family: 'JetBrains Mono', monospace;
+    text-align: center;
     transition: font-size 0.3s ease, color 0.3s ease;
   }
 
-  /* Collapse width & height of Verified pill when blade is narrow so 01-07 centers cleanly */
   .cert-accordion .cert-blade .cert-expanded-item {
-    opacity: 0;
-    max-width: 0;
-    max-height: 0;
-    padding: 0 !important;
-    border-width: 0 !important;
-    overflow: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, max-width 0.3s ease;
+    display: none !important;
   }
 
-  /* Hide watermark & expanded body when collapsed */
   .cert-accordion .cert-blade .cert-bg-watermark,
   .cert-accordion .cert-blade .cert-expanded-body {
     opacity: 0;
@@ -1232,7 +874,6 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     transition: opacity 0.25s ease 0.1s;
   }
 
-  /* Active / Expanded State (Card 04 Default + Hover) */
   .cert-accordion:not(:hover) .cert-blade:nth-child(4),
   .cert-accordion .cert-blade:hover,
   .cert-accordion .cert-blade:focus-visible {
@@ -1248,20 +889,14 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     justify-content: space-between;
   }
 
-  /* Restore Verified pill when expanded */
   .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-expanded-item,
   .cert-accordion .cert-blade:hover .cert-expanded-item,
   .cert-accordion .cert-blade:focus-visible .cert-expanded-item {
+    display: inline-flex !important;
     opacity: 1;
-    max-width: 140px;
-    max-height: 40px;
-    padding: 2px 10px !important;
-    border-width: 1px !important;
     pointer-events: auto;
-    transition-delay: 0.12s;
   }
 
-  /* Enlarge editorial number when expanded */
   .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-idx,
   .cert-accordion .cert-blade:hover .cert-idx,
   .cert-accordion .cert-blade:focus-visible .cert-idx {
@@ -1270,25 +905,22 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     color: #ffffff;
   }
 
-  /* Reveal & Color the large inside watermark icon using each card's brand accent */
   .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-bg-watermark,
   .cert-accordion .cert-blade:hover .cert-bg-watermark,
   .cert-accordion .cert-blade:focus-visible .cert-bg-watermark {
     color: var(--cert-accent, #ffffff) !important;
-    opacity: 0.14; /* Subtle glowing brand-tinted watermark (increase to 0.22 for stronger color) */
+    opacity: 0.14;
     max-height: none;
     transform: translateY(-50%) scale(1);
     transition: opacity 0.45s ease 0.15s, color 0.3s ease;
   }
 
-  /* Hide the vertical spine label when expanded */
   .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-collapsed-spine,
   .cert-accordion .cert-blade:hover .cert-collapsed-spine,
   .cert-accordion .cert-blade:focus-visible .cert-collapsed-spine {
     display: none !important;
   }
 
-  /* Reveal the full stack body smoothly when expanded */
   .cert-accordion:not(:hover) .cert-blade:nth-child(4) .cert-expanded-body,
   .cert-accordion .cert-blade:hover .cert-expanded-body,
   .cert-accordion .cert-blade:focus-visible .cert-expanded-body {
@@ -1300,7 +932,8 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   }
 }
 
-/* ================= 17. PROJECTS: 4-ROW CASE-STUDY LEDGER + ARCHITECTURE DIAGRAM ================= */
+
+/* ================= 16. PROJECTS: 4-ROW CASE-STUDY LEDGER + ARCHITECTURE DIAGRAM ================= */
 
 .proj-desc {
   font-family: var(--font-magnify) !important;
@@ -1318,7 +951,6 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   margin-bottom: 8px;
 }
 
-/* Tech Stack Pill with Mini Icon */
 .proj-stack-pill {
   display: inline-flex;
   align-items: center;
@@ -1333,19 +965,17 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   color: #e4e4e7;
 }
 
-/* Allow individual Tailwind text-* colors on Tech Stack icons */
 .proj-stack-pill svg {
   width: 11px;
   height: 11px;
 }
 
-/* 4-Stage Architecture Diagram Boxes + Connecting Arrows */
 .proj-arch-box {
   position: relative;
   background: #0e0e12;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
-  padding: 10px 8px;
+  padding: 7px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1358,7 +988,6 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   border-color: var(--proj-accent, #a855f7);
 }
 
-/* Colored '→' arrows between Architecture Overview boxes */
 @media (min-width: 640px) {
   .proj-arch-box:not(:last-child)::after {
     content: '→';
@@ -1374,7 +1003,6 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   }
 }
 
-/* Colored icons inside Architecture Overview boxes */
 .proj-arch-icon {
   width: 26px;
   height: 26px;
@@ -1408,7 +1036,6 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   line-height: 1.25;
 }
 
-/* Hide the collapsed summary bar on Mobile & Tablet since the full drawer is already open */
 @media (max-width: 1023px) {
   .proj-ledger .proj-row .proj-summary-bar {
     display: none !important;
@@ -1416,16 +1043,19 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
 }
 
 @media (min-width: 1024px) {
-  /* Default Collapsed Row */
   .proj-ledger .proj-row {
     background: #121214;
     border-color: rgba(255, 255, 255, 0.06);
     transform: none !important;
+    padding-top: 11px !important;
+    padding-bottom: 11px !important;
+    flex-shrink: 0 !important;
+    justify-content: flex-start !important;
     transition:
       background-color 0.3s ease,
       border-color 0.3s ease,
       box-shadow 0.3s ease,
-      padding 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
+      padding 0.35s cubic-bezier(0.22, 1, 0.36, 1) !important;
   }
 
   .proj-ledger .proj-row .proj-drawer {
@@ -1433,7 +1063,7 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     grid-template-rows: 0fr;
     opacity: 0;
     transition:
-      grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      grid-template-rows 0.42s cubic-bezier(0.22, 1, 0.36, 1),
       opacity 0.25s ease;
   }
 
@@ -1441,25 +1071,22 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
     overflow: hidden;
   }
 
-  /* Active / Expanded Row (Row 01 by default, or Hovered Row) */
   .proj-ledger:not(:hover) .proj-row:first-child,
   .proj-ledger .proj-row:hover,
   .proj-ledger .proj-row:focus-within {
     background: #151519;
     border-color: rgba(255, 255, 255, 0.16);
     box-shadow: inset 3px 0 0 0 var(--proj-accent, #8b5cf6);
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
   }
 
-  /* Hide the compact summary bar when the full 2-column case study is open */
   .proj-ledger:not(:hover) .proj-row:first-child .proj-summary-bar,
   .proj-ledger .proj-row:hover .proj-summary-bar,
   .proj-ledger .proj-row:focus-within .proj-summary-bar {
     display: none !important;
   }
 
-  /* Expand the full 2-column stage + 4-box architecture diagram */
   .proj-ledger:not(:hover) .proj-row:first-child .proj-drawer,
   .proj-ledger .proj-row:hover .proj-drawer,
   .proj-ledger .proj-row:focus-within .proj-drawer {
