@@ -14,8 +14,9 @@
     background-color: #d4d4d8;
     border-radius: 50%;
     z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease, background-color 0.2s ease;
+    transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+    transition: background-color 0.2s ease;
+    will-change: transform;
   }
 
   /* 2. Thin, Clean Silver Concentric Ring */
@@ -27,24 +28,19 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    
-    /* Crisp, thin 1.2px silver stroke */
     border: 1.2px solid rgba(212, 212, 216, 0.5);
     background: transparent;
-    
     z-index: 9998;
-    transform: translate(-50%, -50%);
-    
+    transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
     transition: 
-      transform 0.12s ease-out, 
       width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
       height 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
       border-color 0.2s ease;
+    will-change: transform;
   }
 
   /* Hover Expansion (Brightens to Platinum / Pure White) */
   .cursor-hover .custom-cursor {
-    transform: translate(-50%, -50%) scale(1.25);
     background-color: #ffffff;
   }
 
@@ -55,7 +51,7 @@
   }
 }
 
-/* Disable custom cursor entirely on mobile touch devices */
+/* Disable custom cursor entirely on touch devices */
 @media (pointer: coarse), (hover: none) {
   .custom-cursor,
   .cursor-follower {
