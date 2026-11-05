@@ -1,5 +1,7 @@
 /* ================= SIGNATURE WRITING PRELOADER -> FLY TO NAVBAR LOGO (js/preloader.js) ================= */
 
+import { SIGNATURE_PATHS } from './config.js';
+
 export function initPreloader() {
   const preloader = document.getElementById('site-preloader');
   if (!preloader) return;
@@ -9,15 +11,13 @@ export function initPreloader() {
     history.scrollRestoration = 'manual';
   }
 
-  // 2. Clear any section #hash (e.g. #about, #projects) from URL so refresh always starts on Home
+  // 2. Clear any section #hash from URL so refresh always starts on Home
   if (window.location.hash) {
     history.replaceState(null, '', window.location.pathname + window.location.search);
   }
 
   // 3. Instantly jump to top (Home) behind the preloader screen
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  document.documentElement.style.overflow = 'hidden';
-
   document.documentElement.style.overflow = 'hidden';
 
   const style = document.createElement('style');
@@ -30,7 +30,6 @@ export function initPreloader() {
       user-select: none;
     }
 
-    /* Background dissolves to transparent while signature flies up into the navbar */
     #site-preloader.is-docking {
       background-color: rgba(11, 11, 12, 0) !important;
       pointer-events: none;
@@ -61,7 +60,6 @@ export function initPreloader() {
       overflow: visible;
     }
 
-    /* Faint ghost track of the signature */
     .pre-sig-ghost {
       fill: none;
       stroke: rgba(255, 255, 255, 0.06);
@@ -70,7 +68,6 @@ export function initPreloader() {
       stroke-linejoin: round;
     }
 
-    /* Active writing ink stroke */
     .pre-sig-ink {
       fill: none;
       stroke: #6d35e8;
@@ -117,7 +114,6 @@ export function initPreloader() {
       animation: preFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
     }
 
-    /* Fade out bottom text quickly as signature starts flying up */
     #site-preloader.is-docking .pre-divider,
     #site-preloader.is-docking .pre-note {
       opacity: 0 !important;
@@ -152,18 +148,15 @@ export function initPreloader() {
   `;
   document.head.appendChild(style);
 
-  const rahulPath = "M 24 28 L 22 60 C 21 38, 30 14, 46 15 C 60 16, 56 38, 32 48 C 22 52, 16 52, 19 50 C 26 48, 40 58, 54 60 C 64 61, 78 52, 74 44 C 69 39, 57 47, 60 57 C 63 63, 72 56, 76 47 C 76 56, 82 61, 90 59 C 101 56, 107 34, 108 16 C 107 36, 106 54, 107 60 C 109 50, 117 44, 121 53 C 123 60, 134 61, 144 56 C 150 52, 152 46, 152 54 C 152 61, 163 61, 169 53 C 169 60, 178 61, 186 55 C 193 48, 196 28, 194 14 C 193 34, 195 56, 202 59 C 207 61, 214 57, 219 51";
-  const venuPath  = "M 254 16 C 268 25, 278 44, 282 60 C 287 44, 300 26, 297 18 C 294 12, 284 26, 285 45 C 286 58, 299 60, 310 55 C 319 50, 322 42, 316 41 C 310 40, 308 52, 316 58 C 324 63, 335 56, 340 48 C 342 54, 342 60, 342 58 C 344 50, 353 44, 357 52 C 360 59, 368 60, 376 55 C 381 51, 383 46, 383 54 C 383 60, 393 60, 398 53 C 398 60, 408 60, 421 51";
-
   preloader.innerHTML = `
     <div class="pre-content">
       <div class="pre-sig-wrap">
         <svg id="preloader-sig-svg" viewBox="0 0 430 75" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Loading Signature">
-          <path class="pre-sig-ghost" d="${rahulPath}" />
-          <path class="pre-sig-ghost" d="${venuPath}" />
+          <path class="pre-sig-ghost" d="${SIGNATURE_PATHS.rahul}" />
+          <path class="pre-sig-ghost" d="${SIGNATURE_PATHS.venu}" />
 
-          <path class="pre-sig-ink ink-rahul" pathLength="1" d="${rahulPath}" />
-          <path class="pre-sig-ink ink-venu" pathLength="1" d="${venuPath}" />
+          <path class="pre-sig-ink ink-rahul" pathLength="1" d="${SIGNATURE_PATHS.rahul}" />
+          <path class="pre-sig-ink ink-venu" pathLength="1" d="${SIGNATURE_PATHS.venu}" />
         </svg>
       </div>
 
@@ -174,35 +167,82 @@ export function initPreloader() {
     </div>
   `.trim();
 
-  // After signature finishes writing (~2.25s), fly & zoom out directly into #brand-identity in the navbar!
-  setTimeout(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); // <-- Ensures we are 100% on Home before measuring navbar!
-    const sigWrap = preloader.querySelector('.pre-sig-wrap');
-    const navLogo = document.getElementById('brand-identity');
+  // =========================================================================
+  // RAM-SAFE ASSET PRELOADER: Decodes ONLY Main-Page Critical Images
+  // (Beyond the Code images use data-src and hydrate on-demand per chapter)
+  // =========================================================================
+  function preloadCriticalSiteAssets() {
+    const criticalImages = Array.from(document.querySelectorAll('main img[src]:not([data-src])'));
 
-    if (sigWrap && navLogo) {
-      const sigRect = sigWrap.getBoundingClientRect();
-      const navRect = navLogo.getBoundingClientRect();
+    const imagePromises = criticalImages.map((domImg) => {
+      domImg.loading = 'eager';
+      domImg.decoding = 'async';
 
-      // Calculate exact vector from center of preloader signature to center of navbar logo
-      const dx = (navRect.left + navRect.width / 2) - (sigRect.left + sigRect.width / 2);
-      const dy = (navRect.top + navRect.height / 2) - (sigRect.top + sigRect.height / 2);
+      const src = domImg.getAttribute('src');
+      if (!src) return Promise.resolve();
 
-      // Zoom down to navbar scale (0.35) while flying to the exact navbar coordinates
-      sigWrap.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0) scale(0.35)`;
-      sigWrap.style.opacity = '0';
-    }
+      return new Promise((resolve) => {
+        const onReady = () => {
+          domImg.classList.add('is-loaded');
+          if (typeof domImg.decode === 'function') {
+            domImg.decode().then(resolve).catch(resolve);
+          } else {
+            resolve();
+          }
+        };
 
-    preloader.classList.add('is-docking');
-    document.documentElement.style.overflow = '';
+        if (domImg.complete && domImg.naturalWidth > 0) {
+          onReady();
+        } else {
+          domImg.addEventListener('load', onReady, { once: true });
+          domImg.addEventListener('error', () => resolve(), { once: true });
+        }
+      });
+    });
 
-    // Fire preloader:done right as the shrinking signature arrives at the navbar logo (~550ms into flight)
-    setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('preloader:done'));
-    }, 520);
+    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+    const windowLoaded =
+      document.readyState === 'complete'
+        ? Promise.resolve()
+        : new Promise((res) => window.addEventListener('load', res, { once: true }));
 
-    setTimeout(() => {
-      preloader.remove();
-    }, 900);
-  }, 2250);
+    const minSigTime = new Promise((res) => setTimeout(res, 2250));
+    const maxSafetyTimeout = new Promise((res) => setTimeout(res, 5500));
+
+    return Promise.all([
+      minSigTime,
+      Promise.race([Promise.all([...imagePromises, fontsReady, windowLoaded]), maxSafetyTimeout])
+    ]);
+  }
+
+  requestAnimationFrame(() => {
+    preloadCriticalSiteAssets().then(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      const sigWrap = preloader.querySelector('.pre-sig-wrap');
+      const navLogo = document.getElementById('brand-identity');
+
+      if (sigWrap && navLogo) {
+        const sigRect = sigWrap.getBoundingClientRect();
+        const navRect = navLogo.getBoundingClientRect();
+
+        const dx = (navRect.left + navRect.width / 2) - (sigRect.left + sigRect.width / 2);
+        const dy = (navRect.top + navRect.height / 2) - (sigRect.top + sigRect.height / 2);
+
+        sigWrap.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0) scale(0.35)`;
+        sigWrap.style.opacity = '0';
+      }
+
+      preloader.classList.add('is-docking');
+      document.documentElement.style.overflow = '';
+
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('preloader:done'));
+      }, 520);
+
+      setTimeout(() => {
+        style.remove();
+        preloader.remove();
+      }, 900);
+    });
+  });
 }
