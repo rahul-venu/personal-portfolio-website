@@ -21,7 +21,7 @@
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Dark Glass Chat Window - Exact Cool Cyan / Dark Slate Obsidian */
+/* Dark Glass Chat Window - Cool Cyan / Dark Slate Obsidian */
 .chat-window {
   position: fixed;
   bottom: 88px;
@@ -29,7 +29,6 @@
   width: 370px;
   max-width: calc(100vw - 48px);
   height: 500px;
-  /* Cool Cyan Ambient + Deep Slate Obsidian */
   background: 
     radial-gradient(circle at 10% 0%, rgba(6, 182, 212, 0.10) 0%, transparent 55%),
     linear-gradient(180deg, #0d1218 0%, #080c10 100%);
@@ -50,7 +49,7 @@
 
 @keyframes popIn {
   from { opacity: 0; transform: translateY(16px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .chat-header {
@@ -133,54 +132,4 @@
 
 .chat-input-area button:hover {
   opacity: 0.9;
-}
-
-/* ================= SCOOTER & SMOKE ANIMATIONS ================= */
-.clone-character {
-  pointer-events: none;
-  z-index: 99999;
-}
-
-/* Subtle Engine Vibration / Rumble */
-@keyframes scooterRumble {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-1.5px) rotate(0.8deg); }
-}
-
-.scooter-ride {
-  animation: scooterRumble 0.1s infinite linear;
-}
-
-/* Individual Cartoon Smoke Puffs */
-.scooter-smoke-puff {
-  position: fixed;
-  pointer-events: none;
-  border-radius: 50%;
-  z-index: 99998; /* Just behind the scooter */
-  background: radial-gradient(
-    circle, 
-    rgba(255, 255, 255, 0.75) 0%, 
-    rgba(216, 180, 254, 0.45) 45%, 
-    rgba(168, 85, 247, 0) 70%
-  );
-  filter: blur(1.5px);
-}
-
-/* Chatbot Button Impact Glow */
-.clone-impact {
-  animation: absorbPulse 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-@keyframes absorbPulse {
-  0% { 
-    transform: scale(0.9); 
-    box-shadow: 0 0 25px rgba(168, 85, 247, 0.9), 0 0 50px rgba(56, 189, 248, 0.6); 
-  }
-  50% { 
-    transform: scale(1.35); 
-    box-shadow: 0 0 50px rgba(168, 85, 247, 1), 0 0 80px rgba(56, 189, 248, 0.9); 
-  }
-  100% { 
-    transform: scale(1); 
-  }
 }
