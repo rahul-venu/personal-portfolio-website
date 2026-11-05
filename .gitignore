@@ -22,5 +22,8 @@ Thumbs.db
 assets/models/
 *.glb
 
-# Private Image Assets
+# ================= SUPABASE CDN HOSTED ASSETS (EXCLUDED FROM GIT) =================
 assets/images/rahul.png
+assets/images/beyond/
+assets/images/section-bg/
+assets/models/
