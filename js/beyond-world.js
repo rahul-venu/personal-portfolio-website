@@ -2394,140 +2394,140 @@ export function initBeyondWorld() {
     }
   }
 
-  function resetGalleryToFirstImage(galleryEl) {
-    if (!galleryEl) return;
-    galleryEl.querySelectorAll('.by-trio-frame').forEach((frame) => {
-      const slides = Array.from(frame.querySelectorAll('.by-trio-slide'));
-      const dots = Array.from(frame.querySelectorAll('.by-trio-dot'));
-      slides.forEach((s, idx) => {
-        s.classList.toggle('is-active-slide', idx === 0);
-        s.classList.remove('is-Loaded-prev');
+    function resetGalleryToFirstImage(galleryEl) {
+      if (!galleryEl) return;
+      galleryEl.querySelectorAll('.by-trio-frame').forEach((frame) => {
+        const slides = Array.from(frame.querySelectorAll('.by-trio-slide'));
+        const dots = Array.from(frame.querySelectorAll('.by-trio-dot'));
+        slides.forEach((s, idx) => {
+          s.classList.toggle('is-active-slide', idx === 0);
+          s.classList.remove('is-Loaded-prev');
+        });
+        dots.forEach((d, idx) => d.classList.toggle('is-active', idx === 0));
       });
-      dots.forEach((d, idx) => d.classList.toggle('is-active', idx === 0));
-    });
-  }
-
-  // Advance ONLY the currently active season's 4 frames to the next image
-  function advanceActiveSeasonSlides() {
-    if (!isOpen || (window.innerWidth >= 1024 && currentIdx !== totalSpreads - 1)) {
-      stopSeasonTrioTimers();
-      return;
     }
 
-    trioStep = (trioStep + 1) % 3;
-    const activeGallery = seasonGalleries[currentSeason];
-    if (!activeGallery) return;
+    // Advance ONLY the currently active season's 4 frames to the next image
+    function advanceActiveSeasonSlides() {
+      if (!isOpen || (window.innerWidth >= 1024 && currentIdx !== totalSpreads - 1)) {
+        stopSeasonTrioTimers();
+        return;
+      }
 
-    activeGallery.querySelectorAll('.by-trio-frame').forEach((frame) => {
-      // Ensure any 2nd/3rd slide that still has data-src or already finished loading gets .is-loaded!
-      frame.querySelectorAll('.by-trio-slide').forEach((img) => {
-        const lazy = img.dataset.src || img.getAttribute('data-src');
-        if (lazy && !img.getAttribute('src')) {
-          img.src = lazy;
-          img.removeAttribute('data-src');
-        }
-        if (img.complete && img.naturalWidth > 0) {
-          img.classList.add('is-loaded');
-        }
-      });
+      trioStep = (trioStep + 1) % 3;
+      const activeGallery = seasonGalleries[currentSeason];
+      if (!activeGallery) return;
 
-      const loadedSlides = Array.from(frame.querySelectorAll('.by-trio-slide.is-loaded'));
-      const dots = Array.from(frame.querySelectorAll('.by-trio-dot'));
-
-      dots.forEach((d, idx) => d.classList.toggle('is-active', idx === trioStep));
-
-      if (loadedSlides.length < 2) return;
-      const targetSlide = loadedSlides[trioStep % loadedSlides.length];
-
-      loadedSlides.forEach((s) => {
-        if (s === targetSlide) {
-          s.classList.remove('is-Loaded-prev');
-          s.classList.add('is-active-slide');
-        } else if (s.classList.contains('is-active-slide')) {
-          s.classList.remove('is-active-slide');
-          s.classList.add('is-Loaded-prev');
-        } else {
-          s.classList.remove('is-Loaded-prev');
-        }
-      });
-    });
-  }
-
-  let seasonsPrewarmed = false;
-
-  // Helper: Hydrates & GPU-decodes a single season's BG + 12 country slides (a, b, c) off the main thread
-  function decodeSeasonToGpu(sIdx) {
-    if (typeof hydrateSeasonAssets === 'function') {
-      hydrateSeasonAssets(sIdx);
-    }
-
-    const bgPane = seasonBgs[sIdx];
-    const galleryPane = seasonGalleries[sIdx];
-
-    [bgPane, galleryPane].forEach((pane) => {
-      if (!pane) return;
-      pane.querySelectorAll('img').forEach((img) => {
-        const lazy = img.dataset.src || img.getAttribute('data-src');
-        if (lazy && !img.getAttribute('src')) {
-          img.src = lazy;
-          img.removeAttribute('data-src');
-        }
-        const finishLoad = () => {
-          img.classList.add('is-loaded');
-          // Pre-upload uncompressed texture to GPU memory in the background so 1st scroll never stutters!
-          if (typeof img.decode === 'function') {
-            img.decode().catch(() => {});
+      activeGallery.querySelectorAll('.by-trio-frame').forEach((frame) => {
+        // Ensure any 2nd/3rd slide that still has data-src or already finished loading gets .is-loaded!
+        frame.querySelectorAll('.by-trio-slide').forEach((img) => {
+          const lazy = img.dataset.src || img.getAttribute('data-src');
+          if (lazy && !img.getAttribute('src')) {
+            img.src = lazy;
+            img.removeAttribute('data-src');
           }
-        };
-        if (img.complete && img.naturalWidth > 0) {
-          finishLoad();
-        } else {
-          img.addEventListener('load', finishLoad, { once: true });
-        }
+          if (img.complete && img.naturalWidth > 0) {
+            img.classList.add('is-loaded');
+          }
+        });
+
+        const loadedSlides = Array.from(frame.querySelectorAll('.by-trio-slide.is-loaded'));
+        const dots = Array.from(frame.querySelectorAll('.by-trio-dot'));
+
+        dots.forEach((d, idx) => d.classList.toggle('is-active', idx === trioStep));
+
+        if (loadedSlides.length < 2) return;
+        const targetSlide = loadedSlides[trioStep % loadedSlides.length];
+
+        loadedSlides.forEach((s) => {
+          if (s === targetSlide) {
+            s.classList.remove('is-Loaded-prev');
+            s.classList.add('is-active-slide');
+          } else if (s.classList.contains('is-active-slide')) {
+            s.classList.remove('is-active-slide');
+            s.classList.add('is-Loaded-prev');
+          } else {
+            s.classList.remove('is-Loaded-prev');
+          }
+        });
       });
-    });
-  }
+    }
 
-  // Triggered when user reaches Chapter 02 (idx 1):
-  // Waits 900ms for Ch 02 slide to settle, then stagger-decodes Seasons 0 -> 1 -> 2 -> 3 (350ms apart)
-  function prewarmAllSeasonsFromCh2() {
-    if (seasonsPrewarmed) return;
-    seasonsPrewarmed = true;
+    let seasonsPrewarmed = false;
 
-    [0, 1, 2, 3].forEach((sIdx) => {
-      setTimeout(() => {
-        // Un-cull Chapter 05 while resting still on Chapter 02 so GPU rasterizes it with 0 frame drops!
-        if (sIdx === 0 && seasonSpread) {
-          seasonSpread.classList.remove('is-culled');
-          seasonSpread.classList.add('is-neighbor');
-        }
-        decodeSeasonToGpu(sIdx);
-      }, 900 + sIdx * 350);
-    });
-  }
+    // Helper: Hydrates & GPU-decodes a single season's BG + 12 country slides (a, b, c) off the main thread
+    function decodeSeasonToGpu(sIdx) {
+      if (typeof hydrateSeasonAssets === 'function') {
+        hydrateSeasonAssets(sIdx);
+      }
 
-  // Start fresh on 1st image -> Wait 4.2s -> Then cycle every 3.0s
-  function syncSeasonTrioLifecycle() {
-    stopSeasonTrioTimers();
-    trioStep = 0;
+      const bgPane = seasonBgs[sIdx];
+      const galleryPane = seasonGalleries[sIdx];
 
-    seasonGalleries.forEach((g) => resetGalleryToFirstImage(g));
+      [bgPane, galleryPane].forEach((pane) => {
+        if (!pane) return;
+        pane.querySelectorAll('img').forEach((img) => {
+          const lazy = img.dataset.src || img.getAttribute('data-src');
+          if (lazy && !img.getAttribute('src')) {
+            img.src = lazy;
+            img.removeAttribute('data-src');
+          }
+          const finishLoad = () => {
+            img.classList.add('is-loaded');
+            // Pre-upload uncompressed texture to GPU memory in the background so 1st scroll never stutters!
+            if (typeof img.decode === 'function') {
+              img.decode().catch(() => {});
+            }
+          };
+          if (img.complete && img.naturalWidth > 0) {
+            finishLoad();
+          } else {
+            img.addEventListener('load', finishLoad, { once: true });
+          }
+        });
+      });
+    }
 
-    // Ensure current season is decoded (instant no-op if already pre-warmed at Chapter 02!)
-    decodeSeasonToGpu(currentSeason);
+    // Triggered when user reaches Chapter 02 (idx 1):
+    // Waits 900ms for Ch 02 slide to settle, then stagger-decodes Seasons 0 -> 1 -> 2 -> 3 (350ms apart)
+    function prewarmAllSeasonsFromCh2() {
+      if (seasonsPrewarmed) return;
+      seasonsPrewarmed = true;
 
-    // Allow starting on Desktop when on Chapter 05 (currentIdx === totalSpreads - 1) OR on Mobile (< 1024px)
-    if (!isOpen || (window.innerWidth >= 1024 && currentIdx !== totalSpreads - 1)) return;
+      [0, 1, 2, 3].forEach((sIdx) => {
+        setTimeout(() => {
+          // Un-cull Chapter 05 while resting still on Chapter 02 so GPU rasterizes it with 0 frame drops!
+          if (sIdx === 0 && seasonSpread) {
+            seasonSpread.classList.remove('is-culled');
+            seasonSpread.classList.add('is-neighbor');
+          }
+          decodeSeasonToGpu(sIdx);
+        }, 900 + sIdx * 350);
+      });
+    }
 
-    trioFirstDelayTimer = setTimeout(() => {
-      advanceActiveSeasonSlides();
-      trioCycleInterval = setInterval(advanceActiveSeasonSlides, 3000);
-    }, 4200);
-  }
+    // Start fresh on 1st image -> Wait 4.2s -> Then cycle every 3.0s
+    function syncSeasonTrioLifecycle() {
+      stopSeasonTrioTimers();
+      trioStep = 0;
 
-  function setSeason(sIdx) {
-    currentSeason = Math.max(0, Math.min(3, sIdx));
-    decodeSeasonToGpu(currentSeason);
+      seasonGalleries.forEach((g) => resetGalleryToFirstImage(g));
+
+      // Ensure current season is decoded (instant no-op if already pre-warmed at Chapter 02!)
+      decodeSeasonToGpu(currentSeason);
+
+      // Allow starting on Desktop when on Chapter 05 (currentIdx === totalSpreads - 1) OR on Mobile (< 1024px)
+      if (!isOpen || (window.innerWidth >= 1024 && currentIdx !== totalSpreads - 1)) return;
+
+      trioFirstDelayTimer = setTimeout(() => {
+        advanceActiveSeasonSlides();
+        trioCycleInterval = setInterval(advanceActiveSeasonSlides, 3000);
+      }, 4200);
+    }
+
+    function setSeason(sIdx) {
+      currentSeason = Math.max(0, Math.min(3, sIdx));
+      decodeSeasonToGpu(currentSeason);
 
     if (seasonSpread) {
       seasonSpread.style.setProperty('--season-accent', SEASON_ACCENTS[currentSeason]);
