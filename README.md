@@ -12,13 +12,13 @@
 [![Tailwind CSS](https://img.shields.io/badge/Style-Tailwind_CSS-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A personal portfolio and AI engineering showcase built for a **Data Scientist & Generative AI Specialist**. It features a high-contrast matte obsidian interface, an in-memory RAG assistant ("Zoe") with live Android music telemetry, interactive WebGL 3D scenes, a neural PCB skills circuit board, a fullscreen 5-chapter horizontal parallax lookbook, a 1D gradient-descent CAPTCHA, and real-time DNS/MX email verification.
+A personal portfolio and AI engineering showcase built for a **Data Scientist & Generative AI Specialist**. Features a matte obsidian interface, an in-memory RAG assistant ("Zoe") with live Android music telemetry, interactive Three.js WebGL scenes, a neural PCB skills circuit board, a fullscreen 5-chapter horizontal parallax lookbook, a 1D gradient-descent CAPTCHA, and real-time DNS/MX email verification.
 
 ---
 
 ## 🏗 System Architecture
 
-The platform operates as a decoupled client-server microservice model designed for sub-second global latency, dynamic memory efficiency, cloud-hosted media delivery, and strict network perimeter security:
+Decoupled client-server microservice architecture engineered for sub-second latency, cloud-hosted media delivery, and strict perimeter security:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -69,19 +69,19 @@ portfolio-web/
 ├── assets/
 │   ├── fonts/                         # Self-hosted Magnify PRO (Thin, Light, Medium) typeface
 │   ├── images/                        # Profile portraits (B&W/Color), favicons, and social previews
-│   │   ├── beyond/                    # [Supabase CDN / Local] 16:10 & 4:5 lookbook photography (.webp)
-│   │   └── section-bg/                # [Supabase CDN / Local] Multi-layer chapter backgrounds & cutouts
-│   └── models/                        # [Supabase CDN / Local] Draco-compressed 3D .glb assets (Leica M3, Avatar)
+│   │   ├── beyond/                    # [Supabase CDN] 16:10 & 4:5 lookbook photography (.webp)
+│   │   └── section-bg/                # [Supabase CDN] Multi-layer chapter backgrounds & cutouts
+│   └── models/                        # [Supabase CDN] Draco-compressed 3D .glb assets (Leica M3, Avatar)
 │
 ├── css/
 │   ├── chatbot.css                    # Chat drawer layouts, bubbles, and conic border glow
-│   ├── cursor.css                     # Custom hardware-accelerated concentric pointer
+│   ├── cursor.css                     # Hardware-accelerated concentric pointer
 │   └── style.css                      # Matte obsidian theme, accordions, notch geometry, and typography
 │
 ├── js/
 │   ├── animations.js                  # IntersectionObserver reveal manager & desktop navbar proximity latch
 │   ├── avatar.js                      # Three.js 3D peek-a-boo chatbot avatar controller
-│   ├── beyond-mobile.js               # Progressive mobile/tablet vertical feed & country card pairing engine
+│   ├── beyond-mobile.js               # Mobile/tablet vertical feed, 2×2 seasonal cards & center-line debounce
 │   ├── beyond-world.js                # 5-chapter fullscreen horizontal parallax engine & 3D Leica WebGL stage
 │   ├── chatbot.js                     # RAG stream reader, adaptive typewriter pacer, and markdown parser
 │   ├── config.js                      # Global Supabase CDN router, shared vector paths, icons & RAF utilities
@@ -100,7 +100,6 @@ portfolio-web/
 │   ├── data/
 │   │   ├── rahul_profile.example.md   # Public RAG template for external contributors
 │   │   └── rahul_profile.md           # [Git-Ignored] Private vector knowledge base
-│   │
 │   ├── .env.example                   # Environment configuration template
 │   ├── .gitignore                     # Python build and virtual environment exclusions
 │   ├── main.py                        # FastAPI application routes, CORS, and Groq streaming
@@ -119,142 +118,104 @@ portfolio-web/
 
 ## 🧠 Deep-Dive: Generative AI & RAG Pipeline
 
-The conversational assistant **"Zoe"** is powered by a custom-engineered, multi-turn Retrieval-Augmented Generation pipeline designed to eliminate hallucinations, handle pronoun ambiguity, and stream grounded responses with near-zero latency.
+The conversational assistant **"Zoe"** runs on a custom multi-turn RAG pipeline built to eliminate hallucinations, resolve pronoun ambiguity, and stream responses with near-zero latency.
 
 ### 1. In-Memory Vectorization & Semantic Chunking
-* **Ephemeral Vector Store:** Leverages an in-memory `chromadb.Client()` running directly in RAM. Eliminates database I/O bottlenecks and disk dependencies, allowing startup vectorization in `<180ms`.
-* **Dense Vector Embeddings:** Uses the `all-MiniLM-L6-v2` transformer model (384-dimensional dense vector space) to compute cosine similarities.
-* **Hierarchical Token-Safe Chunking:** Document parsing uses regex-based dual-boundary splitting (`\n(?=#{2,3}\s)`) across Markdown H2 and H3 boundaries. This keeps chunks under **200 tokens**, safely inside the model's 256-token hard truncation limit and eliminating information loss.
+* **Ephemeral Vector Store:** Uses an in-memory `chromadb.Client()` in RAM—eliminating disk I/O bottlenecks and indexing the knowledge base in `<180ms`.
+* **Dense Embeddings:** Computes cosine similarity across 384-dimensional vectors via `all-MiniLM-L6-v2`.
+* **Token-Safe Chunking:** Splits Markdown on H2/H3 boundaries (`\n(?=#{2,3}\s)`), keeping chunks `<200 tokens` (safely below the model's 256-token truncation limit).
 
-### 2. Contextual Query Disambiguation (Sliding Memory Window)
-Traditional RAG fails when users ask conversational follow-up questions containing pronouns (e.g., *"What model does it use?"* or *"Can you tell me more about that?"*). 
-* **Linguistic Heuristic Engine:** The backend analyzes incoming queries for ambiguous pronouns (`it`, `that`, `this`, `they`, `why`, `how`) or short token counts ($\le 2$ words).
-* **Dynamic Query Expansion:** When an ambiguous follow-up is detected, the search term is synthesized with the previous user turn (`f"{last_user_query} {user_query}"`), steering ChromaDB to the correct vector coordinates while preventing query pollution on independent questions.
-* **Multi-Turn Context Injection:** The last 4 conversational turns are injected directly into the LLM's message sequence, ensuring contextual continuity.
+### 2. Contextual Query Disambiguation (Sliding Memory)
+* **Pronoun Heuristics:** Detects ambiguous follow-ups (`it`, `that`, `this`, `they`, `why`, `how`) or short queries ($\le 2$ words).
+* **Dynamic Query Expansion:** Concatenates ambiguous follow-ups with the prior user turn (`f"{last_user_query} {user_query}"`) for accurate vector retrieval without polluting independent queries.
+* **Multi-Turn Memory:** Injects the last 4 conversation turns directly into the LLM prompt sequence.
 
-### 3. Strict Grounding & Anti-Hallucination Framework
+### 3. Strict Grounding & Anti-Hallucination Guardrails
 ```text
 Raw Query ──► Contextual Search ──► Top-K Chunks + Live Music State ──► Grounded Prompt ──► Groq LPU
 ```
-* **Strict Parameterization:** Uses low-temperature generation (`temperature=0.4`) anchored against the retrieved context.
-* **Conversational Logic Gates:** System instructions explicitly differentiate between:
-  1. *Factual inquiries:* Strictly grounded in retrieved context with fallbacks for unmentioned facts.
-  2. *Nuanced/Personal inquiries:* Conversational and witty handling of profile nuances (e.g., hobbies, relationship status, cinema tastes, and real-time music playback).
-  3. *Actionable scheduling guardrails:* Hardcoded constraints that prevent the model from fabricating real-world commitments, calendar events, or meetings.
+* **Low-Temperature Generation:** Anchors responses to retrieved context at `temperature=0.4`.
+* **Prompt Logic Gates:** Separates strict factual Q&A, witty personal/hobby responses, and hardcoded scheduling guardrails (preventing fabricated calendar commitments).
 
-### 4. Low-Latency Streaming & Client-Side Adaptive Pacing
-* **Backend Anti-Buffering:** Emits an asynchronous HTTP stream via FastAPI's `StreamingResponse`, explicitly passing `X-Accel-Buffering: no` and `Cache-Control: no-cache` to prevent cloud proxies from buffering chunks.
-* **Client-Side Typewriter Engine:** Powered by Groq's high-speed inference (~1,000 tokens/sec), text can outpace human reading speed. The client processes incoming `ReadableStream` chunks through an adaptive buffer (`setTimeout` pacer running at ~18ms/char), dynamically scaling character delivery based on network queue depth to produce a smooth, readable typewriter effect.
-* **Live Markdown & Link Parser:** Custom regex engine transforms raw URLs, emails, bold syntax, and single-asterisk italics (`*text*` $\rightarrow$ `<em>`) into interactive DOM nodes in real time without external parser libraries.
+### 4. Low-Latency Streaming & Adaptive Typewriter Pacing
+* **Zero-Buffer Streaming:** FastAPI `StreamingResponse` passes `X-Accel-Buffering: no` and `Cache-Control: no-cache` to bypass proxy buffering.
+* **Client Typewriter Buffer:** Smooths Groq's ~1,000 tokens/sec output through an adaptive `setTimeout` pacer (~18ms/char) scaled by queue depth.
+* **Live Markdown Parser:** Lightweight regex parser converts URLs, emails, bold text, and italics into live DOM nodes during streaming.
 
-### 5. Zero-Permission Real-Time Music Telemetry (`music_service.py` + Poweramp + MacroDroid)
-Zoe features dynamic live awareness of what music Rahul is listening to in the physical world via a decoupled, private webhook router (`backend/music_service.py`):
+### 5. Zero-Permission Real-Time Music Telemetry (`music_service.py`)
+Zoe knows what music Rahul is listening to in real time via a privacy-first Android webhook pipeline:
 
 ```text
 [Poweramp Android Player]
-       │ (Built-in Broadcast: com.adam.aslfms.notify.playstatechanged)
+       │ (Broadcast: com.adam.aslfms.notify.playstatechanged)
        ▼
-[MacroDroid Android Client] ──(Zero Notification/Privacy Permissions)
-       │ 
-       ▼ (HTTPS POST • Bearer Token Auth)
-[/api/music/update (music_service.py)]
-       │
-       ├──► [In-Memory State: LIVE_MUSIC_STATE]
-       └──► [OS Temp Directory: /tmp/poweramp_live_music.json]
-                     │
-                     ▼
-       [Injected into Zoe's Prompt via [LIVE MUSIC STATUS]]
+[MacroDroid Client] ──(Zero Notification/SMS Permissions)──► [POST /api/music/update]
+                                                                    │
+                                     ┌──────────────────────────────┴──────────────────────────────┐
+                                     ▼                                                             ▼
+                       [In-Memory: LIVE_MUSIC_STATE]                                [OS Temp: /tmp/poweramp_*.json]
+                                     └──────────────────────────────┬──────────────────────────────┘
+                                                                    ▼
+                                               [Injected into Zoe Prompt: [LIVE MUSIC STATUS]]
 ```
-* **Zero-Permission Intent Interception:** Completely bypasses Android's invasive `BIND_NOTIFICATION_LISTENER_SERVICE` (which reads private SMS, notifications, and OTPs). Instead, it isolates Poweramp's built-in developer broadcast intent (`com.adam.aslfms.notify.playstatechanged`), capturing only music metadata (`track`, `artist`, `album`, `state`).
-* **State Machine & Playback Normalization:** Playback states `0` (Start) and `1` (Resume) evaluate to `is_playing = True`; states `2` (Pause) and `3` (Complete) evaluate to `is_playing = False`.
-* **Stateful Continuity & Metadata Fallback:** When a track is paused, Poweramp frequently emits an empty title. The service retains the last-known track in memory so Zoe can accurately answer *"Rahul is not playing music right now, but was last listening to..."* without loss of context.
-* **Smart Album Filter:** Heuristically sanitizes Poweramp's default dummy tags (`"Unknown Album"`, `None`, empty strings) so Zoe naturally omits album references for standalone singles rather than speaking placeholder metadata.
-* **In-Memory + OS Temp Caching:** The live state is stored in an in-memory dictionary and mirrored to the operating system's temporary directory (`tempfile.gettempdir()`), ensuring sub-millisecond retrieval, preventing local hot-reloader loops, and leaving zero traces in Git version control.
+* **Zero-Permission Broadcasts:** Bypasses invasive Android notification listeners (`BIND_NOTIFICATION_LISTENER_SERVICE`) by capturing Poweramp's native developer intent (`track`, `artist`, `album`, `state`).
+* **State & Pause Continuity:** Maps states `0/1` to `is_playing = True` and `2/3` to `False`. Retains the last-known track in memory when paused so Zoe can report what was playing most recently.
+* **Metadata Sanitization & Temp Caching:** Strips dummy album tags (`"Unknown Album"`) and mirrors state to `tempfile.gettempdir()` for sub-millisecond reads without triggering local live-reload loops.
 
 ---
 
 ## 🛡 Security, Anti-Abuse & Contact Verification Pipeline
 
-The contact infrastructure eliminates bot spam, burner emails, and invalid transmissions before any third-party APIs are executed.
+Blocks bot spam, burner domains, and invalid emails before any external mail API is called:
 
 ```text
-[User Form Input] 
-       │
-       ▼
-(1) Interactive Loss Minimization ──[Loss > 0.009]──► [Submit Blocked / Locked]
-       │ (Loss Converged: 0.009)
-       ▼
-(2) RFC 5322 Schema Regex
-       │ (Valid Syntax)
-       ▼
-(3) Disposable Domain Filter ───────[Matches Burner List]──► [Rejection Alert]
-       │ (Clean Domain)
-       ▼
-(4) Google DNS-over-HTTPS (8.8.8.8) ──[Status != 0 or No MX]──► [Rejection Alert]
-       │ (Active MX Records Verified)
-       ▼
-(5) Silent Honeypot Check ──────────[Bot Filled Field]───► [Silently Dropped]
-       │ (Clean Submission)
-       ▼
-[Web3Forms TLS Transmission]
+[Form Input] ──► (1) 1D Loss Slider (L ≤ 0.009) ──► (2) RFC 5322 Regex ──► (3) Burner Blocklist
+                                                                                   │
+[Web3Forms TLS] ◄── (5) Silent Honeypot Check ◄── (4) Google DoH MX Lookup (8.8.8.8)
 ```
 
-### 1. Interactive 1D Gradient Descent Captcha
-Replaces third-party tracking captchas with an in-house machine learning optimization slider:
-* The submit trigger is locked while an active loss function displays an unoptimized score ($L = 0.892$).
-* Users manually drag an optimization puck along the loss gradient. As the puck approaches convergence ($L \le 0.009$), the state transitions to `isVerified = true`, unlocking the submission trigger.
-* Features a 10-second automatic decay timer that resets the optimizer to an unverified state if left untouched.
-
-### 2. Multi-Tier Real-Time Email Authentication
-1. **Tier 1 (Syntax Enforcement):** Strict client-side regex validation verifying standard username, domain, and top-level domain structures (`.com`, `.org`, `.in`, etc.).
-2. **Tier 2 (Disposable Domain Heuristics):** Screens input against known disposable temporary email networks (e.g., Temp-Mail.org pools, Mailinator, GuerrillaMail, 10MinuteMail).
-3. **Tier 3 (Real-Time DNS/MX over Google 8.8.8.8):** Non-standard business/custom domains trigger an asynchronous query to Google's public DNS-over-HTTPS (`https://dns.google/resolve?type=MX`). If the domain lacks active Mail Exchange (MX) records or routes to known self-referential disposable hosts, the submission is rejected with clean in-button error feedback.
-4. **Tier 4 (Honeypot Shield):** Incorporates an off-screen, CSS-hidden input field (`name="botcheck"`). Automated scraping bots automatically populate all visible and hidden form fields, signaling Web3Forms to silently discard the payload.
-
-### 3. Zero-Leak Profile Ingestion Pattern
-* Personal biographical data (`backend/data/rahul_profile.md`) is excluded from Git tracking via `.gitignore`.
-* Production deployments decrypt profile vectors at startup from a secure Base64 environment variable (`PROFILE_MD_BASE64`), allowing full RAG context retrieval on public repositories without exposing private records in version control.
+1. **1D Gradient Descent Captcha:** Locks submission ($L = 0.892$) until the user drags an optimization puck to convergence ($L \le 0.009$). Auto-decays after 10 seconds of inactivity.
+2. **Multi-Tier Email Verification:** Combines strict RFC 5322 regex, a disposable domain blocklist (Mailinator, Temp-Mail, GuerrillaMail, etc.), and live **Google DNS-over-HTTPS (`8.8.8.8`) MX record resolution** to verify active mail servers.
+3. **Silent Honeypot & Zero-Leak Profile:** Hidden `botcheck` input silently drops automated scrapers. Personal RAG data (`rahul_profile.md`) is git-ignored and decoded in cloud RAM from `PROFILE_MD_BASE64`.
 
 ---
 
 ## ⚡ Frontend Performance, Memory & GPU Optimization
 
-Despite hosting 3 distinct WebGL scenes, custom canvas physics, and 85+ high-resolution `.webp` photography frames, the client is engineered to keep memory usage low (`~120–160 MB` RAM) and maintain a locked `60/120fps` frame budget:
+Engineered to run 3 WebGL scenes, custom canvas physics, and 85+ high-resolution `.webp` photography frames smoothly—reducing peak browser memory consumption from **`550–600 MB` down to `300–400 MB` RAM** at a locked `60/120fps`:
 
-* **Two-Stage Predictive Asset Pre-Warming:** Instead of decoding all 85+ lookbook images at initial startup (which would allocate `>300 MB` of uncompressed RGBA bitmap textures in RAM), `js/preloader.js` only decodes critical above-the-fold assets. An `IntersectionObserver` watching `#beyond` (`rootMargin: '350px'`) pre-warms Chapters 01–02 and compiles the 3D Leica WebGL shaders right as the user approaches Section 05, followed by an idle background queue for Chapters 03–05.
-* **Sliding-Window Viewport Culling & Layer Discipline:** Inside the `500vw` horizontal parallax track, only the active chapter and its immediate neighbor (`Math.abs(i - currentIdx) <= 1`) are kept visible and GPU-promoted. Off-screen chapters are culled (`visibility: hidden`, `will-change: auto`) so the browser compositor never holds 5 fullscreen viewports in VRAM simultaneously.
-* **WebGL Lifecycle & VRAM Management:**
-  * Temporary Three.js environment and geometry decoders (`PMREMGenerator`, `DRACOLoader` web workers) are explicitly `.dispose()`d immediately after asset ingestion.
-  * Off-screen WebGL/2D canvases (`#neural-canvas`, `#avatar-peek-canvas`, `#synapse-canvas`) automatically pause their `requestAnimationFrame` loops via `IntersectionObserver` or when the fullscreen `#beyond-dimension-overlay` is active.
-  * The 3D Leica M3 WebGL renderer only executes draw calls when Chapter 03 is in the active viewport window (`currentIdx === 2` on desktop or `dataset.ch3Visible === '1'` on mobile).
-* **Centralized Asset & Vector Deduplication (`js/config.js`):** All Supabase Storage CDN routing (`assetUrl()`), shared cursive signature/monogram SVG paths (`SIGNATURE_PATHS`, `BRAND_RV_PATHS`), badge icons (`BADGE_ICONS`), and `requestAnimationFrame` throttling utilities (`rafThrottle()`) are consolidated into a single zero-dependency module.
-* **Deterministic State Reset & Timer Hygiene:** Exiting the lookbook dimension or switching seasonal sub-stages immediately clears all active intervals/timeouts (`stopSeasonTrioTimers()`) and resets slide indices to prevent background timer leaks.
+* **Two-Stage Predictive Asset Pre-Warming:** `js/preloader.js` decodes only critical above-the-fold assets at startup. An `IntersectionObserver` on Section 04/05 (`rootMargin: '350px'`) pre-warms Chapters 01–02 and compiles the 3D Leica shaders as the user approaches `#beyond`.
+* **Chapter 02 Seasonal GPU Pre-Decoding:** Landing on Chapter 02 triggers a staggered background queue (`900ms` delay + `350ms` step) that un-culls Chapter 05 early and calls asynchronous `img.decode()` across all 4 seasons—eliminating rasterization and texture-upload frame drops on first entry to Chapter 05.
+* **Sliding-Window Viewport Culling:** Inside the `500vw` horizontal track, only the active spread and its immediate neighbor (`dist <= 1`) are GPU-promoted. Distant spreads are culled (`visibility: hidden`, `will-change: auto`) to prevent VRAM layer exhaustion.
+* **Mobile RAM Cap & Center-Line Scroll Debouncing (`js/beyond-mobile.js`):**
+  * **Primary-Slide Memory Guard:** On mobile/tablet (`< 1024px`), inactive seasonal galleries hydrate only their primary slide (`-a.webp`, cutting Chapter 05 mobile textures from 48 to 16) and skip uncompressed `img.decode()` calls—preventing mobile Safari/Chrome tab memory eviction and blank-frame re-downloads when scrolling back and forth.
+  * **10% Center-Line Laser Lock + `150ms` Idle Debounce:** Uses `rootMargin: '-45% 0px -45% 0px'` so only the single dominant season in the dead-center of the screen is active, waiting `150ms` for scroll momentum to settle before switching backgrounds or timers.
+* **WebGL Lifecycle & Deduplication (`js/config.js`):** Immediately `.dispose()`s `PMREMGenerator` and `DRACOLoader` workers after `.glb` ingestion, pauses off-screen WebGL loops (`#neural-canvas`, `#avatar-peek-canvas`, `#synapse-canvas`), and centralizes all Supabase CDN URLs and shared SVG paths in `js/config.js`.
 
 ---
 
 ## 🎨 Creative Engineering, 3D WebGL & Section Architecture
 
-* **Signature-Writing Preloader & Fly-to-Navbar Transition (`js/preloader.js`):** On initial load, a custom cursive SVG signature writes itself out as the real-time progress indicator while preloading critical assets, then calculates the exact bounding-box vector to fly and scale directly into the navbar brand mark.
-* **Vector Ribbon Stroke-Write & Morphing Logos (`js/logo-anim.js`):** Both the header (`RAHUL V S`) and footer (`RAHUL VENU`) logos use SVG `<clipPath>` masks and `stroke-dashoffset` centerline ribbons that snake solid purple ink through the letter geometry before igniting the `V` slash and collapsing into the compact `RV` monogram.
-* **Procedural 3D Neural Manifold (`js/neural.js`):** An interactive HTML5/WebGL canvas in the Hero section rendering an asymmetric 3D topological manifold (3,200 particle voxels) with 3D coordinate projection, depth sorting, and elastic spring-back physics.
-* **Editorial B&W Portrait with Cursor Color Spotlight (`#about`):** A two-layer transparent portrait stack (`profile-bw.png` + `profile-color.png`) masked by a real-time radial cursor spotlight (`--spot-x`, `--spot-y`) that reveals true color under the pointer, paired with a `-30°` self-writing signature and dual counter-scrolling 6+6 credential marquee bands.
-* **4-Row Expandable Case-Study Ledger (`#projects`):** A vertical accordion ledger where each expanded project unfolds into a 4-tier full-width architectural breakdown: header/status pills, bulleted engineering impact, icon-tagged tech stack, and a 4-stage visual system architecture diagram.
-* **Interactive Neural PCB Circuit Constellation (`js/skills-circuit.js`):** Organizes 62 technical skills across 8 cyber-neon domain clusters. Selecting or hovering a domain dynamically calculates and renders 45°-chamfered SVG PCB circuit traces, border-pin via dots, stub traces, and animated signal packets across the board.
-* **7-Blade Horizontal Credential Accordion (`#certifications`):** A symmetrical 7-blade horizontal accordion where Blade 04 (`Azure AI Fundamentals`) rests open in the center by default, featuring brand-tinted background vector watermarks and instant verification links.
-* **Section 05 — "Beyond the Code" Fullscreen 5-Chapter Parallax World (`js/beyond-world.js`):**
-  * **Planetary Horizon Portal:** Opens from a full-bleed neon planetary horizon arc into an edge-to-edge (`100vw × 100dvh`) 5-chapter horizontal lookbook driven by a 3-speed differential parallax engine (scroll velocity drift, inner image counter-panning, and live 3D mouse-tilt).
-  * **Ch 01 (Altitudes & Off-Roads) & Ch 02 (Sunsets & Coastlines):** Multi-layer parallax background scenes with center foreground cutout overlays, asymmetric 6-frame and 8-frame galleries, and borderless location pin stamps.
-  * **Ch 03 (Visual Perspectives & 3D Leica M3):** Dual-stage photography showcase (`01 Behind The Lens` vs `02 In The Frame`) featuring an interactive Three.js WebGL `camera-leica-m3.glb` model with custom optical glass shaders that rotates 180° in place from the front lens to the rear viewfinder when switching modes.
-  * **Ch 04 (Maker & Mechanic):** A diagonal Z-balance upper/lower split-deck showcasing custom ambient lighting DIY builds on top and a 2×2 quad-split PCB diagnostics frame, motorcycle servicing, and DaVinci Resolve color grading on the bottom, flanked by dual off-screen animated overlays.
-  * **Ch 05 (Dream Atlas — 4 Seasons × 4 Countries):** A 4-season travel odyssey covering 16 dream destinations (48 total `16:10` frames). Each country frame houses a synchronized 3-image auto-sliding reel (`4.2s` initial hold, `3.0s` cycle) whose reveal direction matches the active season's physics (diagonal breeze in Spring, horizontal shutter in Summer, top-down drift in Autumn, and 3D polar zoom in Winter).
-* **Notched Synapse Contact Panel & 3D Peek Avatar (`js/synapse.js`, `js/avatar.js`):** A custom S-curve bumped/dropped contact container backed by a drifting neural synapse canvas, alongside a 3D WebGL peek-a-boo avatar and a spinning 4-color conic border ring on the chatbot trigger.
-* **GPU-Composited Floating Pill Scrollbar (`js/scrollbar.js`):** Zero-jitter `translate3d` translucent pill scrollbar for both the main viewport and the chatbot message stream.
+* **Signature Preloader (`js/preloader.js`):** Draws a cursive SVG signature as the live loading progress, then flies and scales it directly into the navbar brand mark.
+* **Ribbon-Write Morphing Logos (`js/logo-anim.js`):** Header (`RAHUL V S`) and footer (`RAHUL VENU`) logos use SVG `<clipPath>` masks and `stroke-dashoffset` ribbons to trace purple ink through the strokes before collapsing into `RV`.
+* **3D Neural Manifold (`js/neural.js`):** Hero canvas rendering 3,200 particle voxels with 3D projection, depth sorting, and elastic mouse-disturbance physics.
+* **Cursor Spotlight Portrait & Marquee Bands (`#about`):** Dual-layer B&W/Color portrait stack revealed via a cursor-tracked radial mask, paired with a `-30°` self-writing signature and counter-scrolling 6+6 credential bands.
+* **4-Row Case-Study Ledger (`#projects`):** Vertical accordion unfolding into a 4-tier full-width breakdown (header/status pills, impact bullets, icon-tagged tech stack, and a 4-stage architecture diagram).
+* **Neural PCB Skills Circuit (`js/skills-circuit.js`):** Maps 62 skills across 8 cyber-neon domains with dynamic 45° chamfered SVG traces, border-pin via dots, and running signal packets.
+* **7-Blade Credential Accordion (`#certifications`):** Symmetrical horizontal accordion with Blade 04 (`Azure AI Fundamentals`) open in the center by default and brand-colored vector watermarks.
+* **Section 05 — "Beyond the Code" 5-Chapter Parallax World (`js/beyond-world.js`):**
+  * **Planetary Horizon Portal:** Opens from a neon planetary arc into a `100vw × 100dvh` 5-chapter horizontal lookbook with 3-speed differential parallax and live 3D mouse-tilt.
+  * **Ch 01 (Mountains & Throttle) & Ch 02 (Sunsets & Coastlines):** Multi-layer parallax backgrounds with center cutout overlays and asymmetric 6-frame and 8-frame collages.
+  * **Ch 03 (Photography & 3D Leica M3):** Dual-mode gallery featuring a Three.js `camera-leica-m3.glb` model with custom optical glass shaders that rotates 180° in place (Lens $\leftrightarrow$ Viewfinder).
+  * **Ch 04 (Maker & Mechanic):** Diagonal Z-balance split-deck with 4 DIY ambient lamp builds on top, a 2×2 quad-split PCB repair frame + garage/DaVinci frames on bottom, and dual off-screen animated overlays.
+  * **Ch 05 (Dream Atlas — 4 Seasons × 4 Countries):** 16 dream destinations (48 `16:10` frames) with synchronized 3-image auto-sliding reels (`4.2s` initial hold, `3.0s` cycle) matching each season's directional physics.
+* **Notched Synapse Contact & 3D Avatar (`js/synapse.js`, `js/avatar.js`, `js/scrollbar.js`):** S-curve notched contact panel with a drifting synapse canvas, 3D peek-a-boo chatbot avatar, spinning 4-color conic chat border, and GPU-accelerated pill scrollbars.
 
 ---
 
 ## 📱 Mobile & Responsive Adaptations
 
-Custom-tailored for mobile and tablet screens (`< 1024px`) without bloated UI frameworks or hidden hamburger drawers:
+Tailored for mobile and tablet screens (`< 1024px`) without heavy UI frameworks or hamburger menus:
 
 ```text
 DESKTOP (Single Line Grid)
@@ -265,13 +226,11 @@ MOBILE (Dual-Tier Flex Ordering)
                         [ About   Projects   Skills   Certs   Contact ]
 ```
 
-* **Two-Tier Mobile Navbar:** Uses responsive grid/flex ordering to create a 2-tier centered layout on phones without duplicate HTML or hamburger menus.
-* **Progressive Vertical Feed for "Beyond the Code" (`js/beyond-mobile.js`):**
-  * Automatically converts the `500vw` desktop horizontal stage into a native, hardware-accelerated vertical scroll feed (`touch-action: pan-y`) on screens `< 1024px`, bypassing desktop drag/wheel capture listeners.
-  * **Per-Chapter Lazy Hydration:** Hydrates Chapters 01–02 on open and progressively hydrates Chapters 03–05 via `IntersectionObserver` (`rootMargin: '600px'`) so opening the portal never blocks the mobile main thread.
-  * **2-Column Bento Collages & Paired Country Cards:** Reorders chapter narratives above 2-column Bento photo grids, centers the 3D Leica M3 inside its dedicated slot, and dynamically pairs each of the 16 seasonal country reels with its matching description caption directly underneath into unified cards (`1-col` on phones, `2×2` grid on tablets).
-* **Touchscreen Detection:** Disables custom cursor rings and custom desktop scrollbars on touch devices using `@media (hover: hover) and (pointer: fine)` to preserve native mobile scrolling performance.
-* **Adaptive Section Unfolding:** Horizontal/vertical desktop accordions (`#projects`, `#certifications`) and the PCB circuit constellation (`#skills`) automatically stack into clean, touch-friendly vertical layouts on mobile screens.
+* **Two-Tier Mobile Navbar:** Responsive flex ordering creates a centered 2-tier layout on phones using a single DOM tree.
+* **Continuous Vertical Feed for "Beyond the Code" (`js/beyond-mobile.js`):**
+  * Converts the `500vw` desktop horizontal stage into a native vertical scroll feed (`touch-action: pan-y`) on `< 1024px`.
+  * **Unstacked 2×2 Seasonal Stages:** Unstacks all 4 seasons (`Spring`, `Summer`, `Autumn`, `Winter`) into consecutive vertical sections—each with a 2×2 grid of equal-height cards pairing every country's `16:10` photo reel directly above its full description.
+* **Ordered Project & Section Stacking:** Reorders project card headers into full-width vertical stacks on mobile (preventing title truncation and pill wrapping) and disables desktop cursor rings/scrollbars on touch devices.
 
 ---
 
@@ -279,52 +238,39 @@ MOBILE (Dual-Tier Flex Ordering)
 
 | Domain | Layer / Tool | Purpose |
 | :--- | :--- | :--- |
-| **Frontend UI** | HTML5, Tailwind CSS, Custom CSS3 | Responsive, accessible semantic layout and accordion geometry |
-| **3D & Visual Math** | Three.js (WebGL), HTML5 Canvas | 3D particle manifold, interactive Leica M3 `.glb`, and synapse physics |
-| **Typography & Icons** | Magnify PRO, Plus Jakarta Sans, JetBrains Mono, Lucide | 3-weight editorial typography, technical metadata, and iconography |
-| **Media & Asset CDN** | Supabase Storage, WebP, Draco GLTF | Cloud-hosted high-res `.webp` lookbook imagery and compressed `.glb` models |
+| **Frontend UI** | HTML5, Tailwind CSS, Custom CSS3 | Responsive semantic layout and accordion geometry |
+| **3D & Visual Math** | Three.js (WebGL), HTML5 Canvas | 3D particle manifold, Leica M3 `.glb`, and synapse physics |
+| **Typography & Icons** | Magnify PRO, Plus Jakarta Sans, JetBrains Mono, Lucide | 3-weight editorial typography, metadata, and iconography |
+| **Media & Asset CDN** | Supabase Storage, WebP, Draco GLTF | Cloud-hosted `.webp` lookbook imagery and compressed `.glb` models |
 | **Backend API** | Python 3.10+, FastAPI, Uvicorn, Pydantic v2 | High-concurrency ASGI microservice API |
-| **Vector Engine** | ChromaDB (In-Memory Ephemeral Engine) | Fast cosine similarity search and embedding storage |
-| **Embedding Model** | `all-MiniLM-L6-v2` (ONNX Runtime) | Dense 384-dimensional semantic text representation |
-| **LLM Inference** | Groq LPU (`openai/gpt-oss-20b`) | Real-time token generation (~1,000 tps) |
-| **Music Telemetry** | Poweramp (Android), MacroDroid, Android Intent API | Zero-permission real-time music broadcast and authenticated webhook push |
-| **Email Security** | Google DoH API, Web3Forms | Real-time MX verification, honeypot, and mail dispatch |
-| **Tooling & Env** | `uv` (Astral), Pip | Deterministic virtual environment and dependency tracking |
-| **Cloud Hosting** | Vercel (Edge CDN), Render (Backend Service) | Global edge delivery and container hosting |
+| **Vector Engine** | ChromaDB (In-Memory) + `all-MiniLM-L6-v2` | Sub-millisecond 384-dim cosine similarity search |
+| **LLM Inference** | Groq LPU (`openai/gpt-oss-20b`) | Real-time token streaming (~1,000 tps) |
+| **Music Telemetry** | Poweramp, MacroDroid, Android Intent API | Zero-permission music broadcast and authenticated webhook push |
+| **Email Security** | Google DoH API (`8.8.8.8`), Web3Forms | Live MX verification, honeypot, and TLS mail dispatch |
+| **Tooling & Hosting** | `uv` (Astral), Vercel (Edge), Render (Container) | Deterministic dependency locking and cloud deployment |
 
 ---
 
 ## 🚀 Local Development Setup
 
 ### 1. Prerequisites
-* Python 3.10+
-* [uv](https://docs.astral.sh/uv/) (recommended) or `pip`
+* Python 3.10+ & [uv](https://docs.astral.sh/uv/) (or `pip`)
 * A free [Groq API Key](https://groq.com)
 
 ### 2. Backend Setup
 ```bash
-# Navigate to backend directory
 cd backend
-
-# Initialize environment variables
 cp .env.example .env
+# Add GROQ_API_KEY="gsk_..." and MUSIC_SYNC_TOKEN="..." to .env
 
-# Configure your Groq API key and Music Sync Token inside .env:
-GROQ_API_KEY="gsk_your_key_here"
-MUSIC_SYNC_TOKEN="your_custom_secret_sync_token_here"
-
-# Sync dependencies and build virtual environment
 uv sync
-
-# Start the development server with live-reloading
 uv run uvicorn main:app --reload
 ```
-The RAG pipeline will ingest and index local knowledge chunks in RAM at `http://127.0.0.1:8000`.
+The RAG service indexes knowledge chunks in RAM at `http://127.0.0.1:8000`.
 
 ### 3. Frontend Setup
-Launch `index.html` via Live Server in VS Code, or start a local Python HTTP server from the root directory:
 ```bash
-# From project root
+# From project root (or use VS Code Live Server)
 python -m http.server 5500
 ```
 Open `http://localhost:5500` in your browser.
@@ -333,10 +279,10 @@ Open `http://localhost:5500` in your browser.
 
 ## 🔒 Security Summary
 
-* **Encrypted Knowledge Ingestion:** Real personal data is isolated from public version control and ingested dynamically into cloud memory via `PROFILE_MD_BASE64`.
-* **Zero Client-Side API Keys:** Third-party credentials (Groq) are executed strictly on isolated cloud servers with CORS enforcement.
-* **Sandboxed Mobile Telemetry:** Music telemetry relies on explicit Android system broadcast receivers rather than notification scraping. Webhook endpoints require pre-shared Bearer token authentication (`MUSIC_SYNC_TOKEN`) with instant rejection of unauthorized payloads.
-* **Defensive Form Architecture:** Submissions require verified human mathematical interaction and live domain validation before hitting external mail relays.
+* **Encrypted Knowledge Ingestion:** Personal RAG data is git-ignored and decoded in cloud RAM via `PROFILE_MD_BASE64`.
+* **Zero Client-Side API Keys:** Groq credentials execute strictly on the backend with CORS enforcement.
+* **Authenticated Mobile Telemetry:** Music webhooks use explicit Android broadcasts and require Bearer token authentication (`MUSIC_SYNC_TOKEN`).
+* **Defensive Contact Pipeline:** Requires human gradient-descent interaction and live DNS MX validation before mail dispatch.
 
 ---
 
