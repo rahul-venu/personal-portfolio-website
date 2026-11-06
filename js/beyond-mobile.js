@@ -1,15 +1,19 @@
 /* ================= BEYOND THE CODE — MOBILE & TABLET VERTICAL FEED (js/beyond-mobile.js) =================
-   - Zero main-thread blocking on open (hydrates chapters progressively via IntersectionObserver).
-   - Unblocks native vertical touch/wheel scrolling (stops desktop drag & wheel capture on < 1024px).
+   - Zero impact on Desktop (>= 1024px).
+   - Continuous, compact one-by-one vertical flow for all 4 seasons on < 1024px (no 100dvh gaps,
+     no grid-auto-rows:1fr header stretching, and full-bleed uncropped seasonal backgrounds).
 */
 
 export function initBeyondMobile() {
   const overlay = document.getElementById('beyond-dimension-overlay');
   if (!overlay) return;
 
+  const SEASON_ACCENTS = ['#c084fc', '#fbbf24', '#ea580c', '#7dd3fc'];
+
   const style = document.createElement('style');
   style.textContent = `
     .by-mob-country-caption,
+    .by-mob-season-header,
     .by-mob-ch5-footer {
       display: none;
     }
@@ -36,7 +40,7 @@ export function initBeyondMobile() {
         width: 100% !important;
         height: auto !important;
         min-height: auto !important;
-        padding: 76px 18px 52px !important;
+        padding: 76px 16px 52px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
@@ -73,22 +77,25 @@ export function initBeyondMobile() {
       #beyond-dimension-overlay .by-photo-gallery-pane.is-active .s-card-up,
       #beyond-dimension-overlay .by-photo-gallery-pane.is-active .s-card-down,
       #beyond-dimension-overlay .by-photo-gallery-pane.is-active .s-card-zoom,
-      #beyond-dimension-overlay .by-season-gallery-pane.is-active .anim-spring,
-      #beyond-dimension-overlay .by-season-gallery-pane.is-active .anim-summer,
-      #beyond-dimension-overlay .by-season-gallery-pane.is-active .anim-autumn,
-      #beyond-dimension-overlay .by-season-gallery-pane.is-active .anim-winter {
+      #beyond-dimension-overlay .by-season-gallery-pane .anim-spring,
+      #beyond-dimension-overlay .by-season-gallery-pane .anim-summer,
+      #beyond-dimension-overlay .by-season-gallery-pane .anim-autumn,
+      #beyond-dimension-overlay .by-season-gallery-pane .anim-winter {
         opacity: 1 !important;
         clip-path: none !important;
         transform: none !important;
       }
 
+      /* Full-bleed uncropped backgrounds across all chapters on mobile */
       #beyond-dimension-overlay .ch1-bg-himalayas,
       #beyond-dimension-overlay .ch2-bg-beach,
       #beyond-dimension-overlay .ch3-bg-img,
       #beyond-dimension-overlay .ch4-bg-img,
       #beyond-dimension-overlay .ch5-season-bg-pane.is-active .ch5-bg-img {
-        opacity: 0.75 !important;
+        opacity: 0.72 !important;
         transform: scale(1) !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
       }
 
       #beyond-dimension-overlay .ch1-bg-helmet,
@@ -182,23 +189,20 @@ export function initBeyondMobile() {
       }
 
       /* ================= 3. CH 03: LEICA SLOT & CLICKABLE PILLS ================= */
-      #by-photo-tabs,
-      #by-season-tabs {
+      #by-photo-tabs {
         position: relative !important;
         z-index: 80 !important;
         pointer-events: auto !important;
       }
 
-      #by-photo-tabs .by-photo-tab,
-      #by-season-tabs .by-season-tab {
+      #by-photo-tabs .by-photo-tab {
         position: relative !important;
         z-index: 85 !important;
         pointer-events: auto !important;
         touch-action: manipulation;
       }
 
-      .by-photo-copy-pane:not(.is-active),
-      .by-season-copy-pane:not(.is-active) {
+      .by-photo-copy-pane:not(.is-active) {
         pointer-events: none !important;
         display: none !important;
       }
@@ -253,73 +257,191 @@ export function initBeyondMobile() {
         width: 100% !important;
       }
 
-      /* ================= 5. CH 05: UNIFIED PAIRED COUNTRY CARDS ================= */
-      #by-season-spread .by-country-list,
-      #by-season-spread .by-season-copy-pane[data-season-copy="3"] > div:not(.by-country-list) {
+      /* ================= 5. CH 05: COMPACT CONTINUOUS ONE-BY-ONE SEASON FLOW ================= */
+      #by-season-spread {
+        position: relative !important;
+        padding: 52px 16px 40px !important;
+        border-bottom: none !important;
+        overflow: hidden !important;
+      }
+
+      /* Keep the Master Background Stage 100% Full-Bleed Edge-to-Edge (Zero Crop!) */
+      #by-season-spread > .ch1-bg-stage {
+        display: block !important;
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 0 !important;
+      }
+
+      #by-season-spread .ch5-season-bg-pane,
+      #by-season-spread .ch5-season-bg-pane .ch1-parallax-layer {
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        transform: none !important;
+      }
+
+      #by-season-spread .ch5-bg-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        transform: none !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+      }
+
+      /* Hide Desktop Season Tabs, Left Copy Column, and Extra Bottom Bar */
+      #by-season-spread #by-season-tabs,
+      #by-season-spread .lg\\:col-span-4,
+      #by-season-spread > div.absolute,
+      #by-season-spread #by-season-step-hint,
+      #by-photo-spread #by-photo-step-hint {
         display: none !important;
       }
 
-      #by-season-spread > div.absolute.bottom-6,
-      #by-season-spread > div.absolute.bottom-8 {
-        display: none !important;
+      /* Master Header at Top of Chapter 05 */
+      #by-season-spread > .max-w-\\[1400px\\] {
+        gap: 12px !important;
+        margin: 0 !important;
+        width: 100% !important;
       }
 
-      #by-season-spread #by-season-tabs {
-        flex-wrap: wrap !important;
+      #by-season-spread > .max-w-\\[1400px\\] > .flex-col.items-center {
+        padding: 0 !important;
+        margin: 0 0 8px 0 !important;
       }
 
+      /* Continuous Vertical Flow of All 4 Seasons (Tight 28px gap between seasons, no 100dvh!) */
       #by-season-spread #by-season-galleries {
-        padding-left: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
         min-height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 28px !important;
       }
 
+      /* CRITICAL FIX: grid-auto-rows: auto (NOT 1fr!) so the Season Title Row NEVER stretches to 300px tall! */
       #by-season-spread .by-season-gallery-pane {
-        display: none !important;
-      }
-
-      #by-season-spread .by-season-gallery-pane.is-active {
+        position: relative !important;
         display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        grid-auto-rows: auto !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+        width: 100% !important;
+        min-height: auto !important;
+        padding: 0 0 24px 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
       }
 
-      @media (min-width: 640px) and (max-width: 1023px) {
-        #by-season-spread .by-season-gallery-pane.is-active {
-          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        }
+      #by-season-spread .by-season-gallery-pane:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
       }
 
-      #by-season-spread .by-season-gallery-pane > div:not(.by-mob-country-unit) {
+      /* Per-Season Header (Natural compact height right above the 4 cards — ZERO gap!) */
+      .by-mob-season-header {
+        grid-column: span 2 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        margin: 0 0 2px 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        position: relative !important;
+        z-index: 10 !important;
+      }
+
+      /* Flatten ONLY intermediate desktop wrappers (never flatten .by-mob-country-caption) */
+      #by-season-spread .by-season-gallery-pane > div:not(.by-mob-country-unit):not(.by-mob-season-header):not(.by-mob-ch5-footer),
+      #by-season-spread .by-season-gallery-pane > div > div:not(.by-mob-country-unit):not(.by-trio-frame):not(.by-mob-country-caption) {
         display: contents !important;
       }
 
+      /* Equal-Height Country Card in the 2x2 Grid */
       #by-season-spread .by-mob-country-unit {
         grid-column: span 1 !important;
+        position: relative !important;
+        z-index: 10 !important;
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
         max-width: 100% !important;
+        height: 100% !important;
         margin: 0 !important;
-        border-radius: 14px !important;
-        background: #121214 !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding: 0 !important;
+        border-radius: 12px !important;
+        background: rgba(18, 18, 20, 0.92) !important;
+        border: 1px solid color-mix(in srgb, var(--mob-s-accent, #ffffff) 28%, rgba(255, 255, 255, 0.08)) !important;
+        box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.65) !important;
         overflow: hidden !important;
       }
 
+      /* Identical 16:10 photo frame across all 16 countries */
       #by-season-spread .by-mob-country-unit .by-trio-frame {
+        width: 100% !important;
+        max-width: 100% !important;
+        aspect-ratio: 16 / 10 !important;
+        height: auto !important;
+        flex-shrink: 0 !important;
         border: none !important;
         border-radius: 0 !important;
+        margin: 0 !important;
       }
 
+      #by-season-spread .by-mob-country-unit .by-loc-badge {
+        bottom: 6px !important;
+        left: 8px !important;
+        font-size: 9.5px !important;
+      }
+
+      #by-season-spread .by-mob-country-unit .by-trio-dots {
+        top: 6px !important;
+        right: 8px !important;
+      }
+
+      /* Full Untruncated Country Description Box */
       .by-mob-country-caption {
-        display: block !important;
-        padding: 12px 14px 14px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        padding: 10px 11px 12px !important;
         background: #121214 !important;
         border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
         text-align: left !important;
+        flex: 1 1 auto !important;
+        height: auto !important;
+        overflow: visible !important;
       }
 
+      .by-mob-country-caption .by-country-tag {
+        color: var(--mob-s-accent, #e2e8f0) !important;
+        font-size: 8.5px !important;
+        letter-spacing: 0.08em !important;
+        margin-bottom: 4px !important;
+        line-height: 1.3 !important;
+        white-space: normal !important;
+      }
+
+      .by-mob-country-caption .by-country-desc {
+        font-size: 10.5px !important;
+        line-height: 1.42 !important;
+        color: rgba(228, 228, 231, 0.9) !important;
+        display: block !important;
+        overflow: visible !important;
+      }
+
+      /* Finale Footer at the Bottom of Season 04 Winter */
       .by-mob-ch5-footer {
+        grid-column: span 2 !important;
         position: relative !important;
         z-index: 90 !important;
         pointer-events: auto !important;
@@ -328,11 +450,11 @@ export function initBeyondMobile() {
         align-items: center !important;
         justify-content: center !important;
         width: 100% !important;
-        margin-top: 32px !important;
-        padding-top: 20px !important;
-        padding-bottom: 24px !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-        gap: 18px !important;
+        margin-top: 14px !important;
+        padding-top: 18px !important;
+        padding-bottom: 8px !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+        gap: 14px !important;
       }
 
       .by-mob-ch5-footer-btns,
@@ -351,11 +473,6 @@ export function initBeyondMobile() {
         justify-content: center !important;
         gap: 12px !important;
         width: 100% !important;
-      }
-
-      #by-season-spread #by-season-step-hint,
-      #by-photo-spread #by-photo-step-hint {
-        display: none !important;
       }
     }
   `;
@@ -387,7 +504,6 @@ export function initBeyondMobile() {
     }
   }
 
-  // Hydrate a single spread's images cleanly without blocking the main thread
   function hydrateSpreadImages(spreadEl) {
     if (!spreadEl || spreadEl.dataset.mobHydrated) return;
     spreadEl.dataset.mobHydrated = 'true';
@@ -396,6 +512,7 @@ export function initBeyondMobile() {
     spreadEl.style.opacity = '1';
 
     spreadEl.querySelectorAll('img').forEach((img) => {
+      img.loading = 'eager';
       const lazySrc = img.dataset.src || img.dataset.lazy || img.getAttribute('data-src');
       if (lazySrc && !img.getAttribute('src')) {
         img.src = lazySrc;
@@ -410,7 +527,7 @@ export function initBeyondMobile() {
   }
 
   // =========================================================================
-  // 3. ONE-TIME MOBILE DOM SETUP
+  // 3. BUILD COMPACT CONTINUOUS MOBILE SEASON SECTIONS (SPRING -> SUMMER -> AUTUMN -> WINTER)
   // =========================================================================
   const seasonSpread = document.getElementById('by-season-spread');
   if (seasonSpread && !seasonSpread.dataset.mobPaired) {
@@ -421,6 +538,22 @@ export function initBeyondMobile() {
       const galleryPane = seasonSpread.querySelector(`.by-season-gallery-pane[data-season-gallery="${s}"]`);
       if (!copyPane || !galleryPane) continue;
 
+      galleryPane.style.setProperty('--mob-s-accent', SEASON_ACCENTS[s]);
+
+      // A. Prepend each season's Kicker + Title right above its 2x2 grid
+      const kickerEl = copyPane.querySelector('.by-kicker');
+      const titleEl = copyPane.querySelector('h2, h3');
+      if (kickerEl && titleEl && !galleryPane.querySelector('.by-mob-season-header')) {
+        const header = document.createElement('div');
+        header.className = 'by-mob-season-header';
+        header.innerHTML = `
+          ${kickerEl.outerHTML}
+          <h3 class="font-magnify-thin text-2xl sm:text-3xl tracking-[0.1em] uppercase text-white leading-tight">${titleEl.textContent.trim()}</h3>
+        `;
+        galleryPane.prepend(header);
+      }
+
+      // B. Pair each of the 4 country 16:10 photo reels with its description caption directly below it
       const countryItems = Array.from(copyPane.querySelectorAll('.by-country-item'));
       const trioFrames = Array.from(galleryPane.querySelectorAll('.by-trio-frame'));
 
@@ -451,9 +584,12 @@ export function initBeyondMobile() {
       });
     }
 
+    // C. Append Finale Footer (Signature + Rewind Reel + Proceed to Contact) at the bottom of Season 04 (Winter)!
     const winterCopy = seasonSpread.querySelector('.by-season-copy-pane[data-season-copy="3"]');
+    const winterGallery = seasonSpread.querySelector('.by-season-gallery-pane[data-season-gallery="3"]');
     const sigSvg = winterCopy?.querySelector('svg');
-    if (!seasonSpread.querySelector('.by-mob-ch5-footer')) {
+
+    if (winterGallery && !winterGallery.querySelector('.by-mob-ch5-footer')) {
       const mobFooter = document.createElement('div');
       mobFooter.className = 'by-mob-ch5-footer';
       mobFooter.innerHTML = `
@@ -465,7 +601,7 @@ export function initBeyondMobile() {
           </a>
         </div>
       `;
-      seasonSpread.appendChild(mobFooter);
+      winterGallery.appendChild(mobFooter);
 
       document.getElementById('by-mob-rewind-btn')?.addEventListener('click', () => {
         overlay.scrollTo({ top: 0, behavior: 'smooth' });
@@ -482,39 +618,119 @@ export function initBeyondMobile() {
     }
   }
 
-  // Progressive per-chapter hydration via IntersectionObserver (Never blocks main thread!)
-  const spreads = Array.from(overlay.querySelectorAll('.by-spread'));
-  if ('IntersectionObserver' in window) {
-    const spreadObserver = new IntersectionObserver(
+  // =========================================================================
+  // 4. INDUSTRY-STANDARD CENTER-LINE LOCK + SCROLL-IDLE DEBOUNCE (SINGLE ACTIVE SEASON)
+  //    - rootMargin: '-45% 0px -45% 0px' creates a 10% dead-center laser band on screen,
+  //      guaranteeing ONLY ONE season can ever be detected as dominant at a time!
+  //    - Waits 180ms for scroll momentum to settle before switching BG & starting 3-img reel.
+  // =========================================================================
+  if ('IntersectionObserver' in window && seasonSpread) {
+    const seasonPanes = Array.from(seasonSpread.querySelectorAll('.by-season-gallery-pane'));
+    const seasonTabs = Array.from(seasonSpread.querySelectorAll('.by-season-tab'));
+    let activeMobSeason = 0;
+    let pendingSeasonIdx = 0;
+    let seasonSwitchTimer = null;
+
+    const commitSeasonSwitch = (sIdx) => {
+      if (sIdx === activeMobSeason) return;
+      activeMobSeason = sIdx;
+      seasonTabs[sIdx]?.click();
+    };
+
+    const seasonScrollObserver = new IntersectionObserver(
       (entries) => {
         if (window.innerWidth >= 1024) return;
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            hydrateSpreadImages(entry.target);
-            if (entry.target.id === 'by-photo-spread') {
-              overlay.dataset.ch3Visible = '1';
-              syncMobileLeicaCanvasPos();
-            }
-          } else if (entry.target.id === 'by-photo-spread') {
-            overlay.dataset.ch3Visible = '0';
+            pendingSeasonIdx = parseInt(entry.target.dataset.seasonGallery || '0', 10);
+            clearTimeout(seasonSwitchTimer);
+            // Wait 180ms for scroll to settle so BG cross-fade & slide timers NEVER fire mid-scroll!
+            seasonSwitchTimer = setTimeout(() => {
+              commitSeasonSwitch(pendingSeasonIdx);
+            }, 180);
           }
         });
       },
-      { root: overlay, rootMargin: '600px 0px' }
+      {
+        root: overlay,
+        // Narrow 10% band at the exact vertical center of the screen (only 1 season can ever intersect!)
+        rootMargin: '-45% 0px -45% 0px',
+        threshold: 0
+      }
     );
-    spreads.forEach((s) => spreadObserver.observe(s));
+
+    seasonPanes.forEach((pane) => seasonScrollObserver.observe(pane));
+
+    // Also reset the debounce timer while actively scrolling so rapid flick-scrolls cost 0 CPU!
+    overlay.addEventListener(
+      'scroll',
+      () => {
+        if (window.innerWidth >= 1024 || pendingSeasonIdx === activeMobSeason) return;
+        clearTimeout(seasonSwitchTimer);
+        seasonSwitchTimer = setTimeout(() => {
+          commitSeasonSwitch(pendingSeasonIdx);
+        }, 180);
+      },
+      { passive: true }
+    );
   }
 
-  // Hydrate only Spread 01 & 02 on open so the opening animation is 100% instant & never freezes!
+  // =========================================================================
+  // 5. SECTION 04 / 05 PREDICTIVE PRE-WARMER (MATCHES DESKTOP ARCHITECTURE 1:1)
+  // =========================================================================
+  const spreads = Array.from(overlay.querySelectorAll('.by-spread'));
+  let prewarmStarted = false;
+
+  function prewarmAllMobileChapters() {
+    if (prewarmStarted || window.innerWidth >= 1024) return;
+    prewarmStarted = true;
+
+    spreads.forEach((spreadEl, idx) => {
+      setTimeout(() => {
+        hydrateSpreadImages(spreadEl);
+      }, idx * 180);
+    });
+  }
+
+  const triggerTarget = document.getElementById('certifications') || document.getElementById('beyond');
+  if (triggerTarget && 'IntersectionObserver' in window) {
+    const prewarmObserver = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && window.innerWidth < 1024) {
+            prewarmAllMobileChapters();
+            obs.disconnect();
+          }
+        });
+      },
+      { rootMargin: '350px 0px' }
+    );
+    prewarmObserver.observe(triggerTarget);
+  }
+
+  if ('IntersectionObserver' in window) {
+    const ch3Spread = document.getElementById('by-photo-spread');
+    if (ch3Spread) {
+      new IntersectionObserver(
+        (entries) => {
+          if (window.innerWidth >= 1024) return;
+          entries.forEach((entry) => {
+            overlay.dataset.ch3Visible = entry.isIntersecting ? '1' : '0';
+            if (entry.isIntersecting) syncMobileLeicaCanvasPos();
+          });
+        },
+        { root: overlay, rootMargin: '300px 0px' }
+      ).observe(ch3Spread);
+    }
+  }
+
   document.getElementById('by-open-trigger')?.addEventListener('click', () => {
     if (window.innerWidth < 1024) {
-      if (spreads[0]) hydrateSpreadImages(spreads[0]);
-      if (spreads[1]) hydrateSpreadImages(spreads[1]);
+      prewarmAllMobileChapters();
       setTimeout(syncMobileLeicaCanvasPos, 150);
     }
   });
 
-  // Stop desktop pointerdown drag-listener from hijacking vertical touch scroll on < 1024px
   const track = document.getElementById('by-track');
   track?.addEventListener(
     'pointerdown',
@@ -526,7 +742,6 @@ export function initBeyondMobile() {
     { capture: true, passive: true }
   );
 
-  // Mobile Scroll Progress Bar
   const progEl = document.getElementById('by-progress-fill');
   overlay.addEventListener(
     'scroll',
