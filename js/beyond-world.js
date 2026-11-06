@@ -1677,12 +1677,12 @@ export function initBeyondWorld() {
                       <p class="by-country-desc">I’ve always wanted to experience the contrast of Tokyo’s neon-lit tech culture and Shinkansen engineering against the cherry blossoms of Kyoto and Mount Fuji.</p>
                     </div>
                     <div class="by-country-item">
-                      <span class="by-country-tag">CHINA &nbsp;•&nbsp; PILLARS IN THE MIST</span>
-                      <p class="by-country-desc">To stand among the avatar-like floating quartz-sandstone peaks of Zhangjiajie and watch the morning mist drift down the Li River in Guilin.</p>
+                      <span class="by-country-tag">CHINA &nbsp;•&nbsp;BEYOND THE GREAT WALL</span>
+                      <p class="by-country-desc">Drawn to the sheer scale of its engineering and landscapes—walking the wild ridges of the Great Wall before disappearing into the misty valleys of Yunnan.</p>
                     </div>
                     <div class="by-country-item">
-                      <span class="by-country-tag">HIMACHAL &nbsp;•&nbsp; THE HIMALAYAN CALL</span>
-                      <p class="by-country-desc">Nothing beats the call of the Himalayas—winding through the barren, high-altitude moonscapes of Spiti Valley and the mountain passes beyond Manali.</p>
+                      <span class="by-country-tag">HIMACHAL &nbsp;•&nbsp; WHERE THE ROADS CLIMB</span>
+                      <p class="by-country-desc">Every biker’s rite of passage—carving through the cliffside roads of Kinnaur, crossing glacial streams into Spiti, and waking up to snow-crowned peaks.</p>
                     </div>
                     <div class="by-country-item">
                       <span class="by-country-tag">SOCOTRA &nbsp;•&nbsp; DRAGON BLOOD &amp; DUNES</span>
@@ -1703,16 +1703,16 @@ export function initBeyondWorld() {
                       <p class="by-country-desc">Binge-watching the Outdoor Boys YouTube channel got me obsessed with Alaska’s raw wilderness, backcountry snow camps, and the scale of Denali.</p>
                     </div>
                     <div class="by-country-item">
-                      <span class="by-country-tag">NORWAY &nbsp;•&nbsp; MIDNIGHT SUN &amp; CLIFFS</span>
-                      <p class="by-country-desc">Built for the ultimate summer ride—twisting up the Trollstigen mountain pass, Lofoten’s jagged peaks, and fjords lit by the 24-hour midnight sun.</p>
+                      <span class="by-country-tag">NORWAY &nbsp;•&nbsp; LOFOTEN &amp; MIDNIGHT SUN</span>
+                      <p class="by-country-desc">Where jagged granite peaks rise straight out of emerald Arctic waters—chasing 24-hour golden light across Lofoten and the cliffs of Geirangerfjord.</p>
                     </div>
                     <div class="by-country-item">
                       <span class="by-country-tag">ICELAND &nbsp;•&nbsp; RAW EARTH</span>
                       <p class="by-country-desc">Where the Earth still feels newly formed—black basalt columns at Reynisfjara, roaring glacial waterfalls, and the endless open stretches of the Ring Road.</p>
                     </div>
                     <div class="by-country-item">
-                      <span class="by-country-tag">SCOTLAND &nbsp;•&nbsp; ISLE OF SKYE &amp; LOCHS</span>
-                      <p class="by-country-desc">Drawn to the dramatic, windswept cliffs of the Isle of Skye, the Glenfinnan Viaduct, and quiet highland roads wrapped in Atlantic fog.</p>
+                      <span class="by-country-tag">SCOTLAND &nbsp;•&nbsp; HIGHLANDS &amp; WIZARDRY</span>
+                      <p class="by-country-desc">From Edinburgh’s cobblestoned alleys that inspired Harry Potter to the cinematic valleys of Glencoe and the windswept cliffs of the Isle of Skye.</p>
                     </div>
                   </div>
                 </div>
@@ -1725,20 +1725,20 @@ export function initBeyondWorld() {
                   </h3>
                   <div class="by-country-list">
                     <div class="by-country-item">
-                      <span class="by-country-tag">SWITZERLAND &nbsp;•&nbsp; THE ULTIMATE DREAM</span>
-                      <p class="by-country-desc">Always at the very top of my list—riding scenic mountain trains past Lauterbrunnen’s 72 waterfalls and seeing the Matterhorn framed in autumn gold.</p>
+                      <span class="by-country-tag">SWITZERLAND &nbsp;•&nbsp; BEFORE MY LAST BREATH</span>
+                      <p class="by-country-desc">From admiring Toblerone wrappers as a kid to a train ride past Lauterbrunnen and the real Matterhorn—once I check off the very top of my bucket list, I’ll die a happy man.</p>
                     </div>
                     <div class="by-country-item">
-                      <span class="by-country-tag">FRANCE &nbsp;•&nbsp; SKYLINE TO GLACIERS</span>
-                      <p class="by-country-desc">To see the Eiffel Tower light up the Paris skyline at dusk before heading south to the snow-covered alpine ridges of Chamonix and Mont Blanc.</p>
+                      <span class="by-country-tag">FRANCE &nbsp;•&nbsp; PROVENCE TO PARIS</span>
+                      <p class="by-country-desc">Wandering through the blooming purple lavender horizons of Provence, seeing the fairytale island of Mont Saint-Michel, and evenings under the Paris lights.</p>
                     </div>
                     <div class="by-country-item">
-                      <span class="by-country-tag">BALI &nbsp;•&nbsp; ISLAND SANCTUARY</span>
-                      <p class="by-country-desc">Where volcanic ridges meet the ocean—watching the sun rise above the clouds from Mount Batur and unwinding among Ubud’s emerald rice terraces.</p>
+                      <span class="by-country-tag">BALI &nbsp;•&nbsp; TROPICAL RIDES &amp; TEMPLES</span>
+                      <p class="by-country-desc">Cruising on two wheels through palm-lined coastal roads, watching golden-hour waves crash below Uluwatu Temple, and unwinding in jungle waterfalls.</p>
                     </div>
                     <div class="by-country-item">
-                      <span class="by-country-tag">NEW ZEALAND &nbsp;•&nbsp; SOUTHERN ALPS</span>
-                      <p class="by-country-desc">Watching BoomBaangh explore New Zealand put it straight on my radar—from the fjords of Milford Sound to the alpine passes around Queenstown and Mount Cook.</p>
+                      <span class="by-country-tag">NEW ZEALAND &nbsp;•&nbsp; WILDERNESS &amp; THE HUNT</span>
+                      <p class="by-country-desc">BoomBaangh’s vlogs got me hooked on New Zealand—experiencing raw backcountry hunting in the Southern Alps and carving through Queenstown’s passes.</p>
                     </div>
                   </div>
                 </div>
