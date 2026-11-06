@@ -1036,9 +1036,46 @@ body:has(#chatbot-window:not(.hidden)) #chatbot-toggle.chat-toggle-btn {
   line-height: 1.25;
 }
 
+/* Mobile & Tablet (< 1024px): Ordered Full-Width Project Header Stack */
 @media (max-width: 1023px) {
   .proj-ledger .proj-row .proj-summary-bar {
     display: none !important;
+  }
+
+  /* 1. Stack the Left Title/Pills Group and Right Git/Demo Buttons vertically on mobile */
+  .proj-drawer-inner > div:first-child {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  /* 2. Allow the Project Title to wrap naturally on mobile instead of cutting off ("ABIA : Agenti...") */
+  .proj-drawer-inner > div:first-child h4 {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    font-size: 1.05rem !important;
+    line-height: 1.35 !important;
+  }
+
+  /* 3. Give the subtitle full width and clean spacing before the pills */
+  .proj-drawer-inner > div:first-child p {
+    margin-top: 2px !important;
+    margin-bottom: 6px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* 4. Keep every Status Pill on a single crisp line (never wrapping into 2-line ovals!) */
+  .proj-drawer-inner > div:first-child span.rounded-full {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* 5. Only indent the 2nd child (GitHub + Demo button group), NEVER the 1st child on Card 04! */
+  .proj-drawer-inner > div:first-child > div:nth-child(2) {
+    align-self: flex-start !important;
+    margin-left: 82px !important;
+    margin-top: 2px !important;
   }
 }
 
