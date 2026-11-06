@@ -2076,12 +2076,15 @@ export function initBeyondWorld() {
     targetX = -currentIdx * window.innerWidth;
     if (progEl) progEl.style.width = `${((currentIdx + 1) / totalSpreads) * 100}%`;
 
-    // Toggle GPU layer promotion on current/neighbor spreads and cull distant spreads
+    // Toggle GPU layer promotion on current/neighbor spreads
+    // CRITICAL: Once Chapter 05 (totalSpreads - 1) is pre-warmed at Ch 02, NEVER re-cull it
+    // with .is-culled (visibility:hidden), otherwise Chrome evicts its decoded GPU textures!
     spreadEls.forEach((s, i) => {
       const dist = Math.abs(i - currentIdx);
+      const keepWarm = i === totalSpreads - 1 && seasonsPrewarmed;
       s.classList.toggle('is-current', dist === 0);
-      s.classList.toggle('is-neighbor', dist === 1);
-      s.classList.toggle('is-culled', dist > 1);
+      s.classList.toggle('is-neighbor', dist === 1 || keepWarm);
+      s.classList.toggle('is-culled', dist > 1 && !keepWarm);
     });
 
     // Ensure current and next spread are hydrated if user navigated rapidly
@@ -2092,6 +2095,11 @@ export function initBeyondWorld() {
     }
     if (currentIdx + 1 < totalSpreads) {
       hydrateSpread(currentIdx + 1);
+    }
+
+    // As soon as user lands on Chapter 02 (idx >= 1), pre-warm & GPU-decode all 4 seasons of Chapter 05!
+    if (currentIdx >= 1 && typeof prewarmAllSeasonsFromCh2 === 'function') {
+      prewarmAllSeasonsFromCh2();
     }
 
     syncSeasonTrioLifecycle();
@@ -2445,6 +2453,59 @@ export function initBeyondWorld() {
     });
   }
 
+  let seasonsPrewarmed = false;
+
+  // Helper: Hydrates & GPU-decodes a single season's BG + 12 country slides (a, b, c) off the main thread
+  function decodeSeasonToGpu(sIdx) {
+    if (typeof hydrateSeasonAssets === 'function') {
+      hydrateSeasonAssets(sIdx);
+    }
+
+    const bgPane = seasonBgs[sIdx];
+    const galleryPane = seasonGalleries[sIdx];
+
+    [bgPane, galleryPane].forEach((pane) => {
+      if (!pane) return;
+      pane.querySelectorAll('img').forEach((img) => {
+        const lazy = img.dataset.src || img.getAttribute('data-src');
+        if (lazy && !img.getAttribute('src')) {
+          img.src = lazy;
+          img.removeAttribute('data-src');
+        }
+        const finishLoad = () => {
+          img.classList.add('is-loaded');
+          // Pre-upload uncompressed texture to GPU memory in the background so 1st scroll never stutters!
+          if (typeof img.decode === 'function') {
+            img.decode().catch(() => {});
+          }
+        };
+        if (img.complete && img.naturalWidth > 0) {
+          finishLoad();
+        } else {
+          img.addEventListener('load', finishLoad, { once: true });
+        }
+      });
+    });
+  }
+
+  // Triggered when user reaches Chapter 02 (idx 1):
+  // Waits 900ms for Ch 02 slide to settle, then stagger-decodes Seasons 0 -> 1 -> 2 -> 3 (350ms apart)
+  function prewarmAllSeasonsFromCh2() {
+    if (seasonsPrewarmed) return;
+    seasonsPrewarmed = true;
+
+    [0, 1, 2, 3].forEach((sIdx) => {
+      setTimeout(() => {
+        // Un-cull Chapter 05 while resting still on Chapter 02 so GPU rasterizes it with 0 frame drops!
+        if (sIdx === 0 && seasonSpread) {
+          seasonSpread.classList.remove('is-culled');
+          seasonSpread.classList.add('is-neighbor');
+        }
+        decodeSeasonToGpu(sIdx);
+      }, 900 + sIdx * 350);
+    });
+  }
+
   // Start fresh on 1st image -> Wait 4.2s -> Then cycle every 3.0s
   function syncSeasonTrioLifecycle() {
     stopSeasonTrioTimers();
@@ -2452,22 +2513,8 @@ export function initBeyondWorld() {
 
     seasonGalleries.forEach((g) => resetGalleryToFirstImage(g));
 
-    // Pre-hydrate all 3 slides (a, b, c) of the active season now so they are 100% loaded before the 4.2s timer fires!
-    const activeGallery = seasonGalleries[currentSeason];
-    if (activeGallery) {
-      activeGallery.querySelectorAll('.by-trio-slide').forEach((img) => {
-        const lazy = img.dataset.src || img.getAttribute('data-src');
-        if (lazy && !img.getAttribute('src')) {
-          img.src = lazy;
-          img.removeAttribute('data-src');
-        }
-        if (img.complete && img.naturalWidth > 0) {
-          img.classList.add('is-loaded');
-        } else {
-          img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
-        }
-      });
-    }
+    // Ensure current season is decoded (instant no-op if already pre-warmed at Chapter 02!)
+    decodeSeasonToGpu(currentSeason);
 
     // Allow starting on Desktop when on Chapter 05 (currentIdx === totalSpreads - 1) OR on Mobile (< 1024px)
     if (!isOpen || (window.innerWidth >= 1024 && currentIdx !== totalSpreads - 1)) return;
@@ -2480,7 +2527,7 @@ export function initBeyondWorld() {
 
   function setSeason(sIdx) {
     currentSeason = Math.max(0, Math.min(3, sIdx));
-    hydrateSeasonAssets(currentSeason);
+    decodeSeasonToGpu(currentSeason);
 
     if (seasonSpread) {
       seasonSpread.style.setProperty('--season-accent', SEASON_ACCENTS[currentSeason]);
