@@ -1207,12 +1207,12 @@ export function initBeyondWorld() {
 
   portalMount.innerHTML = `
     <div class="relative z-10 max-w-2xl text-left pt-0 pb-6 -mt-2">
-      <span class="by-kicker text-cyan-400">LATITUDES &amp; ALTITUDES &nbsp;•&nbsp; PERSONAL ARCHIVE</span>
+      <span class="by-kicker text-cyan-400">JOURNEYS &nbsp;•&nbsp; LENS &nbsp;•&nbsp; CRAFT &nbsp;•&nbsp; DESTINATIONS</span>
       <h4 class="font-magnify-thin text-3xl sm:text-5xl xl:text-6xl tracking-[0.12em] uppercase text-white leading-tight whitespace-nowrap mb-4">
         UNDER OPEN SKIES
       </h4>
       <p class="by-story-text text-zinc-300 !max-w-xl mb-7">
-        Away from logic and algorithms, every piece here was built when I felt down—diving into the tactile satisfaction of crafting from scratch and turning raw materials into warm physical builds as my favorite escape and dopamine reset.
+        Away from logic and algorithms lies the stuff that actually makes you feel alive. Step into the personal side—chasing misty mountain passes on two wheels, building things by hand, and a bucket-list dream of standing beneath Arctic skies where the Northern Lights dance.
       </p>
       <button type="button" id="by-open-trigger" class="by-enter-btn">
         <span>Enter The Other Side</span>
